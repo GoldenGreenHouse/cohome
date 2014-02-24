@@ -6,11 +6,17 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>CoHome</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
     </head>
     <body>
-        <div>TODO write content</div>
+        <h1>Gestione CoHome</h1>
+        <form name="f1" method="get" action="/CoHome-war/MainServlet">
+            <label>Moderatore</label>
+            <input name="userComponent" type="text" size="20"/>
+            <input type="submit" value="invio"/>
+            <input type="hidden" name="op" value="inserisci">
+        </form>
     </body>
 </html>

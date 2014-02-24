@@ -4,3 +4,5 @@
 *.jar
 *.war
 *.ear
+/CoHome-ejb/build/
+/CoHome-ejb/dist/
