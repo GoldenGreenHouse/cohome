@@ -1,0 +1,74 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 3-mar-2014, 10.12.13
+    Author     : Andr3A
+*/
+html{
+    font-family:Shift,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .panel-header, .alert, .h5, .panel-header-small, .tab-item, .h6 {
+    font-weight: bold;
+    text-rendering: optimizelegibility;
+}
+.text-special {
+    font-family: Shift,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.navbar-fixed-top, .navbar-fixed-bottom {
+    position: relative !important;
+}
+html body div#carousel-example-generic.carousel{
+    margin-top:-20px;
+}
+.search-area {
+    height: 300px;
+    padding-top: 140px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 160;
+}
+#location {
+    width: 290px;
+}
+.form-inline .input-wrapper {
+    float: left;
+    margin-right: 4px;
+    position: relative;
+}
+.row > .col-1, .row > .col-2, .row > .col-3, .row > .col-4, .row > .col-5, .row > .col-6, .row > .col-7, .row > .col-8, .row > .col-9, .row > .col-10, .row > .col-11, .row > .col-12 {
+    padding-left: 12.5px;
+    padding-right: 12.5px;
+}
+.search-area h1 {
+    font-size: 48px;
+    margin-bottom: 0;
+}
+.search-area h1, .search-area h2 {
+    color: #FFFFFF;
+    line-height: 1.1;
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.6);
+}
+.search-area form {
+    background: none repeat scroll 0 0 rgba(57, 60, 61, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    border-radius: 3px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    float: left;
+    line-height: 1.2;
+    padding: 4px;
+}
+.input-large {
+    padding: 10px 12px 11px;
+    font-size:15px;
+}
+.page-container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+    width: 70%;
+}

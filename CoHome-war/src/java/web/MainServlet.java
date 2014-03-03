@@ -4,33 +4,20 @@
  * and open the template in the editor.
  */
 
-import ejb.GestoreAnnunci;
-import ejb.GestoreCommenti;
-import ejb.GestoreUtenti;
+package web;
+
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.ejb.EJB;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author marco
+ * @author Andr3A
  */
-@WebServlet(urlPatterns = {"/MainServlet"})
 public class MainServlet extends HttpServlet {
-    @EJB
-    private GestoreCommenti gestoreCommenti;
-    @EJB
-    private GestoreAnnunci gestoreAnnunci;
-    @EJB
-    private GestoreUtenti gestoreUtenti;
-    
-    
-    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,19 +31,6 @@ public class MainServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        String action= request.getParameter("op");
-        String str = "";
-        if(action.equals("inserisci")){
-            str = request.getParameter("userComponent");
-            gestoreUtenti.addModeratore(str);
-            gestoreUtenti.addRegistered(str);
-            gestoreUtenti.addGuest(str);
-            gestoreAnnunci.addAnnuncioCasa(str);
-            gestoreCommenti.addModeratoreCommenti(str);
-            
-        }
-        
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -66,7 +40,6 @@ public class MainServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet MainServlet at " + request.getContextPath() + "</h1>");
-            out.println(str);
             out.println("</body>");
             out.println("</html>");
         }
