@@ -6,8 +6,12 @@
 
 package web;
 
+import ejb.GestoreAnnunci;
+import ejb.GestoreCommenti;
+import ejb.GestoreUtenti;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +22,13 @@ import javax.servlet.http.HttpServletResponse;
  * @author Andr3A
  */
 public class MainServlet extends HttpServlet {
-
+    @EJB
+    private GestoreUtenti gestoreUtenti;
+    @EJB
+    private GestoreCommenti gestoreCommenti;
+    @EJB
+    private GestoreAnnunci gestoreAnnunci;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,18 +41,21 @@ public class MainServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet MainServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet MainServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String action= request.getParameter("op");
+        String str = "";
+        if(action.equals("inserisciAnnuncio")){
+            str = request.getParameter("userComponent");
+            gestoreUtenti.addModeratore(str);
+            gestoreUtenti.addRegistered(str);
+            gestoreUtenti.addGuest(str);
+            gestoreAnnunci.addAnnuncioCasa(str);
+            gestoreCommenti.addModeratoreCommenti(str);
+            
         }
+        if(action.equals("cercaAnnunci")){
+            gestoreAnnunci.trovaAnnunciCasa();
+        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

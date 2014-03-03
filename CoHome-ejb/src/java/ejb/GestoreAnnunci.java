@@ -77,7 +77,11 @@ public class GestoreAnnunci {
         Annuncio annuncio = annuncioFacade.find(i);
         int k = 3;
     }
-
+    
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+
+    public List<Annuncio> trovaAnnunciCasa() {
+        return annuncioFacade.findAll();
+    }
 }
