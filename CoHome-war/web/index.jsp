@@ -18,13 +18,34 @@
 
         <!-- Custom styles for this template -->
         <link rel="stylesheet" href="dist/css/template-cohome.css">
+        <link rel="stylesheet" href="dist/css/excite-bike/jquery-ui-1.10.4.custom.css">
+        
+        <script src="dist/js/jquery-1.10.2.js"></script>
+        <script src="dist/js/jquery-ui-1.10.4.custom.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+        <script src="dist/js/jquery.ui.core.js"></script>
+        <script src="dist/js/jquery.ui.widget.js"></script>
+        <script src="dist/js/jquery.ui.datepicker.js"></script>
+        
         <script type="text/javascript">
             window.onload=function initialize() {
                 var input = document.getElementById('location');
                 new google.maps.places.Autocomplete(input);
             };
             google.maps.event.addDomListener(window, 'load', initialize);
+        </script>
+        <script>
+        $(function() {
+            $( "#checkin" ).datepicker({
+            numberOfMonths: 1,
+            showButtonPanel: true
+            });
+            $( "#checkout" ).datepicker({
+            numberOfMonths: 1,
+            showButtonPanel: true
+            });
+            
+         }); 
         </script>
     </head>
     <body>
@@ -95,7 +116,7 @@
                                 </div>
                                 <div class="input-wrapper">
                                     <div class="custom-select-container">
-                                        <select class="search-option small" name="guests" id="guests">
+                                        <select class="search-option" name="guests" id="guests">
                                             <option value="1">1 Ospite</option>
                                             <option value="2">2 Ospiti</option>
                                             <option value="3">3 Ospiti</option>
@@ -131,13 +152,14 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>!-->
     <script src="dist/js/bootstrap.min.js"></script>  
     <script>
     $( document ).ready(function() {
        $('.carousel').carousel({
              interval: 5000,
-             wrap: true
+             wrap: true,
+             pause:""
         });       
     });      
     </script>

@@ -60,6 +60,7 @@ html body div#carousel-example-generic.carousel{
     float: left;
     line-height: 1.2;
     padding: 4px;
+    font-weight:bold;
 }
 .input-large {
     padding: 10px 12px 11px;
@@ -72,3 +73,14 @@ html body div#carousel-example-generic.carousel{
     padding-right: 25px;
     width: 70%;
 }
+#guests {
+    padding: 11.5px;
+    color: #888888;
+}
+ select#guests.search-option option{
+     margin:10px;
+    }
+    
+#submit_location{
+        padding:10px 12px !important;
+    }
