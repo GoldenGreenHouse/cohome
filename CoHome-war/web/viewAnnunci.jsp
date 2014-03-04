@@ -24,9 +24,9 @@
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
     <script>
-    var defaultLat=-34.397;
-    var defaultLng=150.644;
-    var defaultZoom=11;
+    var defaultLat=45.079958;
+    var defaultLng=7.687942;
+    var defaultZoom=13;
     var markers = [];
     var map;
     function initialize() {
@@ -52,11 +52,6 @@
         );
         map.fitBounds(defaultBounds);*/
         
-         // Create the search box and link it to the UI element.
-        var input = /** @type {HTMLInputElement} */(document.getElementById('pac-input'));
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-    
-        var searchBox = new google.maps.places.SearchBox(/** @type {HTMLInputElement} */input);
         // [START region_getplaces]
         // Listen for the event fired when the user selects an item from the
         // pick list. Retrieve the matching places for that item.
@@ -94,7 +89,7 @@
                 bounds.extend(place.geometry.location);
             }
             map.fitBounds(bounds);
-            map.setZoom(12);
+            //map.setZoom(12);
         });
         // [END region_getplaces]
         google.maps.event.addListener(map, 'bounds_changed', function() {
@@ -140,7 +135,6 @@
             </div><!--/.nav-collapse -->
         </div>
      </div>
-    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
     <div id="map-canvas"></div>
     <script>
         initialize();

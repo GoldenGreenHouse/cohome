@@ -90,7 +90,7 @@ html body div#carousel-example-generic.carousel{
 /*-------------------------- CSS viewAnnunci.jsp -----------------------------*/
 #map-canvas {
         height: 600px;
-        width:  500px;
+        width:  40%;
         margin:   -20px 0px 0px 5px;
         padding:  0px
       }
