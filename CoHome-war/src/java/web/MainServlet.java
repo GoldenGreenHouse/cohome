@@ -6,12 +6,15 @@
 
 package web;
 
+import ejb.Annuncio;
 import ejb.GestoreAnnunci;
 import ejb.GestoreCommenti;
 import ejb.GestoreUtenti;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -41,6 +44,7 @@ public class MainServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        RequestDispatcher rd;
         String action= request.getParameter("op");
         String str = "";
         if(action.equals("inserisciAnnuncio")){
@@ -53,7 +57,9 @@ public class MainServlet extends HttpServlet {
             
         }
         if(action.equals("cercaAnnunci")){
-            gestoreAnnunci.trovaAnnunciCasa();
+            List<Annuncio> annunci=gestoreAnnunci.trovaAnnunciCasa();
+            request.setAttribute("annunci", annunci);
+            getServletContext().getRequestDispatcher("/viewAnnunci.jsp").forward(request,response);
         }
         
     }

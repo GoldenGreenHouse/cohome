@@ -23,6 +23,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .panel-header, .alert, .h5, .panel-h
 html body div#carousel-example-generic.carousel{
     margin-top:-20px;
 }
+/*------------------------------------CSS index.jsp----------------------------*/
 .search-area {
     height: 300px;
     padding-top: 140px;
@@ -71,7 +72,7 @@ html body div#carousel-example-generic.carousel{
     margin-right: auto;
     padding-left: 25px;
     padding-right: 25px;
-    width: 70%;
+    width: 80%;
 }
 #guests {
     padding: 11.5px;
@@ -84,3 +85,13 @@ html body div#carousel-example-generic.carousel{
 #submit_location{
         padding:10px 12px !important;
     }
+/*-------------------------- FINE CSS index.jsp ------------------------------*/
+
+/*-------------------------- CSS viewAnnunci.jsp -----------------------------*/
+#map-canvas {
+        height: 600px;
+        width:  500px;
+        margin:   -20px 0px 0px 5px;
+        padding:  0px
+      }
+/*-------------------------- FINE CSS viewAnnunci.jsp ------------------------*/

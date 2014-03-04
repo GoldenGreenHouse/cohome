@@ -1,7 +1,7 @@
 <%-- 
-    Document   : index
-    Created on : 3-mar-2014, 9.53.46
-    Author     : Andr3A
+    Document   : template.jsp
+    Created on : 4-mar-2014, 15.26.45
+    Author     : Andrea
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,41 +12,11 @@
         <meta content="IE=edge" http-equiv="X-UA-Compatible">
         <meta content="width=device-width, initial-scale=1" name="viewport">
         <title>CoHome Index</title>
-
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="dist/css/bootstrap.min.css">
-
         <!-- Custom styles for this template -->
         <link rel="stylesheet" href="dist/css/template-cohome.css">
         <link rel="stylesheet" href="dist/css/excite-bike/jquery-ui-1.10.4.custom.css">
-        
-        <script src="dist/js/jquery-1.10.2.js"></script>
-        <script src="dist/js/jquery-ui-1.10.4.custom.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
-        <script src="dist/js/jquery.ui.core.js"></script>
-        <script src="dist/js/jquery.ui.widget.js"></script>
-        <script src="dist/js/jquery.ui.datepicker.js"></script>
-        
-        <script type="text/javascript">
-            window.onload=function initialize() {
-                var input = document.getElementById('location');
-                new google.maps.places.Autocomplete(input);
-            };
-            google.maps.event.addDomListener(window, 'load', initialize);
-        </script>
-        <script>
-        $(function() {
-            $( "#checkin" ).datepicker({
-            numberOfMonths: 1,
-            showButtonPanel: true
-            });
-            $( "#checkout" ).datepicker({
-            numberOfMonths: 1,
-            showButtonPanel: true
-            });
-            
-         }); 
-        </script>
     </head>
     <body>
         
