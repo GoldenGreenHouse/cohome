@@ -43,8 +43,25 @@ public abstract class Annuncio implements Serializable {
     private boolean attivo = false;
     @OneToMany(cascade = ALL)
     private List<Opzione> opzioni = new ArrayList();
+    
+    private String lat;
+    private String lng;
 
+    public String getLat() {
+        return lat;
+    }
 
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
+    }
     
     public List<Opzione> getOpzioni() {
         return opzioni;

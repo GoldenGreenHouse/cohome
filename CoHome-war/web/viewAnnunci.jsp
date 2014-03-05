@@ -4,6 +4,7 @@
     Author     : Andrea
 --%>
 
+<%@page import="java.util.ListIterator"%>
 <%@page import="java.util.List"%>
 <%@page import="ejb.Annuncio;"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -142,6 +143,20 @@
     <script>
         addMarker(45.0839,7.68886);
     </script>
+    <div id="viewResult">
+        <%  ListIterator<Annuncio> iter = annunci.listIterator(); 
+            while(iter.hasNext()){
+                Annuncio a=iter.next();
+                String lat=a.getLat();
+                String lng=a.getLng();
+        %>
+        <script>
+            addMarker(<%=lat%>,<%=lng%>);
+        </script>
+        <%    }
+        %>
+        
+    </div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
