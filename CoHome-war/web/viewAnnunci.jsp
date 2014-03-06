@@ -4,11 +4,12 @@
     Author     : Andrea
 --%>
 
+<%@page import="ejb.AnnuncioCasa"%>
 <%@page import="java.util.ListIterator"%>
 <%@page import="java.util.List"%>
 <%@page import="ejb.Annuncio;"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% List<Annuncio> annunci= (List<Annuncio>)request.getAttribute("annunci"); %>
+<% List<AnnuncioCasa> annunci= (List<AnnuncioCasa>)request.getAttribute("annunci"); %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -145,7 +146,7 @@
     </script>
     <div id="viewResult">
        N°Annunci=<%= annunci.size() %> 
-        <%  ListIterator<Annuncio> iter = annunci.listIterator(); 
+        <%  ListIterator<AnnuncioCasa> iter = annunci.listIterator(); 
             while(iter.hasNext()){
                 Annuncio a=iter.next();
                 String lat=a.getLat();

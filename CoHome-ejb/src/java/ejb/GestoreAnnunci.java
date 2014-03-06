@@ -10,10 +10,10 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Query;
 import javax.persistence.EntityManager;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -22,6 +22,8 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 @LocalBean
+
+
 public class GestoreAnnunci {
     @EJB
     private RichiestaVisitaFacadeLocal richiestaVisitaFacade;
@@ -88,10 +90,11 @@ public class GestoreAnnunci {
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
 
-    public List<Annuncio> trovaAnnunciCasa() {
-        Query query = em.createNamedQuery("SELECT a.dtype FROM Annuncio a WHERE a.descrizione='annuncio da gestUtenti'");
-        return query.getResultList();
-        //return annuncioFacade.findAll();
+    public List<AnnuncioCasa> trovaAnnunciCasa() {
+        Query query = em.createNamedQuery("findAllAnnunciCasa");
+        //Query query = em.createQuery("SELECT a FROM Annuncio a");
+        List<AnnuncioCasa> l = query.getResultList(); 
+        return l;
     }
 
     public void persist(Object object) {

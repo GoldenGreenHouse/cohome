@@ -7,6 +7,7 @@
 package web;
 
 import ejb.Annuncio;
+import ejb.AnnuncioCasa;
 import ejb.GestoreAnnunci;
 import ejb.GestoreCommenti;
 import ejb.GestoreUtenti;
@@ -56,7 +57,7 @@ public class MainServlet extends HttpServlet {
             gestoreCommenti.addModeratoreCommenti(str);   
         }
         if(action.equals("cercaAnnunci")){
-            List<Annuncio> annunci=gestoreAnnunci.trovaAnnunciCasa();
+            List<AnnuncioCasa> annunci=gestoreAnnunci.trovaAnnunciCasa();
             request.setAttribute("annunci", annunci);
             getServletContext().getRequestDispatcher("/viewAnnunci.jsp").forward(request,response);
         }
