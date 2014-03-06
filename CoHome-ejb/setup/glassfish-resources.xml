@@ -11,4 +11,5 @@
         <property name="driverClass" value="org.apache.derby.jdbc.ClientDriver"/>
     </jdbc-connection-pool>
     <jdbc-resource enabled="true" jndi-name="CoHome" object-type="user" pool-name="derby_net_CoHome_CoHomePool"/>
+    <jdbc-resource enabled="true" jndi-name="cohome-jndi" object-type="user" pool-name="derby_net_CoHome_CoHomePool"/>
 </resources>

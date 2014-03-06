@@ -53,8 +53,7 @@ public class MainServlet extends HttpServlet {
             gestoreUtenti.addRegistered(str);
             gestoreUtenti.addGuest(str);
             gestoreAnnunci.addAnnuncioCasa(str);
-            gestoreCommenti.addModeratoreCommenti(str);
-            
+            gestoreCommenti.addModeratoreCommenti(str);   
         }
         if(action.equals("cercaAnnunci")){
             List<Annuncio> annunci=gestoreAnnunci.trovaAnnunciCasa();

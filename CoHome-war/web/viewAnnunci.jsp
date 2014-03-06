@@ -144,6 +144,7 @@
         addMarker(45.0839,7.68886);
     </script>
     <div id="viewResult">
+       N°Annunci=<%= annunci.size() %> 
         <%  ListIterator<Annuncio> iter = annunci.listIterator(); 
             while(iter.hasNext()){
                 Annuncio a=iter.next();

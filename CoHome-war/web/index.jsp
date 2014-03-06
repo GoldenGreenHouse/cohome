@@ -146,7 +146,7 @@
         </div>
         <div class="container">
             <div class="starter-template">
-                <a href="CoHome-war/MainServlet?op=inserisciAnnuncio">Inserisci Annuncio</a>
+                <a href="/CoHome-war/MainServlet?op=inserisciAnnuncio">Inserisci Annuncio</a>
             </div>
         </div><!-- /.container -->
     <!-- Bootstrap core JavaScript

@@ -10,6 +10,11 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.Query;
+import javax.persistence.EntityManager;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -33,7 +38,9 @@ public class GestoreAnnunci {
     @EJB
     private AnnuncioCasaFacadeLocal annuncioCasaFacade;
     
-    
+    @PersistenceContext(unitName = "CoHome-ejbPU")
+    private EntityManager em;
+   
     
     
     
@@ -82,6 +89,12 @@ public class GestoreAnnunci {
     // "Insert Code > Add Business Method")
 
     public List<Annuncio> trovaAnnunciCasa() {
-        return annuncioFacade.findAll();
+        Query query = em.createNamedQuery("SELECT a.dtype FROM Annuncio a WHERE a.descrizione='annuncio da gestUtenti'");
+        return query.getResultList();
+        //return annuncioFacade.findAll();
+    }
+
+    public void persist(Object object) {
+        em.persist(object);
     }
 }
