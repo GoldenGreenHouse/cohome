@@ -20,17 +20,20 @@
     <link rel="stylesheet" href="dist/css/template-cohome.css">
     <script src="dist/js/jquery-1.10.2.js"></script>
     <script src="dist/js/jquery-ui-1.10.4.custom.js"></script>
+    <script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/styledmarker/src/StyledMarker.js"></script>
     <title>Marker Animations</title>
     <style>
     
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+    
     <script>
     var defaultLat=45.079958;
     var defaultLng=7.687942;
     var defaultZoom=13;
-    var markers = [];
+    var markers = new Array();
     var map;
+    var count=0;
     function initialize() {
         
         var mapOptions = {
@@ -66,7 +69,8 @@
             defaultLng = map.getCenter().lng();
             defaultZoom = map.getZoom();
             // For each place, get the icon, place name, and location.
-            markers = [];
+            //markers = [];
+            
             var bounds = new google.maps.LatLngBounds();
             for (var i = 0, place; place = places[i]; i++) {
                 /*var image = {
@@ -98,19 +102,25 @@
             var bounds = map.getBounds();
             searchBox.setBounds(bounds);
         });
+        
     }
     function addMarker(lat,lng) {
-       
         var marker = new google.maps.Marker({
                     map: map,
-                    //icon: image,
+                    icon:"dist/image/markerGreen.png",
                     //title: place.name,
                     animation: google.maps.Animation.DROP,
                     position: new google.maps.LatLng(lat,lng)
                 });
-        google.maps.event.addListener(marker, 'click', toggleBounce);
         markers.push(marker);
-    
+        count++;
+        google.maps.event.addListener(marker, 'mouseover', function() {
+            marker.setIcon("dist/image/markerBlue.png");
+        });
+        google.maps.event.addListener(marker, 'mouseout', function() {
+            marker.setIcon("dist/image/markerGreen.png");
+        });
+        google.maps.event.addListener(marker, 'click', toggleBounce);
     }
 
     //google.maps.event.addDomListener(window, 'load', initialize);
@@ -148,15 +158,17 @@
            <ul id="results" class="listings-container list-unstyled clearfix">
            <!-- N°Annunci=<%= annunci.size() %> !-->
             <%  ListIterator<AnnuncioCasa> iter = annunci.listIterator(); 
+                int c=0;
                 while(iter.hasNext()){
                     Annuncio a=iter.next();
                     String lat=a.getLat();
                     String lng=a.getLng();
+                    c++;
             %>
             <script>
                 addMarker(<%=lat%>,<%=lng%>);
             </script>
-            <li class="search-result">
+            <li class="search-result" data-marker="<%=c-1%>">
                 <div class="listing" data-id="868303" data-user="3647027" data-url="/rooms/868303?checkin=08-03-2014&amp;checkout=15-03-2014&amp;s=4_eE" data-name="CAMERA - Torino Centro" data-lng="7.68603707453739" data-lat="45.062101148056506">
                     <div class="listing-img media-photo">
                         <div class="listing-img-container">
@@ -179,9 +191,15 @@
                     </div>
               </div>
             </li>
-            <%    }
-            %>
-            
+            <% } %>
+            <script>              
+                $( ".search-result" ).mouseover(function() {
+                    google.maps.event.trigger(markers[$(this).attr("data-marker")], 'mouseover');
+                });
+                $( ".search-result" ).mouseout(function() {
+                    google.maps.event.trigger(markers[$(this).attr("data-marker")], 'mouseout');
+                });
+            </script>
             </ul>
         </div>
     </div>
