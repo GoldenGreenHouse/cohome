@@ -88,10 +88,107 @@ html body div#carousel-example-generic.carousel{
 /*-------------------------- FINE CSS index.jsp ------------------------------*/
 
 /*-------------------------- CSS viewAnnunci.jsp -----------------------------*/
+#map {
+    bottom: 0;
+    left: 0;
+    float:left;
+    top: 47px;
+    width: 40%;
+}
 #map-canvas {
-        height: 600px;
-        width:  40%;
-        margin:   -20px 0px 0px 5px;
-        padding:  0px
-      }
+        height:700px;
+        background-color: #E5E3DF;
+        overflow: hidden;
+        position: relative;
+}
+.search-results{
+        background: none repeat scroll 0 0 #F7F7F7;
+        bottom: 0;
+        overflow-y: scroll;
+        position: fixed;
+        right: 0;
+        top: 47px;
+        width: 60%;
+        float:right;
+        padding: 20px 0 20px 20px;    
+}
+#map:before {
+    box-shadow: -1px 0 1px rgba(0, 0, 0, 0.3) inset;
+    content: "";
+    height: 100%;
+    position: absolute;
+    right: 0;
+    width: 2px;
+    z-index: 2;
+}
+.search-result {
+    width: 50%;
+    float:left;
+}
+.listing {
+    background: none repeat scroll 0 0 #FFFFFF;
+    margin: 0 20px 20px 0;
+    position: relative;
+}
+div.listing-img div.listing-img-container img{
+   width:439px;
+}
+.media-caption {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
+    border-radius: 2px;
+    bottom: 40px;
+    color: #FFFFFF;
+    font-weight: bold;
+    left: 0;
+    padding: 25px 13px 13px;
+    position: absolute;
+    right: 0;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
+    z-index:2;
+}
+.listing-footer .host-img img {
+    height: 35px;
+    width: 35px;
+}
+.listing-footer .listing-quick-info {
+    display: block;
+    float: left;
+    padding-top: 8px;
+    width: 70%;
+}
+.media-photo:after {
+    border-radius: 2px;
+    bottom: 1px;
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.4) inset;
+    content: "";
+    left: 1px;
+    position: absolute;
+    right: 1px;
+    top: 1px;
+}
+.media-photo:after {
+    border-radius: 2px;
+    bottom: 1px;
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.4) inset;
+    content: "";
+    left: 1px;
+    position: absolute;
+    right: 1px;
+    top: 1px;
+}
+.listing-footer .host-img {
+    float: left;
+    margin: 8px 10px 8px 8px;
+}
+.listing-footer {
+    border-color: -moz-use-text-color #D3D3D3 #D3D3D3;
+    border-image: none;
+    border-radius: 0 0 2px 2px;
+    border-right: 1px solid #D3D3D3;
+    border-style: none solid solid;
+    border-width: medium 1px 1px;
+    cursor: pointer;
+    position: relative;
+}
 /*-------------------------- FINE CSS viewAnnunci.jsp ------------------------*/
