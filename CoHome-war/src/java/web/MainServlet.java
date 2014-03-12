@@ -6,6 +6,7 @@
 
 package web;
 
+import Bean.RicercaAnnunciCasa;
 import ejb.Annuncio;
 import ejb.AnnuncioCasa;
 import ejb.GestoreAnnunci;
@@ -20,6 +21,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -42,10 +44,9 @@ public class MainServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        RequestDispatcher rd;
+        HttpSession s = request.getSession();
         String action= request.getParameter("op");
         String str = "";
         if(action.equals("inserisciAnnuncio")){
@@ -60,6 +61,13 @@ public class MainServlet extends HttpServlet {
             List<AnnuncioCasa> annunci=gestoreAnnunci.trovaAnnunciCasa();
             request.setAttribute("annunci", annunci);
             getServletContext().getRequestDispatcher("/viewAnnunci.jsp").forward(request,response);
+        }
+        if(action.equals("viewDettaglioAnnuncioCasa")){
+           int index = Integer.parseInt(request.getParameter("index")); 
+           RicercaAnnunciCasa annunci = (RicercaAnnunciCasa) s.getAttribute("ricercaAnnunciCasa");
+           //s.setAttribute("ricercaAnnunciCasa", null);
+           request.setAttribute("annuncio", annunci.getSingleAnnuncio(index));
+           getServletContext().getRequestDispatcher("/viewDetailsAnnuncio.jsp").forward(request,response);
         }
         
     }

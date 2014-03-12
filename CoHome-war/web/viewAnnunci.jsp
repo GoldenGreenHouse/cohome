@@ -10,6 +10,8 @@
 <%@page import="ejb.Annuncio;"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% List<AnnuncioCasa> annunci= (List<AnnuncioCasa>)request.getAttribute("annunci"); %>
+<jsp:useBean id="ricercaAnnunciCasa" scope="session" class="Bean.RicercaAnnunciCasa"/>
+<%ricercaAnnunciCasa.setAnnunci(annunci); %>
 <!DOCTYPE html>
 <html style="overflow-y: hidden;">
   <head>
@@ -160,7 +162,7 @@
             <%  ListIterator<AnnuncioCasa> iter = annunci.listIterator(); 
                 int c=0;
                 while(iter.hasNext()){
-                    Annuncio a=iter.next();
+                    AnnuncioCasa a=iter.next();
                     String lat=a.getLat();
                     String lng=a.getLng();
                     c++;
@@ -169,23 +171,23 @@
                 addMarker(<%=lat%>,<%=lng%>);
             </script>
             <li class="search-result" data-marker="<%=c-1%>">
-                <div class="listing" data-id="868303" data-user="3647027" data-url="/rooms/868303?checkin=08-03-2014&amp;checkout=15-03-2014&amp;s=4_eE" data-name="CAMERA - Torino Centro" data-lng="7.68603707453739" data-lat="45.062101148056506">
+                <div class="listing" data-id="<%=c-1%>" data-user="3647027" data-name="CAMERA - Torino Centro" data-lng="7.68603707453739" data-lat="45.062101148056506">
                     <div class="listing-img media-photo">
                         <div class="listing-img-container">
                             <a href="#"><img data-urls="[&quot;https://a1.muscache.com/ic/pictures/12663332/3ab3cd29_original.jpg?interpolation=progressive-bicubic&amp;size=x_medium&amp;output-format=jpg&amp;output-quality=85&amp;wm=u&quot;, &quot;https://a0.muscache.com/ic/pictures/12662855/1882df84_original.jpg?interpolation=progressive-bicubic&amp;size=x_medium&amp;output-format=jpg&amp;output-quality=85&amp;wm=u&quot;, &quot;https://a1.muscache.com/ic/pictures/12663413/1e2b5a74_original.jpg?interpolation=progressive-bicubic&amp;size=x_medium&amp;output-format=jpg&amp;output-quality=85&amp;wm=u&quot;, &quot;https://a0.muscache.com/ic/pictures/12663250/9b87aca2_original.jpg?interpolation=progressive-bicubic&amp;size=x_medium&amp;output-format=jpg&amp;output-quality=85&amp;wm=u&quot;, &quot;https://a2.muscache.com/ic/pictures/12662939/f0fbc593_original.jpg?interpolation=progressive-bicubic&amp;size=x_medium&amp;output-format=jpg&amp;output-quality=85&amp;wm=u&quot;, &quot;https://a0.muscache.com/ic/pictures/12662997/8ddb7ef6_original.jpg?interpolation=progressive-bicubic&amp;size=x_medium&amp;output-format=jpg&amp;output-quality=85&amp;wm=u&quot;, &quot;https://a2.muscache.com/ic/pictures/12663082/50259dce_original.jpg?interpolation=progressive-bicubic&amp;size=x_medium&amp;output-format=jpg&amp;output-quality=85&amp;wm=u&quot;, &quot;https://a1.muscache.com/ic/pictures/12663203/2f049cb0_original.jpg?interpolation=progressive-bicubic&amp;size=x_medium&amp;output-format=jpg&amp;output-quality=85&amp;wm=u&quot;, &quot;https://a2.muscache.com/ic/pictures/12663501/bccd7fdb_original.jpg?interpolation=progressive-bicubic&amp;size=x_medium&amp;output-format=jpg&amp;output-quality=85&amp;wm=u&quot;]" data-current="0" class="" src="https://a1.muscache.com/ic/pictures/12663332/3ab3cd29_original.jpg?interpolation=progressive-bicubic&amp;size=x_medium&amp;output-format=jpg&amp;output-quality=85&amp;wm=u"></a>
                         </div>
-                        <a href="/rooms/868303?checkin=08-03-2014&amp;checkout=15-03-2014&amp;s=4_eE" class="listing-name media-caption h4">
-                          CAMERA - Torino Centro.
+                        <a href="/CoHome-war/MainServlet?op=viewDettaglioAnnuncioCasa&index=<%=c-1%>" class="listing-name media-caption h4">
+                            <%= a.getTitolo() %>
                         </a>
                     </div>
                     <div class="listing-footer clearfix">
                         <a class="media-link media-photo host-img" href="/users/show/3647027">
                             <img src="https://a1.muscache.com/ic/users/3647027/profile_pic/1348479910/original.jpg?interpolation=progressive-bicubic&amp;crop=w:w;*,*&amp;crop=h:h;*,*&amp;resize=50:*&amp;output-format=jpg&amp;output-quality=85">
                         </a>
-                        <a title="Stanza privata | Torino" href="/rooms/868303?checkin=08-03-2014&amp;checkout=15-03-2014&amp;s=4_eE" class="listing-quick-info">
+                        <a title="Stanza privata | Torino" href="/CoHome-war/MainServlet?op=viewDettaglioAnnuncioCasa&index=<%=c-1%>" class="listing-quick-info">
                             <span class="listing-room-type">
-                                Stanza privata<br>
-                                Torino
+                                <%= a.getIndirizzo() %><br>
+                                <%= a.getLocalita() %>
                             </span>
                         </a>
                     </div>
@@ -203,6 +205,8 @@
             </ul>
         </div>
     </div>
+    
+            
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
