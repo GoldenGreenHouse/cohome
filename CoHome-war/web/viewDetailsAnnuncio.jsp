@@ -4,14 +4,113 @@
     Author     : Andr3A
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="ejb.AnnuncioCasa"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="ricercaAnnunciCasa" scope="session" class="Bean.RicercaAnnunciCasa"/>
+<% AnnuncioCasa annuncio = ricercaAnnunciCasa.getSingleAnnuncio(Integer.parseInt(request.getParameter("index")));%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="dist/css/bootstrap.min.css">
+        <!-- Custom styles for this template -->
+        <link rel="stylesheet" href="dist/css/template-cohome.css">
+        <link rel="stylesheet" href="dist/css/excite-bike/jquery-ui-1.10.4.custom.css">
+        
+        <script src="dist/js/jquery-1.10.2.js"></script>
+        <script src="dist/js/jquery-ui-1.10.4.custom.js"></script>
+        <script type="text/javascript" src="dist/js/jquery_cycle.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+              $('#photos').cycle({
+                fx:'fade',
+                speed:  1000,
+                timeout: 2000,
+                pager:  '#thumbnails ul',
+                next:   '#next',
+                prev:   '#prev',
+                pagerAnchorBuilder: function(idx, slide) {
+                    return '<li class="thumb"><a href="#" title="Thumbnail"><img width="40" height="40" src="' + slide.src + '"/></a></li>';
+                }
+              });
+            });
+        </script>
         <title>Annuncio</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+         <div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="index.jsp" class="navbar-brand">CoHome</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="index.jsp">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+        <div id="cointainerLeft">
+            <!-- Nav tabs -->
+            <ul id="myTab" class="nav nav-tabs">
+              <li class="active"><a href="#foto" data-toggle="tab">Foto</a></li>
+              <li><a href="#mappa" data-toggle="tab">Mappa</a></li>
+              <li><a href="#descrizione" data-toggle="tab">Descrizione</a></li>
+              <li><a href="#servizi" data-toggle="tab">Servizi</a></li>
+              <li><a href="#regole" data-toggle="tab">Regole</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane active" id="foto">
+                    <div id="navPhotos">
+                        <a id="prev" href=""><img src="images/button_prev.png" alt="Prev photo"></a>
+                        <a id="next" href=""><img src="images/button_next.png" alt="Next photo"></a>
+                    </div>
+                    <div id="photos">
+                       <img src="images/1.jpg" alt="Questa è la prima foto"/>
+                       <img src="images/2.jpg" alt="Questa è la seconda foto"/>
+                       <img src="images/3.jpg" alt="Questa è la terza foto"/>
+                       <img src="images/4.jpg" alt="Questa è la quarta foto"/>
+                       <img src="images/5.jpg" alt="Questa è la quinta foto"/>
+                       <img src="images/6.jpg" alt="Questa è la sesta foto"/>
+                       <img src="images/7.jpg" alt="Questa è la settima foto"/>
+                       <img src="images/8.jpg" alt="Questa è la settima foto"/>
+                    </div>
+                    <div id="thumbnails">
+                       <ul></ul>
+                    </div>
+                </div>
+                <div class="tab-pane" id="mappa">Mappa</div>
+                <div class="tab-pane" id="descrizione">Descrizione</div>
+                <div class="tab-pane" id="servizi">Servizi</div>
+                <div class="tab-pane" id="regole">Regole</div>
+            </div>
+        </div>
+        <div id="cointainerRight">
+            
+        </div>
+         <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>!-->
+        <script src="dist/js/bootstrap.min.js"></script> 
+        <script>
+        $('#myTab a').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        });
+
+        </script>
     </body>
 </html>

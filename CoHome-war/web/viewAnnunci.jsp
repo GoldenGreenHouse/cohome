@@ -11,7 +11,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% List<AnnuncioCasa> annunci= (List<AnnuncioCasa>)request.getAttribute("annunci"); %>
 <jsp:useBean id="ricercaAnnunciCasa" scope="session" class="Bean.RicercaAnnunciCasa"/>
-<%ricercaAnnunciCasa.setAnnunci(annunci); %>
+<% ricercaAnnunciCasa.setAnnunci(annunci); %>
 <!DOCTYPE html>
 <html style="overflow-y: hidden;">
   <head>
@@ -138,11 +138,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="/CoHome-war/index.jsp" class="navbar-brand">CoHome</a>
+                <a href="index.jsp" class="navbar-brand">CoHome</a>
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="/CoHome-war/index.jsp">Home</a></li>
+                    <li class="active"><a href="index.jsp">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>

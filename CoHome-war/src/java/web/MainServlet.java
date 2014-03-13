@@ -63,10 +63,7 @@ public class MainServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/viewAnnunci.jsp").forward(request,response);
         }
         if(action.equals("viewDettaglioAnnuncioCasa")){
-           int index = Integer.parseInt(request.getParameter("index")); 
-           RicercaAnnunciCasa annunci = (RicercaAnnunciCasa) s.getAttribute("ricercaAnnunciCasa");
-           //s.setAttribute("ricercaAnnunciCasa", null);
-           request.setAttribute("annuncio", annunci.getSingleAnnuncio(index));
+           int index = Integer.parseInt(request.getParameter("index"));         
            getServletContext().getRequestDispatcher("/viewDetailsAnnuncio.jsp").forward(request,response);
         }
         

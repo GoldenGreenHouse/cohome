@@ -24,7 +24,7 @@ public class RicercaAnnunciCasa {
         this.annunci = annunci;
     }
 
-    public Object getSingleAnnuncio(int index) {
+    public AnnuncioCasa getSingleAnnuncio(int index) {
         return(annunci.get(index));
     }
     
