@@ -85,6 +85,16 @@ html body div#carousel-example-generic.carousel{
 #submit_location{
         padding:10px 12px !important;
     }
+.container h1 {
+    font-size: 60px;
+    font-weight: 200;
+    letter-spacing: -1px;
+    line-height: 1;
+    margin: 60px 0 10px;
+}
+.container{
+    text-align: center;
+}
 /*-------------------------- FINE CSS index.jsp ------------------------------*/
 
 /*-------------------------- CSS viewAnnunci.jsp -----------------------------*/
@@ -201,7 +211,7 @@ div.listing-img div.listing-img-container img{
 #cointainerRight{
     width:40%;
 }
-#myTab > li{
+#myTab > li, #myTab2 > li{
     font-size:16px;
 }
 #photos{
@@ -235,7 +245,7 @@ div.listing-img div.listing-img-container img{
 #navPhotos #next {
     float: right;
 }
-#myTab{
+#myTab, #myTab2{
     background:#D0D9DD;
     border: 1px solid  #888;
     border-bottom:none;
@@ -244,5 +254,36 @@ div.listing-img div.listing-img-container img{
 #containerTop{
     padding-left:5%;
 }
-
+#myTab2{
+    margin-top:30px;
+}
+#descrizione{
+    padding:10px;
+    font-size:13px;
+}
+.imgUser {
+    text-align: center;
+}
+.imgUser {
+    float: left;
+    vertical-align: middle;
+}
+.comment{
+    padding-left:10px;
+    padding-top:15px;
+}
+.panel-dark {
+    background-color: #EFEFEF !important;
+}
+.panel-quote {
+    margin-left: 8px;
+    position: relative;
+    margin-right:15px;
+}
+.panel, code, pre, .label, .dot-info {
+    background-color: #FEFEFE;
+    border: 1px solid #DBDBDB;
+    border-radius: 2px;
+}
+.review-text{font-size:11px}
 /*-------------------------- FINE viewDetailsAnnuncio.jsp --------------------*/

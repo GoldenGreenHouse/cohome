@@ -81,18 +81,18 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="foto">
                     <div id="navPhotos">
-                        <a id="prev" href=""><img src="images/button_prev.png" alt="Prev photo"></a>
-                        <a id="next" href=""><img src="images/button_next.png" alt="Next photo"></a>
+                        <a id="prev" href=""><img src="dist/image/button_prev.png" alt="Prev photo"></a>
+                        <a id="next" href=""><img src="dist/image/button_next.png" alt="Next photo"></a>
                     </div>
                     <div id="photos">
-                       <img src="images/1.jpg" alt=""/>
-                       <img src="images/2.jpg" alt=""/>
-                       <img src="images/3.jpg" alt=""/>
-                       <img src="images/4.jpg" alt=""/>
-                       <img src="images/5.jpg" alt=""/>
-                       <img src="images/6.jpg" alt=""/>
-                       <img src="images/7.jpg" alt=""/>
-                       <img src="images/8.jpg" alt=""/>
+                       <img src="gallery/<%= annuncio.getId()%>/1.jpg" alt=""/>
+                       <img src="gallery/<%= annuncio.getId()%>/2.jpg" alt=""/>
+                       <img src="gallery/<%= annuncio.getId()%>/3.jpg" alt=""/>
+                       <img src="gallery/<%= annuncio.getId()%>/4.jpg" alt=""/>
+                       <img src="gallery/<%= annuncio.getId()%>/5.jpg" alt=""/>
+                       <img src="gallery/<%= annuncio.getId()%>/6.jpg" alt=""/>
+                       <img src="gallery/<%= annuncio.getId()%>/7.jpg" alt=""/>
+                       <img src="gallery/<%= annuncio.getId()%>/8.jpg" alt=""/>
                     </div>
                     <div id="thumbnails">
                        <ul></ul>
@@ -100,14 +100,49 @@
                 </div>
                 <div class="tab-pane" id="mappa">
                     <div id="map-canvas" style="height:400px;"></div>
-                    <script>addMarker(45.083716,7.689144); </script>
                 </div>
-                <div class="tab-pane" id="descrizione">Descrizione</div>
+                <div class="tab-pane" id="descrizione"><%= annuncio.getDescrizione()%></div>
                 <div class="tab-pane" id="servizi">Servizi</div>
                 <div class="tab-pane" id="regole">Regole</div>
             </div>
-            
+            <!--
+            <ul id="myTab2" class="nav nav-tabs">
+              <li class="active"><a href="#commenti" data-toggle="tab">Commenti</a></li>
+              <li><a href="#recensioni" data-toggle="tab">Recensioni</a></li>
+            </ul>!-->
+
+            <!-- Tab panes -->
+            <!--<div class="tab-content2">
+                <div class="tab-pane active" id="commenti">
+                    <div class="comment">
+                        <div class="imgUser">
+                            <a target="blank" name="review_10767095" class="media-photo media-link" href="/users/show/4673477">  
+                                <img width="68" height="68" title="Collier" src="https://a0.muscache.com/ic/users/4673477/profile_pic/1388281416/original.jpg?interpolation=progressive-bicubic&amp;crop=w:w;*,*&amp;crop=h:h;*,*&amp;resize=68:*&amp;output-format=jpg&amp;output-quality=85" data-original="https://a0.muscache.com/ic/users/4673477/profile_pic/1388281416/original.jpg?interpolation=progressive-bicubic&amp;crop=w:w;*,*&amp;crop=h:h;*,*&amp;resize=68:*&amp;output-format=jpg&amp;output-quality=85" class="lazy" alt="Collier" style="display: inline;">
+                            </a>          
+                            <div class="nameUser">
+                                <a target="blank" href="/users/show/4673477">Collier</a>
+                            </div>
+                        </div>
+                        <div class="media-body">
+                            <div class="panel panel-quote panel-dark ">
+                                <div class="panel-body">
+                                    <div class="review-text" data-original-text="" data-review-id="10767095">
+                                        <p>I absolutely loved Barbara's beautiful Torino apartment! The location was ideal --- just a few steps from the train station, which made arrival and departure a breeze, and day trips to the surrounding area were super simple. The apartment itself is in a gorgeous old palace, and is decorated beautifully -- and the sunsets over the courtyard from the balcony are breathtaking. Barbara was super helpful, and provided tons of maps and snacks to get me started enjoying Torino. I was only there for a week, but I cannot WAIT to come back again soon!</p>
+                                    </div>
+                                    <div class="text-muted review-subtext">
+                                        <div class="date">Marzo 2014</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="recensioni">
+                    Recensioni
+                </div>
+           </div>
         </div>
+        !-->
         <div id="cointainerRight">
             
         </div>
@@ -124,6 +159,10 @@
         </script>
         <script>
             $('#myTab a').click(function (e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
+            $('#myTab2 a').click(function (e) {
                 e.preventDefault();
                 $(this).tab('show');
             });
