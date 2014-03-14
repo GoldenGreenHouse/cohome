@@ -22,6 +22,8 @@
         <script src="dist/js/jquery-1.10.2.js"></script>
         <script src="dist/js/jquery-ui-1.10.4.custom.js"></script>
         <script type="text/javascript" src="dist/js/jquery_cycle.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+        <script src="dist/js/mappaGoogle.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
               $('#photos').cycle({
@@ -37,7 +39,8 @@
               });
             });
         </script>
-        <title>Annuncio</title>
+       
+        <title>Dettaglio Annuncio</title>
     </head>
     <body>
          <div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
@@ -60,11 +63,15 @@
                 </div><!--/.nav-collapse -->
             </div>
         </div>
+        <div id="containerTop">
+            <h1><%= annuncio.getTitolo() %></h1>
+            <h3><%= annuncio.getIndirizzo()%>, <%= annuncio.getLocalita()%></h3>
+        </div>
         <div id="cointainerLeft">
             <!-- Nav tabs -->
             <ul id="myTab" class="nav nav-tabs">
               <li class="active"><a href="#foto" data-toggle="tab">Foto</a></li>
-              <li><a href="#mappa" data-toggle="tab">Mappa</a></li>
+              <li class="mappa"><a href="#mappa" data-toggle="tab">Mappa</a></li>
               <li><a href="#descrizione" data-toggle="tab">Descrizione</a></li>
               <li><a href="#servizi" data-toggle="tab">Servizi</a></li>
               <li><a href="#regole" data-toggle="tab">Regole</a></li>
@@ -78,24 +85,28 @@
                         <a id="next" href=""><img src="images/button_next.png" alt="Next photo"></a>
                     </div>
                     <div id="photos">
-                       <img src="images/1.jpg" alt="Questa è la prima foto"/>
-                       <img src="images/2.jpg" alt="Questa è la seconda foto"/>
-                       <img src="images/3.jpg" alt="Questa è la terza foto"/>
-                       <img src="images/4.jpg" alt="Questa è la quarta foto"/>
-                       <img src="images/5.jpg" alt="Questa è la quinta foto"/>
-                       <img src="images/6.jpg" alt="Questa è la sesta foto"/>
-                       <img src="images/7.jpg" alt="Questa è la settima foto"/>
-                       <img src="images/8.jpg" alt="Questa è la settima foto"/>
+                       <img src="images/1.jpg" alt=""/>
+                       <img src="images/2.jpg" alt=""/>
+                       <img src="images/3.jpg" alt=""/>
+                       <img src="images/4.jpg" alt=""/>
+                       <img src="images/5.jpg" alt=""/>
+                       <img src="images/6.jpg" alt=""/>
+                       <img src="images/7.jpg" alt=""/>
+                       <img src="images/8.jpg" alt=""/>
                     </div>
                     <div id="thumbnails">
                        <ul></ul>
                     </div>
                 </div>
-                <div class="tab-pane" id="mappa">Mappa</div>
+                <div class="tab-pane" id="mappa">
+                    <div id="map-canvas" style="height:400px;"></div>
+                    <script>addMarker(45.083716,7.689144); </script>
+                </div>
                 <div class="tab-pane" id="descrizione">Descrizione</div>
                 <div class="tab-pane" id="servizi">Servizi</div>
                 <div class="tab-pane" id="regole">Regole</div>
             </div>
+            
         </div>
         <div id="cointainerRight">
             
@@ -106,11 +117,16 @@
         <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>!-->
         <script src="dist/js/bootstrap.min.js"></script> 
         <script>
-        $('#myTab a').click(function (e) {
-            e.preventDefault();
-            $(this).tab('show');
-        });
-
+             $( ".mappa").click(function() {
+                initialize();
+                addMarker(<%= annuncio.getLat() %>,<%= annuncio.getLng() %>);
+             });
+        </script>
+        <script>
+            $('#myTab a').click(function (e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
         </script>
     </body>
 </html>

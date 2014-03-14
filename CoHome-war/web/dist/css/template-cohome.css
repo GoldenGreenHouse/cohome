@@ -131,7 +131,7 @@ html body div#carousel-example-generic.carousel{
     position: relative;
 }
 div.listing-img div.listing-img-container img{
-   width:439px;
+   width:100%;
 }
 .media-caption {
     background-color: rgba(0, 0, 0, 0);
@@ -214,15 +214,20 @@ div.listing-img div.listing-img-container img{
     padding: 0 0 10px;
 }
 #thumbnails{
-    margin-top:10px;
+    margin-top:5px;
+    background:#D0D9DD;
+}
+.tab-content{
+    border: 1px solid  #888;
 }
 #navPhotos {
     height: 30px;
     line-height: 30px;
     position: absolute;
-    top: 300px;
-    width: 705px;
+    top: 220px;
+    width: 695px;
     z-index: 1000;
+    position:relative;
 }
 #navPhotos #prev {
     float: left;
@@ -230,4 +235,14 @@ div.listing-img div.listing-img-container img{
 #navPhotos #next {
     float: right;
 }
+#myTab{
+    background:#D0D9DD;
+    border: 1px solid  #888;
+    border-bottom:none;
+    padding: 5px 5px 0px;
+}
+#containerTop{
+    padding-left:5%;
+}
+
 /*-------------------------- FINE viewDetailsAnnuncio.jsp --------------------*/
