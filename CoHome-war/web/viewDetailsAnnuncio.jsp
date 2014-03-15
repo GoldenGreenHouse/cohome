@@ -4,6 +4,7 @@
     Author     : Andr3A
 --%>
 
+<%@page import="java.io.File"%>
 <%@page import="java.util.List"%>
 <%@page import="ejb.AnnuncioCasa"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -85,14 +86,21 @@
                         <a id="next" href=""><img src="dist/image/button_next.png" alt="Next photo"></a>
                     </div>
                     <div id="photos">
-                       <img src="gallery/<%= annuncio.getId()%>/1.jpg" alt=""/>
-                       <img src="gallery/<%= annuncio.getId()%>/2.jpg" alt=""/>
+                        <% File dir = new File ("//gallery//"+annuncio.getId()+"//");
+                           out.println(dir.getPath());
+                           long conteggio = dir.length(); 
+                           for(int i=0;i<conteggio;i++){
+                        %>
+                       
+                       <img src="gallery/<%= annuncio.getId()%>/<%=i%>.jpg" alt=""/>
+                       <!--<img src="gallery/<%= annuncio.getId()%>/2.jpg" alt=""/>
                        <img src="gallery/<%= annuncio.getId()%>/3.jpg" alt=""/>
                        <img src="gallery/<%= annuncio.getId()%>/4.jpg" alt=""/>
                        <img src="gallery/<%= annuncio.getId()%>/5.jpg" alt=""/>
                        <img src="gallery/<%= annuncio.getId()%>/6.jpg" alt=""/>
                        <img src="gallery/<%= annuncio.getId()%>/7.jpg" alt=""/>
-                       <img src="gallery/<%= annuncio.getId()%>/8.jpg" alt=""/>
+                       <img src="gallery/<%= annuncio.getId()%>/8.jpg" alt=""/>!-->
+                       <% } %>
                     </div>
                     <div id="thumbnails">
                        <ul></ul>
@@ -100,6 +108,9 @@
                 </div>
                 <div class="tab-pane" id="mappa">
                     <div id="map-canvas" style="height:400px;"></div>
+                    <script>
+                        addMarker(<%= annuncio.getLat() %>,<%= annuncio.getLng() %>);
+                    </script>
                 </div>
                 <div class="tab-pane" id="descrizione"><%= annuncio.getDescrizione()%></div>
                 <div class="tab-pane" id="servizi">Servizi</div>
@@ -153,8 +164,7 @@
         <script src="dist/js/bootstrap.min.js"></script> 
         <script>
              $( ".mappa").click(function() {
-                initialize();
-                addMarker(<%= annuncio.getLat() %>,<%= annuncio.getLng() %>);
+                initialize(<%= annuncio.getLat() %>,<%= annuncio.getLng() %>);
              });
         </script>
         <script>

@@ -4,8 +4,8 @@ var defaultZoom=13;
 var markers = new Array();
 var map;
 var count=0;
-function initialize() {
-
+function initialize(lat,lng) {
+    
     var mapOptions = {
         zoom: defaultZoom,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -19,7 +19,8 @@ function initialize() {
     };
 
     map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
-
+    if (lat !== undefined)
+        addMarker(lat,lng);
     // [START region_getplaces]
     // Listen for the event fired when the user selects an item from the
     // pick list. Retrieve the matching places for that item.
@@ -41,12 +42,14 @@ function initialize() {
         map.fitBounds(bounds);
         //map.setZoom(12);
     });
+    
     // [END region_getplaces]
     google.maps.event.addListener(map, 'bounds_changed', function() {
         var bounds = map.getBounds();
         searchBox.setBounds(bounds);
     });
-
+    
+    
 }
 function addMarker(lat,lng) {
     var marker = new google.maps.Marker({
