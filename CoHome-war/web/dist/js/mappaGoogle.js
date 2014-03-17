@@ -17,7 +17,8 @@ function initialize(lat,lng) {
             style: google.maps.ZoomControlStyle.SMALL
         }
     };
-
+    
+      
     map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
     if (lat !== undefined)
         addMarker(lat,lng);
@@ -59,8 +60,22 @@ function addMarker(lat,lng) {
         animation: google.maps.Animation.DROP,
         position: new google.maps.LatLng(lat,lng)
     });
+    
     markers.push(marker);
     count++;
+    var infowindow = new google.maps.InfoWindow({
+        content: "<div class='listing-img media-photo'>"+
+                 "<div class='listing-img-container'>"+
+                 "<a href='#'><img src='gallery/'"+id+"'/1.jpg'></a>" +
+                 "</div>"+
+                 "<a href='/CoHome-war/MainServlet?op=viewDettaglioAnnuncioCasa&index='"+index+"' class='listing-name media-caption h4'>"+
+                 "<%= a.getTitolo() %>"+
+                 "</a>"+
+                 "</div>"
+    });
+    google.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(map,marker);
+    });
     google.maps.event.addListener(marker, 'mouseover', function() {
         marker.setIcon("dist/image/markerBlue.png");
     });

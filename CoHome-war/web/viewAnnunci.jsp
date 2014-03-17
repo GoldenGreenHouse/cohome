@@ -68,13 +68,14 @@
                     c++;
             %>
             <script>
-                addMarker(<%=lat%>,<%=lng%>);
+                addMarker(<%=lat%>,<%=lng%>,<%=a.getId()%>,<%=c-1%>);
             </script>
+            
             <li class="search-result" data-marker="<%=c-1%>">
                 <div class="listing" data-id="<%=c-1%>" data-user="3647027" data-name="CAMERA - Torino Centro" data-lng="7.68603707453739" data-lat="45.062101148056506">
                     <div class="listing-img media-photo">
                         <div class="listing-img-container">
-                            <a href="#"><img data-urls="[&quot;https://a1.muscache.com/ic/pictures/12663332/3ab3cd29_original.jpg?interpolation=progressive-bicubic&amp;size=x_medium&amp;output-format=jpg&amp;output-quality=85&amp;wm=u&quot;, &quot;https://a0.muscache.com/ic/pictures/12662855/1882df84_original.jpg?interpolation=progressive-bicubic&amp;size=x_medium&amp;output-format=jpg&amp;output-quality=85&amp;wm=u&quot;, &quot;https://a1.muscache.com/ic/pictures/12663413/1e2b5a74_original.jpg?interpolation=progressive-bicubic&amp;size=x_medium&amp;output-format=jpg&amp;output-quality=85&amp;wm=u&quot;, &quot;https://a0.muscache.com/ic/pictures/12663250/9b87aca2_original.jpg?interpolation=progressive-bicubic&amp;size=x_medium&amp;output-format=jpg&amp;output-quality=85&amp;wm=u&quot;, &quot;https://a2.muscache.com/ic/pictures/12662939/f0fbc593_original.jpg?interpolation=progressive-bicubic&amp;size=x_medium&amp;output-format=jpg&amp;output-quality=85&amp;wm=u&quot;, &quot;https://a0.muscache.com/ic/pictures/12662997/8ddb7ef6_original.jpg?interpolation=progressive-bicubic&amp;size=x_medium&amp;output-format=jpg&amp;output-quality=85&amp;wm=u&quot;, &quot;https://a2.muscache.com/ic/pictures/12663082/50259dce_original.jpg?interpolation=progressive-bicubic&amp;size=x_medium&amp;output-format=jpg&amp;output-quality=85&amp;wm=u&quot;, &quot;https://a1.muscache.com/ic/pictures/12663203/2f049cb0_original.jpg?interpolation=progressive-bicubic&amp;size=x_medium&amp;output-format=jpg&amp;output-quality=85&amp;wm=u&quot;, &quot;https://a2.muscache.com/ic/pictures/12663501/bccd7fdb_original.jpg?interpolation=progressive-bicubic&amp;size=x_medium&amp;output-format=jpg&amp;output-quality=85&amp;wm=u&quot;]" data-current="0" class="" src="https://a1.muscache.com/ic/pictures/12663332/3ab3cd29_original.jpg?interpolation=progressive-bicubic&amp;size=x_medium&amp;output-format=jpg&amp;output-quality=85&amp;wm=u"></a>
+                            <a href="#"><img src="gallery/<%= a.getId()%>/1.jpg"></a>
                         </div>
                         <a href="/CoHome-war/MainServlet?op=viewDettaglioAnnuncioCasa&index=<%=c-1%>" class="listing-name media-caption h4">
                             <%= a.getTitolo() %>
@@ -102,10 +103,13 @@
                     google.maps.event.trigger(markers[$(this).attr("data-marker")], 'mouseout');
                 });
             </script>
+            
             </ul>
         </div>
     </div>
-    
+    <script>
+        
+    </script>
             
     <!-- Bootstrap core JavaScript
     ================================================== -->

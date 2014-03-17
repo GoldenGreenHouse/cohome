@@ -4,6 +4,7 @@
     Author     : Andr3A
 --%>
 
+<%@page import="java.net.URL"%>
 <%@page import="java.io.File"%>
 <%@page import="java.util.List"%>
 <%@page import="ejb.AnnuncioCasa"%>
@@ -20,7 +21,7 @@
         <link rel="stylesheet" href="dist/css/template-cohome.css">
         <link rel="stylesheet" href="dist/css/excite-bike/jquery-ui-1.10.4.custom.css">
         
-        <script src="dist/js/jquery-1.10.2.js"></script>
+       <script src="dist/js/jquery-1.10.2.js"></script>
         <script src="dist/js/jquery-ui-1.10.4.custom.js"></script>
         <script type="text/javascript" src="dist/js/jquery_cycle.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
@@ -85,22 +86,16 @@
                         <a id="prev" href=""><img src="dist/image/button_prev.png" alt="Prev photo"></a>
                         <a id="next" href=""><img src="dist/image/button_next.png" alt="Next photo"></a>
                     </div>
-                    <div id="photos">
-                        <% File dir = new File ("//gallery//"+annuncio.getId()+"//");
-                           out.println(dir.getPath());
-                           long conteggio = dir.length(); 
-                           for(int i=0;i<conteggio;i++){
-                        %>
-                       
-                       <img src="gallery/<%= annuncio.getId()%>/<%=i%>.jpg" alt=""/>
-                       <!--<img src="gallery/<%= annuncio.getId()%>/2.jpg" alt=""/>
+                    <div id="photos">                        
+                       <img src="gallery/<%= annuncio.getId()%>/1.jpg" alt=""/>
+                       <img src="gallery/<%= annuncio.getId()%>/2.jpg" alt=""/>
                        <img src="gallery/<%= annuncio.getId()%>/3.jpg" alt=""/>
                        <img src="gallery/<%= annuncio.getId()%>/4.jpg" alt=""/>
                        <img src="gallery/<%= annuncio.getId()%>/5.jpg" alt=""/>
                        <img src="gallery/<%= annuncio.getId()%>/6.jpg" alt=""/>
                        <img src="gallery/<%= annuncio.getId()%>/7.jpg" alt=""/>
-                       <img src="gallery/<%= annuncio.getId()%>/8.jpg" alt=""/>!-->
-                       <% } %>
+                       <img src="gallery/<%= annuncio.getId()%>/8.jpg" alt=""/>
+                       
                     </div>
                     <div id="thumbnails">
                        <ul></ul>
@@ -108,9 +103,9 @@
                 </div>
                 <div class="tab-pane" id="mappa">
                     <div id="map-canvas" style="height:400px;"></div>
-                    <script>
+                    <!--<script>
                         addMarker(<%= annuncio.getLat() %>,<%= annuncio.getLng() %>);
-                    </script>
+                    </script>!-->
                 </div>
                 <div class="tab-pane" id="descrizione"><%= annuncio.getDescrizione()%></div>
                 <div class="tab-pane" id="servizi">Servizi</div>
@@ -123,15 +118,15 @@
             </ul>!-->
 
             <!-- Tab panes -->
-            <!--<div class="tab-content2">
+            <!--<div class="tab-content">
                 <div class="tab-pane active" id="commenti">
                     <div class="comment">
                         <div class="imgUser">
-                            <a target="blank" name="review_10767095" class="media-photo media-link" href="/users/show/4673477">  
+                            <a target="blank" name="review_10767095" class="media-photo media-link">  
                                 <img width="68" height="68" title="Collier" src="https://a0.muscache.com/ic/users/4673477/profile_pic/1388281416/original.jpg?interpolation=progressive-bicubic&amp;crop=w:w;*,*&amp;crop=h:h;*,*&amp;resize=68:*&amp;output-format=jpg&amp;output-quality=85" data-original="https://a0.muscache.com/ic/users/4673477/profile_pic/1388281416/original.jpg?interpolation=progressive-bicubic&amp;crop=w:w;*,*&amp;crop=h:h;*,*&amp;resize=68:*&amp;output-format=jpg&amp;output-quality=85" class="lazy" alt="Collier" style="display: inline;">
                             </a>          
                             <div class="nameUser">
-                                <a target="blank" href="/users/show/4673477">Collier</a>
+                                <a target="blank">Collier</a>
                             </div>
                         </div>
                         <div class="media-body">
@@ -151,9 +146,9 @@
                 <div class="tab-pane" id="recensioni">
                     Recensioni
                 </div>
-           </div>
+           </div>!-->
         </div>
-        !-->
+        
         <div id="cointainerRight">
             
         </div>
@@ -172,10 +167,7 @@
                 e.preventDefault();
                 $(this).tab('show');
             });
-            $('#myTab2 a').click(function (e) {
-                e.preventDefault();
-                $(this).tab('show');
-            });
+            
         </script>
     </body>
 </html>
