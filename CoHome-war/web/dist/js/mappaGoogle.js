@@ -52,7 +52,8 @@ function initialize(lat,lng) {
     
     
 }
-function addMarker(lat,lng) {
+function addMarker(lat,lng,id,index,titolo) {
+    
     var marker = new google.maps.Marker({
         map: map,
         icon:"dist/image/markerGreen.png",
@@ -64,14 +65,16 @@ function addMarker(lat,lng) {
     markers.push(marker);
     count++;
     var infowindow = new google.maps.InfoWindow({
+        maxWidth: 200,
+        closeBoxURL: "dist/image/icon-close.png",
+        pane: "floatPane",
         content: "<div class='listing-img media-photo'>"+
-                 "<div class='listing-img-container'>"+
-                 "<a href='#'><img src='gallery/'"+id+"'/1.jpg'></a>" +
-                 "</div>"+
-                 "<a href='/CoHome-war/MainServlet?op=viewDettaglioAnnuncioCasa&index='"+index+"' class='listing-name media-caption h4'>"+
-                 "<%= a.getTitolo() %>"+
-                 "</a>"+
-                 "</div>"
+            "<div class='listing-img-container'>"+
+            "<a href='#'><img src='gallery/"+id+"/1.jpg'></a>" +
+            "</div>"+
+            "<a href='/CoHome-war/MainServlet?op=viewDettaglioAnnuncioCasa&index='"+index+"' class='listing-name media-caption-infowindow h4'>"+titolo+
+            "</a>"+
+            "</div>"
     });
     google.maps.event.addListener(marker, 'click', function() {
         infowindow.open(map,marker);

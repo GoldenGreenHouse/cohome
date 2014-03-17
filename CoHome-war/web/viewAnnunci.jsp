@@ -65,10 +65,11 @@
                     AnnuncioCasa a=iter.next();
                     String lat=a.getLat();
                     String lng=a.getLng();
+                    String titolo= a.getTitolo();
                     c++;
             %>
             <script>
-                addMarker(<%=lat%>,<%=lng%>,<%=a.getId()%>,<%=c-1%>);
+                addMarker(<%=lat%>,<%=lng%>,<%=a.getId()%>,<%=c-1%>,"<%=titolo%>");
             </script>
             
             <li class="search-result" data-marker="<%=c-1%>">
