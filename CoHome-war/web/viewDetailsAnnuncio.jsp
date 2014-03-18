@@ -21,7 +21,7 @@
         <link rel="stylesheet" href="dist/css/template-cohome.css">
         <link rel="stylesheet" href="dist/css/excite-bike/jquery-ui-1.10.4.custom.css">
         
-       <script src="dist/js/jquery-1.10.2.js"></script>
+        <script src="dist/js/jquery-1.10.2.js"></script>
         <script src="dist/js/jquery-ui-1.10.4.custom.js"></script>
         <script type="text/javascript" src="dist/js/jquery_cycle.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
