@@ -226,9 +226,13 @@ div.listing-img div.listing-img-container img{
 #cointainerLeft{
     padding-left:5%;
     width:60%;
+    float:left;
 }
 #cointainerRight{
     width:40%;
+    float:right;
+    padding-left:5%;
+    padding-right:5%;
 }
 #myTab > li, #myTab2 > li{
     font-size:16px;
@@ -307,5 +311,29 @@ div.listing-img div.listing-img-container img{
 .review-text{font-size:11px}
 #mappa{
     padding:10px;
+}
+#buttonRichiestaPrenotazione{
+    width:100%;
+    height:80px;
+    font-size:32px;
+    border-radius:10px;
+    background-color: #428BCA;
+    border-color: #357EBD;
+    color: #FFFFFF;
+    text-align:center;
+    vertical-align: middle;
+    cursor: pointer;
+    padding-top:15px;
+}
+#buttonRichiestaPrenotazione a{
+   color:white;
+}
+#buttonRichiestaPrenotazione:hover{ 
+    background-color: #3276b1;
+    border-color: #285E8E;
+}
+#buttonRichiestaPrenotazione a:hover{ 
+    color:white;
+    text-decoration: none;
 }
 /*-------------------------- FINE viewDetailsAnnuncio.jsp --------------------*/

@@ -80,7 +80,7 @@
             </ul>
 
             <!-- Tab panes -->
-            <div class="tab-content">
+            <div id="myTabContent" class="tab-content">
                 <div class="tab-pane active" id="foto">
                     <div id="navPhotos">
                         <a id="prev" href=""><img src="dist/image/button_prev.png" alt="Prev photo"></a>
@@ -111,46 +111,11 @@
                 <div class="tab-pane" id="servizi">Servizi</div>
                 <div class="tab-pane" id="regole">Regole</div>
             </div>
-            <!--
-            <ul id="myTab2" class="nav nav-tabs">
-              <li class="active"><a href="#commenti" data-toggle="tab">Commenti</a></li>
-              <li><a href="#recensioni" data-toggle="tab">Recensioni</a></li>
-            </ul>!-->
-
-            <!-- Tab panes -->
-            <!--<div class="tab-content">
-                <div class="tab-pane active" id="commenti">
-                    <div class="comment">
-                        <div class="imgUser">
-                            <a target="blank" name="review_10767095" class="media-photo media-link">  
-                                <img width="68" height="68" title="Collier" src="https://a0.muscache.com/ic/users/4673477/profile_pic/1388281416/original.jpg?interpolation=progressive-bicubic&amp;crop=w:w;*,*&amp;crop=h:h;*,*&amp;resize=68:*&amp;output-format=jpg&amp;output-quality=85" data-original="https://a0.muscache.com/ic/users/4673477/profile_pic/1388281416/original.jpg?interpolation=progressive-bicubic&amp;crop=w:w;*,*&amp;crop=h:h;*,*&amp;resize=68:*&amp;output-format=jpg&amp;output-quality=85" class="lazy" alt="Collier" style="display: inline;">
-                            </a>          
-                            <div class="nameUser">
-                                <a target="blank">Collier</a>
-                            </div>
-                        </div>
-                        <div class="media-body">
-                            <div class="panel panel-quote panel-dark ">
-                                <div class="panel-body">
-                                    <div class="review-text" data-original-text="" data-review-id="10767095">
-                                        <p>I absolutely loved Barbara's beautiful Torino apartment! The location was ideal --- just a few steps from the train station, which made arrival and departure a breeze, and day trips to the surrounding area were super simple. The apartment itself is in a gorgeous old palace, and is decorated beautifully -- and the sunsets over the courtyard from the balcony are breathtaking. Barbara was super helpful, and provided tons of maps and snacks to get me started enjoying Torino. I was only there for a week, but I cannot WAIT to come back again soon!</p>
-                                    </div>
-                                    <div class="text-muted review-subtext">
-                                        <div class="date">Marzo 2014</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane" id="recensioni">
-                    Recensioni
-                </div>
-           </div>!-->
-        </div>
+            
+         </div>
         
         <div id="cointainerRight">
-            
+           <div id="buttonRichiestaPrenotazione"><a href="">Richiesta Prenotazione<a></div>
         </div>
          <!-- Bootstrap core JavaScript
         ================================================== -->
@@ -162,12 +127,6 @@
                 initialize(<%= annuncio.getLat() %>,<%= annuncio.getLng() %>);
              });
         </script>
-        <script>
-            $('#myTab a').click(function (e) {
-                e.preventDefault();
-                $(this).tab('show');
-            });
-            
-        </script>
+        
     </body>
 </html>
