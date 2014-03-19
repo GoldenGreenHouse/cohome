@@ -258,7 +258,7 @@ div.listing-img div.listing-img-container img{
     line-height: 30px;
     position: absolute;
     top: 220px;
-    width: 695px;
+    width: 100%;
     z-index: 1000;
     position:relative;
 }

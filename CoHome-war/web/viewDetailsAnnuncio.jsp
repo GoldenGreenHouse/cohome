@@ -8,6 +8,7 @@
 <%@page import="java.io.File"%>
 <%@page import="java.util.List"%>
 <%@page import="ejb.AnnuncioCasa"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="ricercaAnnunciCasa" scope="session" class="Bean.RicercaAnnunciCasa"/>
 <% AnnuncioCasa annuncio = ricercaAnnunciCasa.getSingleAnnuncio(Integer.parseInt(request.getParameter("index")));%>
@@ -75,7 +76,7 @@
               <li class="active"><a href="#foto" data-toggle="tab">Foto</a></li>
               <li class="mappa"><a href="#mappa" data-toggle="tab">Mappa</a></li>
               <li><a href="#descrizione" data-toggle="tab">Descrizione</a></li>
-              <li><a href="#servizi" data-toggle="tab">Servizi</a></li>
+              <li><a href="#calendario" data-toggle="tab">Calendario</a></li>
               <li><a href="#regole" data-toggle="tab">Regole</a></li>
             </ul>
 
@@ -108,7 +109,7 @@
                     </script>!-->
                 </div>
                 <div class="tab-pane" id="descrizione"><%= annuncio.getDescrizione()%></div>
-                <div class="tab-pane" id="servizi">Servizi</div>
+                <div class="tab-pane" id="calendario">Calendario</div>
                 <div class="tab-pane" id="regole">Regole</div>
             </div>
             

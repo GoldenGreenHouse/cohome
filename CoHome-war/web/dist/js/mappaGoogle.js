@@ -64,21 +64,23 @@ function addMarker(lat,lng,id,index,titolo) {
     
     markers.push(marker);
     count++;
-    var infowindow = new google.maps.InfoWindow({
-        maxWidth: 200,
-        closeBoxURL: "dist/image/icon-close.png",
-        pane: "floatPane",
-        content: "<div class='listing-img media-photo'>"+
-            "<div class='listing-img-container'>"+
-            "<a href='#'><img src='gallery/"+id+"/1.jpg'></a>" +
-            "</div>"+
-            "<a href='/CoHome-war/MainServlet?op=viewDettaglioAnnuncioCasa&index='"+index+"' class='listing-name media-caption-infowindow h4'>"+titolo+
-            "</a>"+
-            "</div>"
-    });
-    google.maps.event.addListener(marker, 'click', function() {
-        infowindow.open(map,marker);
-    });
+    if (id !== undefined){
+        var infowindow = new google.maps.InfoWindow({
+            maxWidth: 200,
+            closeBoxURL: "dist/image/icon-close.png",
+            pane: "floatPane",
+            content: "<div class='listing-img media-photo'>"+
+                "<div class='listing-img-container'>"+
+                "<a href='#'><img src='gallery/"+id+"/1.jpg'></a>" +
+                "</div>"+
+                "<a href='/CoHome-war/MainServlet?op=viewDettaglioAnnuncioCasa&index="+index+"' class='listing-name media-caption-infowindow h4'>"+titolo+
+                "</a>"+
+                "</div>"
+        });
+        google.maps.event.addListener(marker, 'click', function() {
+            infowindow.open(map,marker);
+        });
+    }
     google.maps.event.addListener(marker, 'mouseover', function() {
         marker.setIcon("dist/image/markerBlue.png");
     });

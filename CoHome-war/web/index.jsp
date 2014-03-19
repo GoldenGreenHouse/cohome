@@ -37,14 +37,20 @@
         <script>
         $(function() {
             $( "#checkin" ).datepicker({
-            numberOfMonths: 1,
-            showButtonPanel: true
+                numberOfMonths: 1,
+                beforeShow: function(){    
+                        $(".ui-datepicker").css('font-size', 13) 
+                    },
+                showButtonPanel: true,
+                minDate: 0
             });
             $( "#checkout" ).datepicker({
-            numberOfMonths: 1,
-            showButtonPanel: true
-            });
-            
+                numberOfMonths: 1,
+                showButtonPanel: true,
+                minDate:  $( "#checkin" ).datepicker({ dateFormat: 'dd,MM,yyyy' }).val()
+                });
+              
+                
          }); 
         </script>
     </head>
@@ -183,7 +189,13 @@
              wrap: true,
              pause:""
         });       
-    });      
+    });  
+    $("#checkin").change( function() {
+        alert($( "#checkin" ).datepicker({ dateFormat: 'dd,MM,yyyy' }).val());
+        $( "#checkout" ).datepicker({
+            startDate:  $( "#checkin" ).datepicker({ dateFormat: 'dd,MM,yyyy' }).val()
+        });
+    });  
     </script>
 </body>
 </html>
