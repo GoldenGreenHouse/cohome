@@ -39,15 +39,18 @@
             $( "#checkin" ).datepicker({
                 numberOfMonths: 1,
                 beforeShow: function(){    
-                        $(".ui-datepicker").css('font-size', 13) 
+                        $(".ui-datepicker").css('font-size', 12) 
                     },
                 showButtonPanel: true,
                 minDate: 0
             });
             $( "#checkout" ).datepicker({
                 numberOfMonths: 1,
+                beforeShow: function(){    
+                        $(".ui-datepicker").css('font-size', 12) 
+                    },
                 showButtonPanel: true,
-                minDate:  $( "#checkin" ).datepicker({ dateFormat: 'dd,MM,yyyy' }).val()
+                minDate:  0
                 });
               
                 
@@ -191,9 +194,9 @@
         });       
     });  
     $("#checkin").change( function() {
-        alert($( "#checkin" ).datepicker({ dateFormat: 'dd,MM,yyyy' }).val());
+        $( "#checkout" ).datepicker("destroy");
         $( "#checkout" ).datepicker({
-            startDate:  $( "#checkin" ).datepicker({ dateFormat: 'dd,MM,yyyy' }).val()
+            minDate:  new Date($( "#checkin" ).val())
         });
     });  
     </script>

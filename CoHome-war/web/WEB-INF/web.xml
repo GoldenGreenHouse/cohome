@@ -13,4 +13,27 @@
             30
         </session-timeout>
     </session-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+     <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>myFormRealm</realm-name>
+        <form-login-config>
+            <form-login-page>/login.xhtml</form-login-page>
+            <form-error-page>/error.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
+        <description/>
+        <role-name>administrator</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>moderatore</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>guest</role-name>
+    </security-role>
 </web-app>

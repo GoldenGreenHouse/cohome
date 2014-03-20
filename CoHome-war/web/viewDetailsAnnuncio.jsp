@@ -24,10 +24,11 @@
         
         <script src="dist/js/jquery-1.10.2.js"></script>
         <script src="dist/js/jquery-ui-1.10.4.custom.js"></script>
-        <script type="text/javascript" src="dist/js/jquery_cycle.js"></script>
+        <!--<script type="text/javascript" src="dist/js/jquery_cycle.js"></script>!-->
+       <script type="text/javascript" src=" http://malsup.github.io/jquery.cycle.all.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
         <script src="dist/js/mappaGoogle.js"></script>
-        <script type="text/javascript">
+        <!--<script type="text/javascript">
             $(document).ready(function() {
               $('#photos').cycle({
                 fx:'fade',
@@ -40,6 +41,28 @@
                     return '<li class="thumb"><a href="#" title="Thumbnail"><img width="40" height="40" src="' + slide.src + '"/></a></li>';
                 }
               });
+            });
+        </script>!-->
+        <script>
+            $(document).ready(function() {
+                $('#photos').cycle({
+                    fx: 'fade',
+                    timeout: 3500,  // milliseconds between slide transitions (0 to disable auto advance)
+                    speed: 1000,  // speed of the transition (any valid fx speed value)
+                    fit: 0,  // force slides to fit container 
+                    containerResize: 1,  // resize container to fit largest slide 
+                    next:   '#next',
+                    prev:   '#prev',
+                    pager:  '#thumbnails ul',
+                    pagerAnchorBuilder: function(idx, slide) {
+                        return '<li class="thumb"><a href="#" title="Thumbnail"><img width="40" height="40" src="' + slide.src + '"/></a></li>';
+                    }
+                });
+                
+
+                $('#photos').find('img').batchImageLoad({
+                      loadingCompleteCallback: myCallback
+                });
             });
         </script>
        

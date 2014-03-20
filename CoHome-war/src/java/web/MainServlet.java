@@ -14,6 +14,7 @@ import ejb.GestoreCommenti;
 import ejb.GestoreUtenti;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.Principal;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -46,9 +47,12 @@ public class MainServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
         HttpSession s = request.getSession();
         String action= request.getParameter("op");
         String str = "";
+        Principal principal = request.getUserPrincipal();
+        
         if(action.equals("inserisciAnnuncio")){
             str = request.getParameter("userComponent");
             gestoreUtenti.addModeratore(str);
@@ -65,6 +69,22 @@ public class MainServlet extends HttpServlet {
         if(action.equals("viewDettaglioAnnuncioCasa")){
            int index = Integer.parseInt(request.getParameter("index"));         
            getServletContext().getRequestDispatcher("/viewDetailsAnnuncio.jsp").forward(request,response);
+        }
+        if(action.equals("jaas")){
+            String message="";
+            try (PrintWriter out = response.getWriter()) {
+                if(request.isUserInRole("administrator")){
+                    message = "Username : " + principal.getName() + " You are an Administrator";
+                }else if(request.isUserInRole("manager")){
+                    message = "Username : " + principal.getName() + " You are only a Manager";
+                }else if(request.isUserInRole("guest")){
+                    message = "Username : " + principal.getName() + " You're wasting my resources...";
+                }
+                else{
+                    message = " You're simply user";
+                }
+                out.println(message);
+            }
         }
         
     }
