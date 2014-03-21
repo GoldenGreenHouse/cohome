@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="it">
     <head>
@@ -89,7 +90,19 @@
                         <li><a href="#about">About</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
-                    <div class="logout"><a href="/CoHome-war/MainServlet?op=logout" class="btn btn-success">Logout</a></div>
+                    <% if (request.getUserPrincipal()==null){ %>
+                        <div class="login">
+                            <form id="login_form" method="post" action="j_security_check">
+                                        <label for="login_name">Username: </label>
+                                        <input type="text" id="login_name" name="j_username" size="10" />
+                                        <label for="login_pass">Password: </label>
+                                        <input type="password" id="login_pass" name="j_password" size="10" />
+                                        <input type="submit" value="Login"  class="btn btn-success">
+                            </form>
+                        </div>
+                    <% }else{ %>
+                        <div class="logout"><a href="/CoHome-war/MainServlet?op=logout" class="btn btn-success">Logout</a></div>
+                    <% } %>
                 </div><!--/.nav-collapse -->
                 
             </div>
@@ -180,10 +193,17 @@
                     <p><a href="/CoHome-war/MainServlet?op=inserisciAnnuncio"  class="btn btn-primary">Inserisci Annuncio</a></p>
                 </div>
                 <div class="col-xs-4">
-                    <h2>Login</h2>
-                    <p>Entra per accedere al tuo profilo.</p>
-                    <img width="192" height="192" src="dist/image/login.png">
-                    <p><a class="fancybox btn btn-primary" href="#login" >Login</a></p>
+                    <% if (request.getUserPrincipal()==null){ %>
+                        <h2>Login</h2>
+                        <p>Entra per accedere al tuo profilo.</p>
+                        <img width="192" height="192" src="dist/image/login.png">
+                        <p><a class="fancybox btn btn-primary" href="#login" >Login</a></p>
+                    <% }else{ %>
+                        <h2>Area Riervata</h2>
+                        <p>Entra per accedere al tuo profilo.</p>
+                        <img width="192" height="192" src="dist/image/area-riservata.png">
+                        <p><a class="fancybox btn btn-primary" href="#areaRiservata" >Area Riservata</a></p>
+                     <% } %>
                 </div>
                 <div class="col-xs-4">
                     <h2>Inserisci Annuncio</h2>
@@ -196,7 +216,6 @@
         </div>
         <div id="login" style="display:none">
             <form id="login_form" method="post" action="j_security_check">
-                <p id="login_error">Please, enter data</p>
                 <center><h2>Login CoHome</h2></center>
                 <p>
                         <label for="login_name">Username: </label>

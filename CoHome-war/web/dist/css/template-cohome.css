@@ -23,9 +23,15 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .panel-header, .alert, .h5, .panel-h
 html body div#carousel-example-generic.carousel{
     margin-top:-20px;
 }
-.logout{
+.logout, .login {
     float: right;
     padding-top: 9px;
+}
+.login{
+    font-size:11px;
+}
+.login label{
+    color:white;
 }
 /*------------------------------------CSS index.jsp----------------------------*/
 .fancybox-custom .fancybox-skin {
