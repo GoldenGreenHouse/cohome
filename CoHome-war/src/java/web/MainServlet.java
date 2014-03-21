@@ -70,15 +70,20 @@ public class MainServlet extends HttpServlet {
            int index = Integer.parseInt(request.getParameter("index"));         
            getServletContext().getRequestDispatcher("/viewDetailsAnnuncio.jsp").forward(request,response);
         }
+        if(action.equals("logout")){
+            request.logout();
+            getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
+        }
+        
         if(action.equals("jaas")){
             String message="";
             try (PrintWriter out = response.getWriter()) {
                 if(request.isUserInRole("administrator")){
                     message = "Username : " + principal.getName() + " You are an Administrator";
-                }else if(request.isUserInRole("manager")){
-                    message = "Username : " + principal.getName() + " You are only a Manager";
+                }else if(request.isUserInRole("moderatore")){
+                    message = "Username : " + principal.getName() + " You are a Moderatore";
                 }else if(request.isUserInRole("guest")){
-                    message = "Username : " + principal.getName() + " You're wasting my resources...";
+                    message = "Username : " + principal.getName() + " You are a Guest";
                 }
                 else{
                     message = " You're simply user";

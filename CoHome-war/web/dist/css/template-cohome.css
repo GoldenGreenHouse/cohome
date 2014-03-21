@@ -23,7 +23,14 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .panel-header, .alert, .h5, .panel-h
 html body div#carousel-example-generic.carousel{
     margin-top:-20px;
 }
+.logout{
+    float: right;
+    padding-top: 9px;
+}
 /*------------------------------------CSS index.jsp----------------------------*/
+.fancybox-custom .fancybox-skin {
+        box-shadow: 0 0 50px #222;
+}
 .search-area {
     height: 300px;
     padding-top: 140px;

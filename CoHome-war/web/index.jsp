@@ -15,12 +15,16 @@
 
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="dist/css/bootstrap.min.css">
-
         <!-- Custom styles for this template -->
         <link rel="stylesheet" href="dist/css/template-cohome.css">
+        <!--JQuery UI Theme!-->
         <link rel="stylesheet" href="dist/css/excite-bike/jquery-ui-1.10.4.custom.css">
-        
-        <script src="dist/js/jquery-1.10.2.js"></script>
+        <!-- FancyBox css-->
+        <link rel="stylesheet" type="text/css" href="dist/css/jquery.fancybox.css?v=2.1.5" media="screen" />
+
+        <script type="text/javascript" src="dist/js/jquery-1.10.1.min.js"></script>
+        <script src="dist/js/jquery.fancybox.js?v=2.1.5"></script>
+        <!--<script src="dist/js/jquery-1.10.2.js"></script>!-->
         <script src="dist/js/jquery-ui-1.10.4.custom.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
         <script src="dist/js/jquery.ui.core.js"></script>
@@ -51,11 +55,20 @@
                     },
                 showButtonPanel: true,
                 minDate:  0
-                });
-              
-                
+                });     
          }); 
         </script>
+        <script>
+            $( document ).ready(function() {
+                $('.fancybox').fancybox({
+                    scrolling	: 'no',
+                    titleShow	: false,
+                    onClosed	: function() {
+                        $("#login_error").hide();
+                    }
+                });
+            });
+	</script>
     </head>
     <body>
       
@@ -76,7 +89,9 @@
                         <li><a href="#about">About</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
+                    <div class="logout"><a href="/CoHome-war/MainServlet?op=logout" class="btn btn-success">Logout</a></div>
                 </div><!--/.nav-collapse -->
+                
             </div>
         </div>
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -168,7 +183,7 @@
                     <h2>Login</h2>
                     <p>Entra per accedere al tuo profilo.</p>
                     <img width="192" height="192" src="dist/image/login.png">
-                    <p><a href="#" target="_blank" class="btn btn-primary">Login</a></p>
+                    <p><a class="fancybox btn btn-primary" href="#login" >Login</a></p>
                 </div>
                 <div class="col-xs-4">
                     <h2>Inserisci Annuncio</h2>
@@ -179,6 +194,24 @@
             </div>
             <hr>
         </div>
+        <div id="login" style="display:none">
+            <form id="login_form" method="post" action="j_security_check">
+                <p id="login_error">Please, enter data</p>
+                <center><h2>Login CoHome</h2></center>
+                <p>
+                        <label for="login_name">Username: </label>
+                        <input type="text" id="login_name" name="j_username" size="30" />
+                </p>
+                <p>
+                        <label for="login_pass">Password: </label>
+                        <input type="password" id="login_pass" name="j_password" size="30" />
+                </p>
+                <p>
+                        <center><input type="submit" value="Login"  class="btn btn-success"></center>
+                </p>
+                
+            </form>
+        </div>  
         <!-- /.container -->
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -198,7 +231,7 @@
         $( "#checkout" ).datepicker({
             minDate:  new Date($( "#checkin" ).val())
         });
-    });  
+    });
     </script>
 </body>
 </html>
