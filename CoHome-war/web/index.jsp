@@ -90,7 +90,10 @@
                         <li><a href="#about">About</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
-                    <% if (request.getUserPrincipal()==null){ %>
+                                                      
+                    <c:choose>
+                    <c:when test="${pageContext.request.userPrincipal == null}">
+                    
                         <div class="login">
                             <form id="login_form" method="post" action="j_security_check">
                                         <label for="login_name">Username: </label>
@@ -100,9 +103,11 @@
                                         <input type="submit" value="Login"  class="btn btn-success">
                             </form>
                         </div>
-                    <% }else{ %>
+                    </c:when>
+                    <c:otherwise>
                         <div class="logout"><a href="/CoHome-war/MainServlet?op=logout" class="btn btn-success">Logout</a></div>
-                    <% } %>
+                    </c:otherwise>
+                    </c:choose>>
                 </div><!--/.nav-collapse -->
                 
             </div>
@@ -193,17 +198,20 @@
                     <p><a href="/CoHome-war/MainServlet?op=inserisciAnnuncio"  class="btn btn-primary">Inserisci Annuncio</a></p>
                 </div>
                 <div class="col-xs-4">
-                    <% if (request.getUserPrincipal()==null){ %>
+                    <c:choose>
+                    <c:when test="${pageContext.request.userPrincipal == null}">
                         <h2>Login</h2>
                         <p>Entra per accedere al tuo profilo.</p>
                         <img width="192" height="192" src="dist/image/login.png">
                         <p><a class="fancybox btn btn-primary" href="#login" >Login</a></p>
-                    <% }else{ %>
+                    </c:when>
+                    <c:otherwise> 
                         <h2>Area Riervata</h2>
                         <p>Entra per accedere al tuo profilo.</p>
                         <img width="192" height="192" src="dist/image/area-riservata.png">
                         <p><a class="fancybox btn btn-primary" href="#areaRiservata" >Area Riservata</a></p>
-                     <% } %>
+                    </c:otherwise>
+                    </c:choose>           
                 </div>
                 <div class="col-xs-4">
                     <h2>Inserisci Annuncio</h2>
@@ -251,6 +259,7 @@
             minDate:  new Date($( "#checkin" ).val())
         });
     });
+    
     </script>
 </body>
 </html>

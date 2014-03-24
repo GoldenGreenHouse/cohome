@@ -8,6 +8,7 @@
 <%@page import="java.util.ListIterator"%>
 <%@page import="java.util.List"%>
 <%@page import="ejb.Annuncio;"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% List<AnnuncioCasa> annunci= (List<AnnuncioCasa>)request.getAttribute("annunci"); %>
 <jsp:useBean id="ricercaAnnunciCasa" scope="session" class="Bean.RicercaAnnunciCasa"/>
@@ -58,44 +59,40 @@
     <div class="search-results">
         <div class="outer-listings-container">
            <ul id="results" class="listings-container list-unstyled clearfix">
-           <!-- N°Annunci=<%= annunci.size() %> !-->
-            <%  ListIterator<AnnuncioCasa> iter = annunci.listIterator(); 
-                int c=0;
-                while(iter.hasNext()){
-                    AnnuncioCasa a=iter.next();
-                    String lat=a.getLat();
-                    String lng=a.getLng();
-                    String titolo= a.getTitolo();
-                    c++;
-            %>
-            <script>
-                addMarker(<%=lat%>,<%=lng%>,<%=a.getId()%>,<%=c-1%>,"<%=titolo%>");
-            </script>
+           <!--<c:out value="${annunci.size()}"/>!-->
+           <c:forEach items="${annunci}" var="a" varStatus="c">
+                <c:set var="lat" value="${a.getLat()}"/>
+                <c:set var="lng" value="${a.getLng()}"/>
+                <c:set var="titolo" value="${a.getTitolo()}"/>
+                
+                <script>
+                   addMarker(<c:out value="${lat}"/>,<c:out value="${lng}"/>,<c:out value="${a.getId()}"/>,<c:out value="${c.index}"/>,"<c:out value="${titolo}"/>");
+                </script>
             
-            <li class="search-result" data-marker="<%=c-1%>">
-                <div class="listing" data-id="<%=c-1%>" data-user="3647027" data-name="CAMERA - Torino Centro" data-lng="7.68603707453739" data-lat="45.062101148056506">
-                    <div class="listing-img media-photo">
-                        <div class="listing-img-container">
-                            <a href="#"><img src="gallery/<%= a.getId()%>/1.jpg"></a>
+                <li class="search-result" data-marker="<c:out value='${c.index}'/>">
+                    <div class="listing" data-id="<c:out value='${c.index}'/>" data-user="3647027" data-name="CAMERA - Torino Centro" data-lng="7.68603707453739" data-lat="45.062101148056506">
+                        <div class="listing-img media-photo">
+                            <div class="listing-img-container">
+                                <a href="#"><img src="gallery/<c:out value='${a.getId()}'/>/1.jpg"></a>
+                            </div>
+                            <a href="/CoHome-war/MainServlet?op=viewDettaglioAnnuncioCasa&index=<c:out value='${c.index}'/>" class="listing-name media-caption h4">
+                                <c:out value="${titolo}"/>
+                            </a>
                         </div>
-                        <a href="/CoHome-war/MainServlet?op=viewDettaglioAnnuncioCasa&index=<%=c-1%>" class="listing-name media-caption h4">
-                            <%= a.getTitolo() %>
-                        </a>
-                    </div>
-                    <div class="listing-footer clearfix">
-                        <a class="media-link media-photo host-img" href="/CoHome-war/MainServlet?op=viewDettaglioAnnuncioCasa&index=<%=c-1%>">
-                            <img src="https://a1.muscache.com/ic/users/3647027/profile_pic/1348479910/original.jpg?interpolation=progressive-bicubic&amp;crop=w:w;*,*&amp;crop=h:h;*,*&amp;resize=50:*&amp;output-format=jpg&amp;output-quality=85">
-                        </a>
-                        <a title="Stanza privata | Torino" href="/CoHome-war/MainServlet?op=viewDettaglioAnnuncioCasa&index=<%=c-1%>" class="listing-quick-info">
-                            <span class="listing-room-type">
-                                <%= a.getIndirizzo() %><br>
-                                <%= a.getLocalita() %>
-                            </span>
-                        </a>
-                    </div>
-              </div>
-            </li>
-            <% } %>
+                        <div class="listing-footer clearfix">
+                            <a class="media-link media-photo host-img" href="/CoHome-war/MainServlet?op=viewDettaglioAnnuncioCasa&index=<c:out value='${c.index-1}'/>">
+                                <img src="https://a1.muscache.com/ic/users/3647027/profile_pic/1348479910/original.jpg?interpolation=progressive-bicubic&amp;crop=w:w;*,*&amp;crop=h:h;*,*&amp;resize=50:*&amp;output-format=jpg&amp;output-quality=85">
+                            </a>
+                            <a title="Stanza privata | Torino" href="/CoHome-war/MainServlet?op=viewDettaglioAnnuncioCasa&index=<c:out value='${c.index}'/>" class="listing-quick-info">
+                                <span class="listing-room-type">
+                                    <c:out value="${a.getIndirizzo()}"/><br>
+                                    <c:out value="${a.getLocalita()}"/>
+                                </span>
+                            </a>
+                        </div>
+                  </div>
+                </li>
+            </c:forEach>
             <script>              
                 $( ".search-result" ).mouseover(function() {
                     google.maps.event.trigger(markers[$(this).attr("data-marker")], 'mouseover');

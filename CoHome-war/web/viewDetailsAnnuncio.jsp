@@ -11,7 +11,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="ricercaAnnunciCasa" scope="session" class="Bean.RicercaAnnunciCasa"/>
-<% AnnuncioCasa annuncio = ricercaAnnunciCasa.getSingleAnnuncio(Integer.parseInt(request.getParameter("index")));%>
+<c:set var="index" value="${pageContext.request.getParameter('index')}"/>
+<c:set var="annuncio" value="${ricercaAnnunciCasa.getSingleAnnuncio(index)}"/>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -69,6 +71,7 @@
         <title>Dettaglio Annuncio</title>
     </head>
     <body>
+        
          <div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -90,8 +93,8 @@
             </div>
         </div>
         <div id="containerTop">
-            <h1><%= annuncio.getTitolo() %></h1>
-            <h3><%= annuncio.getIndirizzo()%>, <%= annuncio.getLocalita()%></h3>
+            <h1><c:out value="${annuncio.getTitolo()}"/></h1>
+            <h3><c:out value="${annuncio.getIndirizzo()}"/>, <c:out value="${annuncio.getLocalita()}"/></h3>
         </div>
         <div id="cointainerLeft">
             <!-- Nav tabs -->
@@ -111,14 +114,14 @@
                         <a id="next" href=""><img src="dist/image/button_next.png" alt="Next photo"></a>
                     </div>
                     <div id="photos">                        
-                       <img src="gallery/<%= annuncio.getId()%>/1.jpg" alt=""/>
-                       <img src="gallery/<%= annuncio.getId()%>/2.jpg" alt=""/>
-                       <img src="gallery/<%= annuncio.getId()%>/3.jpg" alt=""/>
-                       <img src="gallery/<%= annuncio.getId()%>/4.jpg" alt=""/>
-                       <img src="gallery/<%= annuncio.getId()%>/5.jpg" alt=""/>
-                       <img src="gallery/<%= annuncio.getId()%>/6.jpg" alt=""/>
-                       <img src="gallery/<%= annuncio.getId()%>/7.jpg" alt=""/>
-                       <img src="gallery/<%= annuncio.getId()%>/8.jpg" alt=""/>
+                       <img src="gallery/<c:out value="${annuncio.getId()}"/>/1.jpg" alt=""/>
+                       <img src="gallery/<c:out value="${annuncio.getId()}"/>/2.jpg" alt=""/>
+                       <img src="gallery/<c:out value="${annuncio.getId()}"/>/3.jpg" alt=""/>
+                       <img src="gallery/<c:out value="${annuncio.getId()}"/>/4.jpg" alt=""/>
+                       <img src="gallery/<c:out value="${annuncio.getId()}"/>/5.jpg" alt=""/>
+                       <img src="gallery/<c:out value="${annuncio.getId()}"/>/6.jpg" alt=""/>
+                       <img src="gallery/<c:out value="${annuncio.getId()}"/>/7.jpg" alt=""/>
+                       <img src="gallery/<c:out value="${annuncio.getId()}"/>/8.jpg" alt=""/>
                        
                     </div>
                     <div id="thumbnails">
@@ -128,10 +131,10 @@
                 <div class="tab-pane" id="mappa">
                     <div id="map-canvas" style="height:400px;"></div>
                     <!--<script>
-                        addMarker(<%= annuncio.getLat() %>,<%= annuncio.getLng() %>);
+                        addMarker(<c:out value="${annuncio.getLat()}"/>,<c:out value="${annuncio.getLng()}"/>);
                     </script>!-->
                 </div>
-                <div class="tab-pane" id="descrizione"><%= annuncio.getDescrizione()%></div>
+                <div class="tab-pane" id="descrizione"><c:out value="${annuncio.getDescrizione()}"/></div>
                 <div class="tab-pane" id="calendario">Calendario</div>
                 <div class="tab-pane" id="regole">Regole</div>
             </div>
@@ -148,7 +151,7 @@
         <script src="dist/js/bootstrap.min.js"></script> 
         <script>
              $( ".mappa").click(function() {
-                initialize(<%= annuncio.getLat() %>,<%= annuncio.getLng() %>);
+                initialize(<c:out value="${annuncio.getLat()}"/>,<c:out value="${annuncio.getLng()}"/>);
              });
         </script>
         
