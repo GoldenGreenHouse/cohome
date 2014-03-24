@@ -107,7 +107,7 @@
                     <c:otherwise>
                         <div class="logout"><a href="/CoHome-war/MainServlet?op=logout" class="btn btn-success">Logout</a></div>
                     </c:otherwise>
-                    </c:choose>>
+                    </c:choose>
                 </div><!--/.nav-collapse -->
                 
             </div>
@@ -195,7 +195,7 @@
                     <h2>Inserisci Annuncio</h2>
                     <p>Condividi la tua casa in pochissimi passi.</p>
                     <img width="192" height="192" src="dist/image/home.png">
-                    <p><a href="/CoHome-war/MainServlet?op=inserisciAnnuncio"  class="btn btn-primary">Inserisci Annuncio</a></p>
+                    <p><a href="/CoHome-war/MainServlet?op=InserisciAnnuncioCasa"  class="btn btn-primary">Inserisci Annuncio</a></p>
                 </div>
                 <div class="col-xs-4">
                     <c:choose>
@@ -236,7 +236,6 @@
                 <p>
                         <center><input type="submit" value="Login"  class="btn btn-success"></center>
                 </p>
-                
             </form>
         </div>  
         <!-- /.container -->

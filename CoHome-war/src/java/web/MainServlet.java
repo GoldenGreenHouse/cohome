@@ -48,19 +48,22 @@ public class MainServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        RequestDispatcher rd;
         HttpSession s = request.getSession();
         String action= request.getParameter("op");
         String str = "";
         Principal principal = request.getUserPrincipal();
         
-        if(action.equals("inserisciAnnuncio")){
-            str = request.getParameter("userComponent");
-            gestoreUtenti.addModeratore(str);
-            gestoreUtenti.addRegistered(str);
-            gestoreUtenti.addGuest(str);
-            gestoreAnnunci.addAnnuncioCasa(str);
-            gestoreCommenti.addModeratoreCommenti(str);   
+        if(action.equals("InserisciAnnuncioCasa")){
+            rd = getServletContext().getRequestDispatcher("/AnnuncioCasa.jsp");
+            rd.forward(request,response);
         }
+  
+        if(action.equals("creaAnnuncioCasa")){
+            rd = getServletContext().getRequestDispatcher("/CreaAnnuncioCasa");
+            rd.forward(request,response);
+        }
+        
         if(action.equals("cercaAnnunci")){
             List<AnnuncioCasa> annunci=gestoreAnnunci.trovaAnnunciCasa();
             request.setAttribute("annunci", annunci);

@@ -43,49 +43,11 @@ public class GestoreAnnunci {
     @PersistenceContext(unitName = "CoHome-ejbPU")
     private EntityManager em;
    
-    
-    
-    
-    public void addAnnuncioCasa(String indirizzo){
-        AnnuncioCasa annuncioCasa = new AnnuncioCasa();
-        annuncioCasa.setIndirizzo(indirizzo);
+
+   public void addAnnuncioCasa(AnnuncioCasa annuncioCasa){
         annuncioCasaFacade.create(annuncioCasa);
-        PropostaPrenotazione propostaPrenotazione = new PropostaPrenotazione();
-        propostaPrenotazione.setNumeroPosti(44);
-        propostaPrenotazione.setDescrizione("proposta da annuncio");
-        propostaPrenotazione.setAnnuncio(annuncioCasa);
-        //propostaPrenotazione.setAnnuncio(annuncioCasa);
-        //propostaPrenotazioneFacade.create(propostaPrenotazione);
-        AnnuncioVisita annuncioVisita = new AnnuncioVisita();
-        annuncioVisita.setAttrazione("colosseo");
-        List<PropostaPrenotazione> proposte = annuncioVisita.getPropostaPrenotazione();
-        proposte.add(propostaPrenotazione);
-        annuncioVisita.setPropostaPrenotazione(proposte);
-        annuncioVisitaFacade.create(annuncioVisita);
-        RichiestaCasa richiestaCasa = new RichiestaCasa();
-        richiestaCasa.setNumeroPosti(7);
-        richiestaCasaFacade.create(richiestaCasa);
-        RichiestaVisita richiestaVisita = new RichiestaVisita();
-        richiestaVisita.setAttrazione("museo");
-        Commento commento = new Commento();
-        commento.setCommento("commento annuncio prova");
-        List<Commento> commenti = richiestaVisita.getCommenti();
-        commenti.add(commento);
-        commento = new Commento();
-        commento.setCommento("commento annuncio prova");
-        commenti.add(commento);
-        richiestaVisita.setCommenti(commenti);
-        List<Opzione> opzioni = richiestaVisita.getOpzioni();
-        Opzione opzione = new Opzione();
-        opzione.setNome("opzione annuncio");
-        opzione.setValore("valore opzione");
-        opzioni.add(opzione);
-        richiestaVisita.setOpzioni(opzioni);
-        richiestaVisitaFacade.create(richiestaVisita);
-        long i = 2810;
-        Annuncio annuncio = annuncioFacade.find(i);
-        int k = 3;
-    }
+        //Controlla mapping con tabella UserComponent_Annuncio
+   }
     
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")

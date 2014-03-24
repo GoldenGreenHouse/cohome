@@ -4,9 +4,17 @@
         <servlet-name>MainServlet</servlet-name>
         <servlet-class>web.MainServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreaAnnuncioCasa</servlet-name>
+        <servlet-class>web.CreaAnnuncioCasa</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
         <url-pattern>/MainServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreaAnnuncioCasa</servlet-name>
+        <url-pattern>/CreaAnnuncioCasa</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -16,7 +24,7 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
-     <login-config>
+    <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>myFormRealm</realm-name>
         <form-login-config>
