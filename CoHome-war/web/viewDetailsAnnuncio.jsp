@@ -4,6 +4,8 @@
     Author     : Andr3A
 --%>
 
+<%@page import="java.util.ListIterator"%>
+<%@page import="ejb.Commento"%>
 <%@page import="java.net.URL"%>
 <%@page import="java.io.File"%>
 <%@page import="java.util.List"%>
@@ -13,6 +15,7 @@
 <jsp:useBean id="ricercaAnnunciCasa" scope="session" class="Bean.RicercaAnnunciCasa"/>
 <c:set var="index" value="${pageContext.request.getParameter('index')}"/>
 <c:set var="annuncio" value="${ricercaAnnunciCasa.getSingleAnnuncio(index)}"/>
+<% List<Commento> commenti= (List<Commento>)request.getAttribute("commenti"); %>
 
 <!DOCTYPE html>
 <html>
@@ -98,16 +101,16 @@
         </div>
         <div id="cointainerLeft">
             <!-- Nav tabs -->
-            <ul id="myTab" class="nav nav-tabs">
+           <!-- <ul id="myTab" class="nav nav-tabs">
               <li class="active"><a href="#foto" data-toggle="tab">Foto</a></li>
               <li class="mappa"><a href="#mappa" data-toggle="tab">Mappa</a></li>
               <li><a href="#descrizione" data-toggle="tab">Descrizione</a></li>
               <li><a href="#calendario" data-toggle="tab">Calendario</a></li>
               <li><a href="#regole" data-toggle="tab">Regole</a></li>
-            </ul>
+            </ul>-->
 
             <!-- Tab panes -->
-            <div id="myTabContent" class="tab-content">
+            <!--<div id="myTabContent" class="tab-content">
                 <div class="tab-pane active" id="foto">
                     <div id="navPhotos">
                         <a id="prev" href=""><img src="dist/image/button_prev.png" alt="Prev photo"></a>
@@ -130,20 +133,78 @@
                 </div>
                 <div class="tab-pane" id="mappa">
                     <div id="map-canvas" style="height:400px;"></div>
-                    <!--<script>
-                        addMarker(<c:out value="${annuncio.getLat()}"/>,<c:out value="${annuncio.getLng()}"/>);
-                    </script>!-->
+                   
                 </div>
                 <div class="tab-pane" id="descrizione"><c:out value="${annuncio.getDescrizione()}"/></div>
                 <div class="tab-pane" id="calendario">Calendario</div>
                 <div class="tab-pane" id="regole">Regole</div>
-            </div>
+            </div>-->
             
-         </div>
+         <ul id="myTab2" class="nav nav-tabs">
+                <li class="active"><a href="#commenti">Commenti</a></li>
+                <li><a href="#recensioni">Recensioni</a></li>
+            </ul>
+            
+            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addComment" style="float:right; margin: 10px;">+ Comment</button>
+            <!-- TabContent -->
+            <div class="tab-content" id="myTabContent">
+                <div id="commenti" class="tab-pane fade active in">
+                    <br>
+                    <% ListIterator<Commento> iter = commenti.listIterator();
+                            int c=0;
+                            while(iter.hasNext()){
+                                out.println("<div class=\"well well-lg\">");
+                                Commento a=iter.next();
+                    %>
+                    <h2><%= a.getAutore()%></h2><br>
+                    <%= a.getCommento()%><br><br>
+                    <a href="/CoHome-war/MainServlet?op=deleteCommento&id=<%= a.getId()%>"><font size="2">Cancella</font></a>
+                                
+                    <%
+                                out.println("</div> <br>");
+                                c++;
+                            }
+                    %>
+                </div>
+                
+                <div id="recensioni" class="tab-pane fade">
+                  <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+                </div>
+             
+            </div>
+        </div>
         
         <div id="cointainerRight">
-           <div id="buttonRichiestaPrenotazione"><a href="">Richiesta Prenotazione<a></div>
+            
         </div>
+        <!-- Modal -->
+        <div class="modal fade" id="addComment">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title">Modal title</h4>
+                </div>
+                  
+                <!-- Inizio del Form -->
+                <!-- Modificare parametricamente il passaggio dell'id utente -->
+                <form role="form" action="/CoHome-war/MainServlet">
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <label for="textComment">Commento...</label>
+                        <textarea name="newCommento" class="form-control" rows="3"></textarea>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <input type="hidden" value="addCommento" name="op">
+                      <input type="hidden" value="1" name="utente">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Add Comment</button>
+                    </div>
+                </form>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+         </div><!-- /.modal -->
          <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->

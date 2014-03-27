@@ -26,7 +26,8 @@ public class GestoreUtenti {
     private RegisteredFacadeLocal registeredFacade;
     @EJB
     private ModeratoreFacadeLocal moderatoreFacade;
-    
+    @EJB
+    private UserComponentFacadeLocal userComponentFacade;
     public void addModeratore(String moderatore){
         Moderatore utenteModeratore = new Moderatore();
         utenteModeratore.setEmail(moderatore);
@@ -60,6 +61,14 @@ public class GestoreUtenti {
         utenteGuest.setPassword(guest);
         guestFacade.create(utenteGuest);
     
+    }
+     public UserComponent findUtente(int id){
+        //registered? guest?
+        return userComponentFacade.find(id);
+    }
+     public List<UserComponent> findAllUtenti(){
+        //registered? guest?
+        return userComponentFacade.findAll();
     }
     
     // Add business logic below. (Right-click in editor and choose

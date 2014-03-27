@@ -9,9 +9,11 @@ package web;
 import Bean.RicercaAnnunciCasa;
 import ejb.Annuncio;
 import ejb.AnnuncioCasa;
+import ejb.Commento;
 import ejb.GestoreAnnunci;
 import ejb.GestoreCommenti;
 import ejb.GestoreUtenti;
+import ejb.UserComponent;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.Principal;
@@ -70,14 +72,44 @@ public class MainServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/viewAnnunci.jsp").forward(request,response);
         }
         if(action.equals("viewDettaglioAnnuncioCasa")){
-           int index = Integer.parseInt(request.getParameter("index"));         
+           int index = Integer.parseInt(request.getParameter("index")); 
+           List<Commento> c = gestoreCommenti.findAllCommenti(2);
+           request.setAttribute("commenti", c);
            getServletContext().getRequestDispatcher("/viewDetailsAnnuncio.jsp").forward(request,response);
         }
         if(action.equals("logout")){
             request.logout();
             getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
         }
+        if(action.equals("deleteCommento")){
+            int id = Integer.parseInt(request.getParameter("id"));
+            gestoreCommenti.deleteCommento(id);
+            getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
+        }
         
+        if(action.equals("addCommento")){
+            int id_utente;
+            String testoCommento;
+            UserComponent utente;
+            //testoCommento = request.getParameter("newCommento");
+            //id_utente = Integer.parseInt(request.getParameter("utente"));
+            utente = gestoreUtenti.findUtente(1);
+           
+            gestoreCommenti.addCommento(utente, "Prova1");
+            getServletContext().getRequestDispatcher("/viewDetailsAnnuncio.jsp").forward(request,response);
+        }
+        if(action.equals("addCommento2")){
+            int id_utente;
+            String testoCommento;
+            List<UserComponent> utente;
+            //testoCommento = request.getParameter("newCommento");
+            //id_utente = Integer.parseInt(request.getParameter("utente"));
+            utente = gestoreUtenti.findAllUtenti();
+            try (PrintWriter out = response.getWriter()) {
+                out.println(utente);
+            }
+            
+        }
         if(action.equals("jaas")){
             String message="";
             try (PrintWriter out = response.getWriter()) {
