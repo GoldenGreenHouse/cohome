@@ -38,7 +38,7 @@ public class MainServlet extends HttpServlet {
     @EJB
     private GestoreAnnunci gestoreAnnunci;
     
-    /**
+    /**  
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
@@ -67,7 +67,9 @@ public class MainServlet extends HttpServlet {
         }
         
         if(action.equals("cercaAnnunci")){
-            List<AnnuncioCasa> annunci=gestoreAnnunci.trovaAnnunciCasa();
+            //float lat= Float.parseFloat(request.getParameter("lat"));
+            //float lng= Float.parseFloat(request.getParameter("lng"));
+            List<AnnuncioCasa> annunci=gestoreAnnunci.trovaAnnunciCasa(new Float(45.070260),new Float(7.680389));
             request.setAttribute("annunci", annunci);
             getServletContext().getRequestDispatcher("/viewAnnunci.jsp").forward(request,response);
         }
@@ -91,25 +93,13 @@ public class MainServlet extends HttpServlet {
             int id_utente;
             String testoCommento;
             UserComponent utente;
-            //testoCommento = request.getParameter("newCommento");
-            //id_utente = Integer.parseInt(request.getParameter("utente"));
-            utente = gestoreUtenti.findUtente(1);
-           
+            testoCommento = request.getParameter("newCommento");
+            id_utente = Integer.parseInt(request.getParameter("utente"));
+            utente = gestoreUtenti.findUtente(1);        
             gestoreCommenti.addCommento(utente, "Prova1");
             getServletContext().getRequestDispatcher("/viewDetailsAnnuncio.jsp").forward(request,response);
         }
-        if(action.equals("addCommento2")){
-            int id_utente;
-            String testoCommento;
-            List<UserComponent> utente;
-            //testoCommento = request.getParameter("newCommento");
-            //id_utente = Integer.parseInt(request.getParameter("utente"));
-            utente = gestoreUtenti.findAllUtenti();
-            try (PrintWriter out = response.getWriter()) {
-                out.println(utente);
-            }
-            
-        }
+       
         if(action.equals("jaas")){
             String message="";
             try (PrintWriter out = response.getWriter()) {

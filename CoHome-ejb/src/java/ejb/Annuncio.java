@@ -32,7 +32,9 @@ import javax.persistence.Temporal;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @NamedNativeQuery(
 name="findAllAnnunciCasa",
-query="SELECT e.* FROM Annuncio e where e.dtype='AnnuncioCasa'",
+query="SELECT e.* FROM Annuncio e "
+        + "WHERE e.dtype='AnnuncioCasa' AND "
+        + "e.lat BETWEEN :lat-0.2 AND :lat+0.2 AND e.lng BETWEEN :lng-0.2 AND :lng+0.2",
 resultClass=AnnuncioCasa.class
 )
 public abstract class Annuncio implements Serializable {

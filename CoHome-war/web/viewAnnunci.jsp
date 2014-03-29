@@ -28,6 +28,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
     
     <script src="dist/js/mappaGoogle.js"></script>
+    
   </head>
   <body>
     <div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
@@ -53,6 +54,7 @@
     <div id="map">
         <div id="map-canvas"></div>
         <script>
+            //setLocalita("Torino, To, Italia");
             initialize();
         </script>
     </div>
@@ -105,14 +107,12 @@
             </ul>
         </div>
     </div>
-    <script>
-        
-    </script>
             
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>!-->
-    <script src="dist/js/bootstrap.min.js"></script>  
+    <script src="dist/js/bootstrap.min.js"></script>
+    
   </body>
 </html>

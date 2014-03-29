@@ -1,11 +1,24 @@
-var defaultLat=45.079958;
-var defaultLng=7.687942;
+var defaultLat=45.070982;
+var defaultLng=7.685676;
 var defaultZoom=13;
 var markers = new Array();
 var map;
 var count=0;
+
+$("#submit_location").click(function(){
+     var geocoder = new google.maps.Geocoder();
+     geocoder.geocode( { address: $("#location").val() }, function(results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+            defaultLat = results[0].geometry.location.lat();
+            defaultLng = results[0].geometry.location.lng(); 
+            $("#lat").val(results[0].geometry.location.lat());
+            $("#lng").val(results[0].geometry.location.lng());
+        }
+        else{alert("Errore Geocode creazion Mappa.");}
+     }); 
+});
+
 function initialize(lat,lng) {
-    
     var mapOptions = {
         zoom: defaultZoom,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -48,10 +61,9 @@ function initialize(lat,lng) {
     google.maps.event.addListener(map, 'bounds_changed', function() {
         var bounds = map.getBounds();
         searchBox.setBounds(bounds);
-    });
-    
-    
+    });    
 }
+
 function addMarker(lat,lng,id,index,titolo) {
     
     var marker = new google.maps.Marker({

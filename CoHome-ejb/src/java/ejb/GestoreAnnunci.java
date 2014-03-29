@@ -52,9 +52,8 @@ public class GestoreAnnunci {
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
 
-    public List<AnnuncioCasa> trovaAnnunciCasa() {
-        Query query = em.createNamedQuery("findAllAnnunciCasa");
-        //Query query = em.createQuery("SELECT a FROM Annuncio a");
+    public List<AnnuncioCasa> trovaAnnunciCasa(float lat, float lng) {
+        Query query = em.createNamedQuery("findAllAnnunciCasa").setParameter("lat", lat).setParameter("lng", lng);
         List<AnnuncioCasa> l = query.getResultList(); 
         return l;
     }

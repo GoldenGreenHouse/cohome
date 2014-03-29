@@ -32,6 +32,7 @@
         <script src="dist/js/jquery.ui.widget.js"></script>
         <script src="dist/js/jquery.ui.datepicker.js"></script>
         
+        <script src="dist/js/mappaGoogle.js"></script>
         <script type="text/javascript">
             window.onload=function initialize() {
                 var input = document.getElementById('location');
@@ -96,11 +97,11 @@
                     
                         <div class="login">
                             <form id="login_form" method="post" action="j_security_check">
-                                        <label for="login_name">Username: </label>
-                                        <input type="text" id="login_name" name="j_username" size="10" />
-                                        <label for="login_pass">Password: </label>
-                                        <input type="password" id="login_pass" name="j_password" size="10" />
-                                        <input type="submit" value="Login"  class="btn btn-success">
+                                <label for="login_name">Username: </label>
+                                <input type="text" id="login_name" name="j_username" size="10" />
+                                <label for="login_pass">Password: </label>
+                                <input type="password" id="login_pass" name="j_password" size="10" />
+                                <input type="submit" value="Login"  class="btn btn-success">
                             </form>
                         </div>
                     </c:when>
@@ -172,6 +173,8 @@
                                     </div>
                                 </div>
                                 <input type="hidden" value="cercaAnnunci" name="op">
+                                <input type="hidden" value="" id="lat"  name="lat"/>
+                                <input type="hidden" value="" id="lng"  name="lng"/>
                                 <button id="submit_location" class="btn btn-primary btn-large btn-contrast" type="submit">Cerca</button>
                             </form>
                         </div>
