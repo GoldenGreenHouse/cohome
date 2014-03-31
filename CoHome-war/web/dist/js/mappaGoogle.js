@@ -1,11 +1,11 @@
-var defaultLat=45.079958;
-var defaultLng=7.687942;
+var defaultLat=45.070982;
+var defaultLng=7.685676;
 var defaultZoom=13;
 var markers = new Array();
 var map;
 var count=0;
+
 function initialize(lat,lng) {
-    
     var mapOptions = {
         zoom: defaultZoom,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -48,10 +48,9 @@ function initialize(lat,lng) {
     google.maps.event.addListener(map, 'bounds_changed', function() {
         var bounds = map.getBounds();
         searchBox.setBounds(bounds);
-    });
-    
-    
+    });    
 }
+
 function addMarker(lat,lng,id,index,titolo) {
     
     var marker = new google.maps.Marker({

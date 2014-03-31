@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+
 /**
  *
  * @author marco
@@ -31,6 +32,7 @@ public class AnnuncioCasa extends Annuncio implements Serializable {
 
     public float getLng() {
         return lng;
+        
     }
 
     public void setLng(float lng) {

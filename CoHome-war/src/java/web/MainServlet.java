@@ -6,8 +6,7 @@
 
 package web;
 
-import Bean.RicercaAnnunciCasa;
-import ejb.Annuncio;
+
 import ejb.AnnuncioCasa;
 import ejb.Commento;
 import ejb.GestoreAnnunci;
@@ -21,6 +20,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +30,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Andr3A
  */
+@MultipartConfig
 public class MainServlet extends HttpServlet {
     @EJB
     private GestoreUtenti gestoreUtenti;
@@ -38,7 +39,7 @@ public class MainServlet extends HttpServlet {
     @EJB
     private GestoreAnnunci gestoreAnnunci;
     
-    /**
+    /**  
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
@@ -62,12 +63,14 @@ public class MainServlet extends HttpServlet {
         }
   
         if(action.equals("creaAnnuncioCasa")){
-            rd = getServletContext().getRequestDispatcher("/CreaAnnuncioCasa");
+            rd = getServletContext().getRequestDispatcher("/CreaAnnuncioCasaServlet");
             rd.forward(request,response);
         }
         
         if(action.equals("cercaAnnunci")){
-            List<AnnuncioCasa> annunci=gestoreAnnunci.trovaAnnunciCasa();
+            //double lat= Double.parseFloat(request.getParameter("lat"));
+            //double lng= Double.parseFloat(request.getParameter("lng"));
+            List<AnnuncioCasa> annunci=gestoreAnnunci.trovaAnnunciCasa(new Double(45.070260),new Double(7.680389));
             request.setAttribute("annunci", annunci);
             getServletContext().getRequestDispatcher("/viewAnnunci.jsp").forward(request,response);
         }

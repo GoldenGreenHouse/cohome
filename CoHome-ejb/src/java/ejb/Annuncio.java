@@ -19,6 +19,8 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -30,11 +32,16 @@ import javax.persistence.Temporal;
 @Table
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@NamedNativeQuery(
-name="findAllAnnunciCasa",
-query="SELECT e.* FROM Annuncio e where e.dtype='AnnuncioCasa'",
-resultClass=AnnuncioCasa.class
-)
+
+    @NamedNativeQuery(
+    name="findAllAnnunciCasa",
+    query="SELECT e.* FROM Annuncio e "
+       // + "WHERE e.dtype='AnnuncioCasa' AND e.lat BETWEEN minLat AND maxLat AND e.lng BETWEEN minLng AND maxLng",
+       + "WHERE e.dtype='AnnuncioCasa'",
+       resultClass=AnnuncioCasa.class
+    )
+
+
 public abstract class Annuncio implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
