@@ -115,8 +115,8 @@
             </div>
         </div>
         
-        <h1>Inserisci i dati dell'annuncio della disponibilita' di una casa</h1>
-           
+        
+          
         <div id="finestra" title="Gestione opzioni">
           <table>
               <tr>
@@ -141,7 +141,8 @@
               </tr>
           </table>
         </div>
-
+        <div class="container">
+        <h1>Inserisci i dati dell'annuncio della disponibilita' di una casa</h1>
         <form name="f1" method="POST" action="/CoHome-war/MainServlet" enctype="multipart/form-data">
         <!-- Nav tabs -->
             <ul id="myTab" class="nav nav-tabs">
@@ -180,7 +181,11 @@
 
                             <script type="text/javascript">
                                 $(document).ready(function(){
-$('#dataInizioId').datepicker({ dateFormat: 'dd/mm/yy' });
+                                    $('#dataInizioId').datepicker({ 
+                                        beforeShow: function(){    
+                                            $("#dataInizioId").css('font-size', 12) 
+                                        }
+                                    });
                                 });
                             </script>
                         </tr>
@@ -198,7 +203,11 @@ $('#dataInizioId').datepicker({ dateFormat: 'dd/mm/yy' });
 
                             <script type="text/javascript">
                                 $(document).ready(function(){
-                                    $('#dataFineId').datepicker({ dateFormat: 'dd/mm/yy' });
+                                    $('#dataFineId').datepicker({ 
+                                        beforeShow: function(){    
+                                            $("#dataFineId").css('font-size', 12) 
+                                        }
+                                    });
                                 });
                             </script>
                         </tr>
@@ -225,6 +234,7 @@ $('#dataInizioId').datepicker({ dateFormat: 'dd/mm/yy' });
             <input type="submit" class="btn btn-primary" value="invio" id="GetMaps1"/>
             <input type="hidden" name="op" value="creaAnnuncioCasa">
         </form>
+        </div>
         <!-- Bootstrap core JavaScript
 ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->

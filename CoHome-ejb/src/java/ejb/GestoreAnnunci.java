@@ -52,11 +52,18 @@ public class GestoreAnnunci {
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
 
-    public List<AnnuncioCasa> trovaAnnunciCasa(float lat, float lng) {
-        Query query = em.createNamedQuery("findAllAnnunciCasa").setParameter("lat", lat).setParameter("lng", lng);
+    public List<AnnuncioCasa> trovaAnnunciCasa(double lat, double lng) {
+        Query query;
+        query = em.createNamedQuery("findAllAnnunciCasa");
+               /* .setParameter("minLat", lat-0.2)
+                .setParameter("minLng", lng-0.2)
+                .setParameter("maxLat", lat+0.2)
+                .setParameter("maxLng", lng+0.2)*/
+               
         List<AnnuncioCasa> l = query.getResultList(); 
         return l;
     }
+  
 
     public void persist(Object object) {
         em.persist(object);

@@ -5,19 +5,6 @@ var markers = new Array();
 var map;
 var count=0;
 
-$("#submit_location").click(function(){
-     var geocoder = new google.maps.Geocoder();
-     geocoder.geocode( { address: $("#location").val() }, function(results, status) {
-        if (status === google.maps.GeocoderStatus.OK) {
-            defaultLat = results[0].geometry.location.lat();
-            defaultLng = results[0].geometry.location.lng(); 
-            $("#lat").val(results[0].geometry.location.lat());
-            $("#lng").val(results[0].geometry.location.lng());
-        }
-        else{alert("Errore Geocode creazion Mappa.");}
-     }); 
-});
-
 function initialize(lat,lng) {
     var mapOptions = {
         zoom: defaultZoom,

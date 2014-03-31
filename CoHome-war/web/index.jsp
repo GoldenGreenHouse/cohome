@@ -43,10 +43,10 @@
         <script>
         $(function() {
             $( "#checkin" ).datepicker({
-                numberOfMonths: 1,
+                numberOfMonths: 1,       
                 beforeShow: function(){    
                         $(".ui-datepicker").css('font-size', 12) 
-                    },
+                    },        
                 showButtonPanel: true,
                 minDate: 0
             });
@@ -261,7 +261,6 @@
             minDate:  new Date($( "#checkin" ).val())
         });
     });
-    
     </script>
 </body>
 </html>

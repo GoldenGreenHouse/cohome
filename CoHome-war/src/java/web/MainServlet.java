@@ -67,9 +67,9 @@ public class MainServlet extends HttpServlet {
         }
         
         if(action.equals("cercaAnnunci")){
-            //float lat= Float.parseFloat(request.getParameter("lat"));
-            //float lng= Float.parseFloat(request.getParameter("lng"));
-            List<AnnuncioCasa> annunci=gestoreAnnunci.trovaAnnunciCasa(new Float(45.070260),new Float(7.680389));
+            //double lat= Double.parseFloat(request.getParameter("lat"));
+            //double lng= Double.parseFloat(request.getParameter("lng"));
+            List<AnnuncioCasa> annunci=gestoreAnnunci.trovaAnnunciCasa(new Double(45.070260),new Double(7.680389));
             request.setAttribute("annunci", annunci);
             getServletContext().getRequestDispatcher("/viewAnnunci.jsp").forward(request,response);
         }
