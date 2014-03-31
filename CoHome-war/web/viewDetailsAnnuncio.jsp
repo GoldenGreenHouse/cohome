@@ -12,7 +12,7 @@
 <%@page import="ejb.AnnuncioCasa"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<jsp:useBean id="ricercaAnnunciCasa" scope="session" class="Bean.RicercaAnnunciCasa"/>
+<jsp:useBean id="ricercaAnnunciCasa" scope="session" class="bean.RicercaAnnunciCasa"/>
 <c:set var="index" value="${pageContext.request.getParameter('index')}"/>
 <c:set var="annuncio" value="${ricercaAnnunciCasa.getSingleAnnuncio(index)}"/>
 <% List<Commento> commenti= (List<Commento>)request.getAttribute("commenti"); %>

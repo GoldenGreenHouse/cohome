@@ -6,13 +6,24 @@
 
 package ejb;
 
+
+import bean.AnnuncioCasaBean;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
@@ -47,15 +58,124 @@ public class GestoreAnnunci {
     private AnnuncioFacadeLocal annuncioFacade;
     @EJB
     private AnnuncioCasaFacadeLocal annuncioCasaFacade;
+    @EJB
+    private UserComponentFacadeLocal userComponentFacade;
     
     @PersistenceContext(unitName = "CoHome-ejbPU")
     private EntityManager em;
    
 
    public void addAnnuncioCasa(AnnuncioCasa annuncioCasa){
-        annuncioCasaFacade.create(annuncioCasa);
-        //Controlla mapping con tabella UserComponent_Annuncio
+        long j = 601;
+        UserComponent userComponent = userComponentFacade.find(j);
+        List<Annuncio> annunci1 = userComponent.getAnnunci();
+        annunci1.add(annuncioCasa);
+        userComponent.setAnnunci(annunci1);
+        userComponentFacade.create(userComponent);
    }
+   
+   public void addAnnuncioCasa(AnnuncioCasaBean annuncioCasaBean){
+        int numeroPosti = 0;
+        String informazione = null;
+        String[] data = null;
+        Calendar dataGCI = new GregorianCalendar();
+        Calendar dataGCF= new GregorianCalendar();
+        AnnuncioCasa annuncioCasa = new AnnuncioCasa();
+        
+        annuncioCasa.setTitolo(annuncioCasaBean.getTitolo());
+        annuncioCasa.setIndirizzo(annuncioCasaBean.getIndirizzo());
+        
+        numeroPosti = Integer.parseInt(annuncioCasaBean.getNumeroPosti());
+        annuncioCasa.setNumeroPosti(numeroPosti);
+        
+        annuncioCasa.setDescrizione(annuncioCasaBean.getDescrizione());
+        annuncioCasa.setLocalita(annuncioCasaBean.getLocalita());
+        
+        informazione = annuncioCasaBean.getDataInizio();
+        data = informazione.split("/");
+        dataGCI.set(Integer.parseInt(data[2]),(Integer.parseInt(data[1]) -1),Integer.parseInt(data[0]));
+        annuncioCasa.setDataInizio(dataGCI);
+        
+        informazione = annuncioCasaBean.getDataFine();
+        data = informazione.split("/");
+        dataGCF.set(Integer.parseInt(data[2]),(Integer.parseInt(data[1]) -1),Integer.parseInt(data[0]));
+        annuncioCasa.setDataFine(dataGCF);
+        
+        String lat = annuncioCasaBean.getLat();
+        String lng = annuncioCasaBean.getLng();
+        float f_lat = 0;
+        float f_lng = 0;
+        try{
+            f_lat = Float.parseFloat(lat);
+            f_lng = Float.parseFloat(lng);
+        }catch(NumberFormatException ex){};
+        annuncioCasa.setLat(f_lat);
+        annuncioCasa.setLng(f_lng);
+        
+        //gestione opzioni
+        List<Opzione> opzioni = annuncioCasa.getOpzioni();
+        String[] opzioniStr = annuncioCasaBean.getOpzioniStr();
+        int len = opzioniStr.length;//rivedere
+        for(int j=0; j<len;j++){
+            data = opzioniStr[j].split("/");
+            Opzione opzione = new Opzione();
+            opzione.setNome(data[1]);
+            opzione.setValore(data[0]);
+            opzioni.add(opzione);
+        }
+        annuncioCasa.setOpzioni(opzioni);
+        
+        //salvataggio su db dell annuncio
+        long id = 1;
+        UserComponent userComponent = userComponentFacade.find(id);
+        List<Annuncio> annunci = userComponent.getAnnunci();
+        annunci.add(annuncioCasa);
+        userComponent.setAnnunci(annunci);
+        userComponentFacade.create(userComponent);
+        
+        //decompressione file
+        Long idAnnuncioCasa = annuncioCasa.getId();
+        System.out.println("idAnnuncioCasa: " + idAnnuncioCasa);
+        String zipName = annuncioCasaBean.getPathFile();
+        if(!zipName.equals("")){
+                try {
+                    FileInputStream fis = new FileInputStream(zipName);
+                    ZipInputStream zis = new ZipInputStream(new BufferedInputStream(fis));
+                    ZipEntry entry;
+                    //String Dir = "C:/immagini/" + idAnnuncioCasa;
+                    //String Dir = annuncioCasaBean.getPathDir()+"\\foto";
+                    String Dir = annuncioCasaBean.getPathDir() + "\\ann" + idAnnuncioCasa;
+                    System.out.println("Dir: " + Dir);
+                    boolean success = (new File(Dir)).mkdirs();
+                    if (success){
+                        // Read each entry from the ZipInputStream until no
+                        // more entry found indicated by a null return value
+                        // of the getNextEntry() method.
+                        while ((entry = zis.getNextEntry()) != null) {
+                            System.out.println("Unzipping: " + entry.getName());
+                            int size;
+                            byte[] buffer = new byte[2048];
+                            //FileOutputStream fos = new FileOutputStream("C:/immagini/" + idAnnuncioCasa + "/" + entry.getName());
+                            System.out.println("path dezippati: " + Dir + "\\" + entry.getName());
+                            FileOutputStream fos = new FileOutputStream(Dir + "\\" + entry.getName());
+                            BufferedOutputStream bos =new BufferedOutputStream(fos, buffer.length);
+                            while ((size = zis.read(buffer, 0, buffer.length)) != -1) {
+                                bos.write(buffer, 0, size);
+                            }
+                            bos.flush();
+                            bos.close();
+                        }
+                    }
+                    zis.close();
+                    fis.close();
+                    //File fileZip = new File("C:/immagini/" + nomeFile);
+                    File fileZip = new File(zipName);
+                    fileZip.delete();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+        }
+   } 
     
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")

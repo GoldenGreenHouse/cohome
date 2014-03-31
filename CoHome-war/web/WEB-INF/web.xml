@@ -5,16 +5,24 @@
         <servlet-class>web.MainServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CreaAnnuncioCasa</servlet-name>
-        <servlet-class>web.CreaAnnuncioCasa</servlet-class>
+        <servlet-name>CreaAnnuncioHouse</servlet-name>
+        <servlet-class>web.CreaAnnuncioHouse</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreaAnnuncioCasaServlet</servlet-name>
+        <servlet-class>web.CreaAnnuncioCasaServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
         <url-pattern>/MainServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CreaAnnuncioCasa</servlet-name>
-        <url-pattern>/CreaAnnuncioCasa</url-pattern>
+        <servlet-name>CreaAnnuncioHouse</servlet-name>
+        <url-pattern>/CreaAnnuncioHouse</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreaAnnuncioCasaServlet</servlet-name>
+        <url-pattern>/CreaAnnuncioCasaServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -11,7 +11,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% List<AnnuncioCasa> annunci= (List<AnnuncioCasa>)request.getAttribute("annunci"); %>
-<jsp:useBean id="ricercaAnnunciCasa" scope="session" class="Bean.RicercaAnnunciCasa"/>
+<jsp:useBean id="ricercaAnnunciCasa" scope="session" class="bean.RicercaAnnunciCasa"/>
 <% ricercaAnnunciCasa.setAnnunci(annunci); %>
 <!DOCTYPE html>
 <html style="overflow-y: hidden;">
