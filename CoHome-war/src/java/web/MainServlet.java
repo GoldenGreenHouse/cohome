@@ -82,33 +82,21 @@ public class MainServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
         }
         if(action.equals("deleteCommento")){
-            int id = Integer.parseInt(request.getParameter("id"));
-            gestoreCommenti.deleteCommento(id);
+            Long id = Long.parseLong(request.getParameter("id"));
+//            Long idAnnuncio = Long.parseLong(request.getParameter("idAnnuncio"));
+            gestoreCommenti.delCommento(id);
             getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
         }
         
         if(action.equals("addCommento")){
-            int id_utente;
+            Long idUtente;
+            Long idAnnuncio;
             String testoCommento;
-            UserComponent utente;
-            //testoCommento = request.getParameter("newCommento");
-            //id_utente = Integer.parseInt(request.getParameter("utente"));
-            utente = gestoreUtenti.findUtente(1);
-           
-            gestoreCommenti.addCommento(utente, "Prova1");
-            getServletContext().getRequestDispatcher("/viewDetailsAnnuncio.jsp").forward(request,response);
-        }
-        if(action.equals("addCommento2")){
-            int id_utente;
-            String testoCommento;
-            List<UserComponent> utente;
-            //testoCommento = request.getParameter("newCommento");
-            //id_utente = Integer.parseInt(request.getParameter("utente"));
-            utente = gestoreUtenti.findAllUtenti();
-            try (PrintWriter out = response.getWriter()) {
-                out.println(utente);
-            }
-            
+            testoCommento = request.getParameter("newCommento");
+            idUtente = Long.parseLong(request.getParameter("utente"));
+            idAnnuncio = Long.parseLong(request.getParameter("annuncio"));
+            gestoreCommenti.addCommento(idUtente, idAnnuncio, testoCommento);
+            getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
         }
         if(action.equals("jaas")){
             String message="";

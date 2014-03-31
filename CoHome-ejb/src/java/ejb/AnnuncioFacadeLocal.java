@@ -27,7 +27,7 @@ public interface AnnuncioFacadeLocal {
     List<Annuncio> findAll();
 
     List<Annuncio> findRange(int[] range);
-
+    
     int count();
     
 }

@@ -6,6 +6,7 @@
 
 package ejb;
 
+import java.math.BigInteger;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -22,9 +23,14 @@ import javax.persistence.Query;
 @LocalBean
 public class GestoreCommenti {
     @EJB
+    private UserComponentFacadeLocal userComponentFacade;
+    @EJB
+    private AnnuncioFacadeLocal annuncioFacade;
+    @EJB
     private CommentoFacadeLocal commentoFacade;
     @EJB
     private ModeratoreFacadeLocal moderatoreFacade;
+    
     @PersistenceContext(unitName = "CoHome-ejbPU")
     private EntityManager em;
     
@@ -50,24 +56,34 @@ public class GestoreCommenti {
         utenteModeratore.setRecensioni(recensioni);
         moderatoreFacade.create(utenteModeratore);    
     }
-     public void addCommento(UserComponent user, String commento){
+     public void addCommento(Long idUtente, Long idAnnuncio, String commento){
         Commento c = new Commento();
-        c.setAutore(user);
+        UserComponent u;
+        Annuncio a;
+        u = userComponentFacade.find(idUtente);
+//        a = annuncioFacade.find(idAnnuncio);
+        Query query = em.createNamedQuery("findAllAnnunciCasa");
+        a = (Annuncio) query.getResultList().get(1);
+        
+        a.getCommenti().add(c);
+        c.setAutore(u);
         c.setCommento(commento);
-        commentoFacade.create(c);
+        em.merge(a);
+        em.merge(u);
+        em.persist(c);
     }
     
-    public void delCommento(int id){
+    public void delCommento(Long id){
         Commento c;
         c = commentoFacade.find(id);
         commentoFacade.remove(c);
     }
     
-    public void deleteCommento(int id){
-        Query q;
-        q = em.createNamedQuery("deleteAnnuncioCommento").setParameter("id_commento", id);
-        q = em.createNamedQuery("deleteCommento").setParameter("id_commento", id);
-    }
+//    public void deleteCommento(int id){
+//        Query q;
+//        q = em.createNamedQuery("deleteAnnuncioCommento").setParameter("id_commento", id);
+//        q = em.createNamedQuery("deleteCommento").setParameter("id_commento", id);
+//    }
     
     public List<Commento> findAllCommenti(int id_annuncio){
        Query q;

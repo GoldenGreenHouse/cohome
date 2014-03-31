@@ -48,7 +48,7 @@ public abstract class Annuncio implements Serializable {
     private Calendar dataFine;
     private String descrizione;
     private String localita;
-    @OneToMany(cascade = ALL)
+    @OneToMany(cascade = ALL, orphanRemoval=true)
     private List<Commento> commenti = new ArrayList();
     @OneToMany(cascade = ALL)
     private List<PropostaPrenotazione> propostaPrenotazione = new ArrayList();

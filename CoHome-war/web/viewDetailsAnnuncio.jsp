@@ -154,7 +154,7 @@
                             int c=0;
                             while(iter.hasNext()){
                                 out.println("<div class=\"well well-lg\">");
-                                Commento a=iter.next();
+                                Commento a = iter.next();
                     %>
                     <h2><%= a.getAutore()%></h2><br>
                     <%= a.getCommento()%><br><br>
@@ -198,6 +198,7 @@
                     <div class="modal-footer">
                       <input type="hidden" value="addCommento" name="op">
                       <input type="hidden" value="1" name="utente">
+                      <input type="hidden" value="2" name="annuncio">
                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                       <button type="submit" class="btn btn-primary">Add Comment</button>
                     </div>
