@@ -6,6 +6,12 @@
 
 package ejb;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -63,8 +69,34 @@ public class GestoreAnnunci {
         List<AnnuncioCasa> l = query.getResultList(); 
         return l;
     }
-  
+    public void getCoordinate(String location){
+        String html="";
+        try {
+            String keyGoogle="AIzaSyBrpTzhnCt1GJVFXEfwSpj5_mV0iUsC51o";
+            URL url = new URL("https://maps.googleapis.com/maps/api/geocode/json?address="+location+"&sensor=true&key="+keyGoogle);              
+            HttpURLConnection connection = null;
 
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(2000);
+            int status=connection.getResponseCode();
+
+            BufferedReader read = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String line = read.readLine();
+            while(line!=null) {
+                 html += line;
+                 line = read.readLine();
+            }
+        } catch(MalformedURLException ex) {
+                        ex.printStackTrace();
+                        
+        } catch(IOException ioex) {
+                        ioex.printStackTrace();
+                       
+        }
+       //JSONObject o =  new JSONObject(html).getJSONObject("feed");
+       
+    }
+   
     public void persist(Object object) {
         em.persist(object);
     }
