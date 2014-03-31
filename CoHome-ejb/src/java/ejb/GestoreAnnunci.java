@@ -21,6 +21,8 @@ import javax.persistence.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.PersistenceContext;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -69,7 +71,8 @@ public class GestoreAnnunci {
         List<AnnuncioCasa> l = query.getResultList(); 
         return l;
     }
-    public void getCoordinate(String location){
+    
+    public void getCoordinate(String location) throws JSONException{
         String html="";
         try {
             String keyGoogle="AIzaSyBrpTzhnCt1GJVFXEfwSpj5_mV0iUsC51o";
@@ -93,8 +96,7 @@ public class GestoreAnnunci {
                         ioex.printStackTrace();
                        
         }
-       //JSONObject o =  new JSONObject(html).getJSONObject("feed");
-       
+       JSONObject o =  new JSONObject(html).getJSONObject("feed");     
     }
    
     public void persist(Object object) {
