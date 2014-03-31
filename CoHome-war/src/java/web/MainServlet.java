@@ -82,9 +82,14 @@ public class MainServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
         }
         if(action.equals("deleteCommento")){
-            Long id = Long.parseLong(request.getParameter("id"));
+            Long idUtente;
+            Long idAnnuncio;
+            Long id;
+            id = Long.parseLong(request.getParameter("id"));
 //            Long idAnnuncio = Long.parseLong(request.getParameter("idAnnuncio"));
-            gestoreCommenti.delCommento(id);
+            idUtente = Long.parseLong(request.getParameter("utente"));
+            idAnnuncio = Long.parseLong(request.getParameter("annuncio"));
+            gestoreCommenti.delCommento(id, idUtente, idAnnuncio);
             getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
         }
         

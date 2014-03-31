@@ -30,7 +30,7 @@ public class UserComponent implements Serializable {
     private String password;
     private String email;
     
-    @OneToMany(cascade = ALL, orphanRemoval=true)
+    @OneToMany(cascade = ALL)
     private List<Commento> commenti = new ArrayList();
     
     @OneToMany(cascade = ALL)

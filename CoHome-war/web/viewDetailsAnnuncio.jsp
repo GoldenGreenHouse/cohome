@@ -158,7 +158,8 @@
                     %>
                     <h2><%= a.getAutore()%></h2><br>
                     <%= a.getCommento()%><br><br>
-                    <a href="/CoHome-war/MainServlet?op=deleteCommento&id=<%= a.getId()%>"><font size="2">Cancella</font></a>
+                    <!-- utente e annuncio da fare in modo parametrico -->
+                    <a href="/CoHome-war/MainServlet?op=deleteCommento&id=<%= a.getId()%>&utente=1&annuncio=2"><font size="2">Cancella</font></a>
                                 
                     <%
                                 out.println("</div> <br>");
@@ -197,6 +198,7 @@
                     </div>
                     <div class="modal-footer">
                       <input type="hidden" value="addCommento" name="op">
+                      <!-- utente e annuncio da fare in modo parametrico -->
                       <input type="hidden" value="1" name="utente">
                       <input type="hidden" value="2" name="annuncio">
                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

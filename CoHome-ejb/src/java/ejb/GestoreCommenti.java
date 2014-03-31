@@ -8,6 +8,7 @@ package ejb;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.ListIterator;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
@@ -73,10 +74,22 @@ public class GestoreCommenti {
         em.persist(c);
     }
     
-    public void delCommento(Long id){
+    public void delCommento(Long id, Long idUtente, Long idAnnuncio){
         Commento c;
+        Annuncio a;
+        UserComponent u;
         c = commentoFacade.find(id);
-        commentoFacade.remove(c);
+        u = userComponentFacade.find(idUtente);
+        //        a = annuncioFacade.find(idAnnuncio);
+        Query query = em.createNamedQuery("findAllAnnunciCasa");
+        a = (Annuncio) query.getResultList().get(1);
+        
+        u.getCommenti().remove(c);
+        a.getCommenti().remove(a);
+        em.merge(u);
+        em.merge(a);
+        em.remove(c);
+        //commentoFacade.remove(c);
     }
     
 //    public void deleteCommento(int id){
