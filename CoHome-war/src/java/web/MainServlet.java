@@ -12,7 +12,6 @@ import ejb.Commento;
 import ejb.GestoreAnnunci;
 import ejb.GestoreCommenti;
 import ejb.GestoreUtenti;
-import ejb.UserComponent;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.Principal;
@@ -71,6 +70,7 @@ public class MainServlet extends HttpServlet {
             //double lat= Double.parseFloat(request.getParameter("lat"));
             //double lng= Double.parseFloat(request.getParameter("lng"));
             List<AnnuncioCasa> annunci=gestoreAnnunci.trovaAnnunciCasa(new Double(45.070260),new Double(7.680389));
+            gestoreAnnunci.getCoordinate(request.getParameter("location"));
             request.setAttribute("annunci", annunci);
             getServletContext().getRequestDispatcher("/viewAnnunci.jsp").forward(request,response);
         }
@@ -106,6 +106,7 @@ public class MainServlet extends HttpServlet {
             gestoreCommenti.addCommento(idUtente, idAnnuncio, testoCommento);
             getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
         }
+        
         if(action.equals("jaas")){
             String message="";
             try (PrintWriter out = response.getWriter()) {

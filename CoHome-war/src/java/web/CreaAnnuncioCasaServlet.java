@@ -11,7 +11,6 @@ import ejb.GestoreAnnunci;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -102,15 +101,15 @@ public class CreaAnnuncioCasaServlet extends HttpServlet {
         annuncioCasaBean.setPathDir(path);
         gestoreAnnunci.addAnnuncioCasa(annuncioCasaBean);
     }
-     private static String getFilename(Part part) {
-       for (String cd : part.getHeader("content-disposition").split(";")) {
-          if (cd.trim().startsWith("filename")) {
-             String filename = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
-             return filename.substring(filename.lastIndexOf('/') + 1).substring(filename.lastIndexOf('\\') + 1); // MSIE fix.
-          }
-       }
-       return null;
-    }
+    private static String getFilename(Part part) {
+      for (String cd : part.getHeader("content-disposition").split(";")) {
+         if (cd.trim().startsWith("filename")) {
+            String filename = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
+            return filename.substring(filename.lastIndexOf('/') + 1).substring(filename.lastIndexOf('\\') + 1); // MSIE fix.
+         }
+      }
+      return null;
+   }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

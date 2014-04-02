@@ -35,6 +35,8 @@ import javax.persistence.PersistenceContext;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
+
 /**
  *
  * @author marco
@@ -193,6 +195,7 @@ public class GestoreAnnunci {
     }
     
     public void getCoordinate(String location) throws JSONException{
+        System.out.println(location);
         String html="";
         try {
             String keyGoogle="AIzaSyBrpTzhnCt1GJVFXEfwSpj5_mV0iUsC51o";
@@ -216,7 +219,8 @@ public class GestoreAnnunci {
                         ioex.printStackTrace();
                        
         }
-       JSONObject o =  new JSONObject(html).getJSONObject("feed");     
+        //JSONObject o =  new JSONObject(html);
+        System.out.println(html);
     }
    
     public void persist(Object object) {
