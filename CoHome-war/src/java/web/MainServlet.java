@@ -24,6 +24,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.json.JSONException;
+
+
 
 /**
  *
@@ -70,7 +73,9 @@ public class MainServlet extends HttpServlet {
             //double lat= Double.parseFloat(request.getParameter("lat"));
             //double lng= Double.parseFloat(request.getParameter("lng"));
             List<AnnuncioCasa> annunci=gestoreAnnunci.trovaAnnunciCasa(new Double(45.070260),new Double(7.680389));
-            gestoreAnnunci.getCoordinate(request.getParameter("location"));
+            try{
+                gestoreAnnunci.getCoordinate(request.getParameter("location"));
+            }catch(JSONException e){}
             request.setAttribute("annunci", annunci);
             getServletContext().getRequestDispatcher("/viewAnnunci.jsp").forward(request,response);
         }

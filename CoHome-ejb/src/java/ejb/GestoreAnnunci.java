@@ -195,17 +195,18 @@ public class GestoreAnnunci {
     }
     
     public void getCoordinate(String location) throws JSONException{
-        System.out.println(location);
+        System.out.println(location.trim());
         String html="";
         try {
             String keyGoogle="AIzaSyBrpTzhnCt1GJVFXEfwSpj5_mV0iUsC51o";
-            URL url = new URL("https://maps.googleapis.com/maps/api/geocode/json?address="+location+"&sensor=true&key="+keyGoogle);              
+            URL url = new URL("https://maps.googleapis.com/maps/api/geocode/json?address="+location.replaceAll(" ", "")+"&sensor=true&key="+keyGoogle);                     
             HttpURLConnection connection = null;
 
             connection = (HttpURLConnection) url.openConnection();
             connection.setConnectTimeout(2000);
+            connection.setRequestProperty("Content-Length", "0");
             int status=connection.getResponseCode();
-
+            System.out.println(status);
             BufferedReader read = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line = read.readLine();
             while(line!=null) {
@@ -214,13 +215,13 @@ public class GestoreAnnunci {
             }
         } catch(MalformedURLException ex) {
                         ex.printStackTrace();
-                        
         } catch(IOException ioex) {
                         ioex.printStackTrace();
-                       
         }
-        //JSONObject o =  new JSONObject(html);
-        System.out.println(html);
+        JSONObject o =  new JSONObject(html);
+        JSONObject a = new JSONObject(o.getJSONArray("results").get(0));
+        System.out.println("JSON:"+o);
+        System.out.println("JSON:"+o.getJSONArray("results").get(0));
     }
    
     public void persist(Object object) {
