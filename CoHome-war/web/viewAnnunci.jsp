@@ -55,7 +55,7 @@
         <div id="map-canvas"></div>
         <script>
             //setLocalita("Torino, To, Italia");
-            initialize();
+            initialize(<c:out value="${lat}"/>,<c:out value="${lng}"/>);
         </script>
     </div>
     <div class="search-results">

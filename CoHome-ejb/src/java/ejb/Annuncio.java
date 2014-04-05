@@ -36,8 +36,8 @@ import javax.persistence.Temporal;
     @NamedNativeQuery(
     name="findAllAnnunciCasa",
     query="SELECT e.* FROM Annuncio e "
-       // + "WHERE e.dtype='AnnuncioCasa' AND e.lat BETWEEN minLat AND maxLat AND e.lng BETWEEN minLng AND maxLng",
-       + "WHERE e.dtype='AnnuncioCasa'",
+       + "WHERE e.dtype='AnnuncioCasa' AND e.lat BETWEEN ?minLat AND ?maxLat AND e.lng BETWEEN ?minLng AND ?maxLng",
+      // + "WHERE e.dtype='AnnuncioCasa'",
        resultClass=AnnuncioCasa.class
     )
 

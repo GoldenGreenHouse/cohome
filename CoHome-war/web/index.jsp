@@ -173,8 +173,6 @@
                                     </div>
                                 </div>
                                 <input type="hidden" value="cercaAnnunci" name="op">
-                                <input type="hidden" value="" id="lat"  name="lat"/>
-                                <input type="hidden" value="" id="lng"  name="lng"/>
                                 <button id="submit_location" class="btn btn-primary btn-large btn-contrast" type="submit">Cerca</button>
                             </form>
                         </div>

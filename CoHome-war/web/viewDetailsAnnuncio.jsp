@@ -14,6 +14,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="ricercaAnnunciCasa" scope="session" class="bean.RicercaAnnunciCasa"/>
 <c:set var="index" value="${pageContext.request.getParameter('index')}"/>
+<c:set var="lat" value="${pageContext.request.getParameter('lat')}"/>
+<c:set var="lng" value="${pageContext.request.getParameter('lng')}"/>
 <c:set var="annuncio" value="${ricercaAnnunciCasa.getSingleAnnuncio(index)}"/>
 <% List<Commento> commenti= (List<Commento>)request.getAttribute("commenti"); %>
 
@@ -215,7 +217,7 @@
         <script src="dist/js/bootstrap.min.js"></script> 
         <script>
              $( ".mappa").click(function() {
-                initialize(<c:out value="${annuncio.getLat()}"/>,<c:out value="${annuncio.getLng()}"/>);
+                initializeSingleMarker(<c:out value="${annuncio.getLat()}"/>,<c:out value="${annuncio.getLng()}"/>);
              });
         </script>
         

@@ -32,6 +32,7 @@ import javax.persistence.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.PersistenceContext;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -184,17 +185,17 @@ public class GestoreAnnunci {
 
     public List<AnnuncioCasa> trovaAnnunciCasa(double lat, double lng) {
         Query query;
-        query = em.createNamedQuery("findAllAnnunciCasa");
-               /* .setParameter("minLat", lat-0.2)
+        query = em.createNamedQuery("findAllAnnunciCasa")
+               .setParameter("minLat", lat-0.2)
                 .setParameter("minLng", lng-0.2)
                 .setParameter("maxLat", lat+0.2)
-                .setParameter("maxLng", lng+0.2)*/
+                .setParameter("maxLng", lng+0.2);
                
         List<AnnuncioCasa> l = query.getResultList(); 
         return l;
     }
     
-    public void getCoordinate(String location) throws JSONException{
+    public JSONObject getCoordinate(String location) throws JSONException{
         System.out.println(location.trim());
         String html="";
         try {
@@ -206,7 +207,7 @@ public class GestoreAnnunci {
             connection.setConnectTimeout(2000);
             connection.setRequestProperty("Content-Length", "0");
             int status=connection.getResponseCode();
-            System.out.println(status);
+            //System.out.println(status);
             BufferedReader read = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line = read.readLine();
             while(line!=null) {
@@ -219,9 +220,9 @@ public class GestoreAnnunci {
                         ioex.printStackTrace();
         }
         JSONObject o =  new JSONObject(html);
-        JSONObject a = new JSONObject(o.getJSONArray("results").get(0));
-        System.out.println("JSON:"+o);
-        System.out.println("JSON:"+o.getJSONArray("results").get(0));
+        JSONObject a = new JSONObject(o.optJSONArray("results").optString(0));
+ 
+        return(a.getJSONObject("geometry").getJSONObject("location"));
     }
    
     public void persist(Object object) {
