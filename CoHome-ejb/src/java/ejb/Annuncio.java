@@ -37,8 +37,7 @@ import javax.persistence.Temporal;
     name="findAllAnnunciCasa",
     query="SELECT e.* FROM Annuncio e "
        + "WHERE e.dtype='AnnuncioCasa' AND e.lat BETWEEN ?minLat AND ?maxLat AND e.lng BETWEEN ?minLng AND ?maxLng",
-      // + "WHERE e.dtype='AnnuncioCasa'",
-       resultClass=AnnuncioCasa.class
+      resultClass=AnnuncioCasa.class
     )
 
 

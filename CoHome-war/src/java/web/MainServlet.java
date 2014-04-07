@@ -12,6 +12,7 @@ import ejb.Commento;
 import ejb.GestoreAnnunci;
 import ejb.GestoreCommenti;
 import ejb.GestoreUtenti;
+import ejb.UserComponent;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.Principal;
@@ -59,7 +60,10 @@ public class MainServlet extends HttpServlet {
         String action= request.getParameter("op");
         String str = "";
         Principal principal = request.getUserPrincipal();
-        
+        if(principal!=null && s.getAttribute("userID")==null){
+           UserComponent u = gestoreUtenti.findUtenteFromName(principal.getName());
+           s.setAttribute("userID", u.getId());
+        }
         if(action.equals("InserisciAnnuncioCasa")){
             rd = getServletContext().getRequestDispatcher("/AnnuncioCasa.jsp");
             rd.forward(request,response);
@@ -88,6 +92,7 @@ public class MainServlet extends HttpServlet {
            request.setAttribute("commenti", c);
            getServletContext().getRequestDispatcher("/viewDetailsAnnuncio.jsp").forward(request,response);
         }
+        
         if(action.equals("logout")){
             request.logout();
             getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
@@ -98,7 +103,7 @@ public class MainServlet extends HttpServlet {
             Long idAnnuncio;
             Long id;
             id = Long.parseLong(request.getParameter("id"));
-//            Long idAnnuncio = Long.parseLong(request.getParameter("idAnnuncio"));
+//          Long idAnnuncio = Long.parseLong(request.getParameter("idAnnuncio"));
             idUtente = Long.parseLong(request.getParameter("utente"));
             idAnnuncio = Long.parseLong(request.getParameter("annuncio"));
             gestoreCommenti.delCommento(id, idUtente, idAnnuncio);
@@ -116,18 +121,52 @@ public class MainServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
         }
         
-        if(action.equals("jaas")){
+        if(action.equals("registrazione")){
+            UserComponent c = new UserComponent();
+            c.setEmail("xxandrea87@msn.com");
+            c.setName("Andrea");
+            c.setPassword("5f3d6952c5c5e22077fabf461de80f1ce475752fe75afcf5ca46bac438405619");
+            c.setRuolo("admin");
+            c.setUsername("andrea");
+            gestoreUtenti.addUtente(c);
+            c = new UserComponent();
+            c.setEmail("marco.camino@msn.com");
+            c.setName("Marco");
+            c.setPassword("7c8ccc86c11654af029457d90fdd9d013ce6fb011ee8fdb1374832268cc8d967");
+            c.setRuolo("admin");
+            c.setUsername("marco");
+            gestoreUtenti.addUtente(c);
+            c = new UserComponent();
+            c.setEmail("ale@msn.com");
+            c.setName("Alessandro");
+            c.setPassword("5c85bb36f3869809fb738a3ba6f990aedbfeca3df2dc1a997fa49c50d0eed8e6");
+            c.setRuolo("moderatore");
+            c.setUsername("ale");
+            gestoreUtenti.addUtente(c);
+            c = new UserComponent();
+            c.setEmail("geust@msn.com");
+            c.setName("Guest");
+            c.setPassword("84983c60f7daadc1cb8698621f802c0d9f9a3c3c295c810748fb048115c186ec");
+            c.setRuolo("guest");
+            c.setUsername("guest");
+            gestoreUtenti.addUtente(c);
+        }
+        if(action.equals("jaas2")){
             String message="";
             try (PrintWriter out = response.getWriter()) {
+                if(principal != null && s.getAttribute("userID") != null){
+                    Long userID = (Long) s.getAttribute("userID");
+                    message += "id: " + userID;
+                }
                 if(request.isUserInRole("administrator")){
-                    message = "Username : " + principal.getName() + " You are an Administrator";
+                    message += "Username : " + principal.getName() + " You are an Administrator";
                 }else if(request.isUserInRole("moderatore")){
-                    message = "Username : " + principal.getName() + " You are a Moderatore";
+                    message += "Username : " + principal.getName() + " You are a Moderatore";
                 }else if(request.isUserInRole("guest")){
-                    message = "Username : " + principal.getName() + " You are a Guest";
+                    message += "Username : " + principal.getName() + " You are a Guest";
                 }
                 else{
-                    message = " You're simply user";
+                    message += " You're simply user";
                 }
                 out.println(message);
             }

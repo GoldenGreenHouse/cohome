@@ -187,9 +187,9 @@ public class GestoreAnnunci {
         Query query;
         query = em.createNamedQuery("findAllAnnunciCasa")
                .setParameter("minLat", lat-0.2)
-                .setParameter("minLng", lng-0.2)
-                .setParameter("maxLat", lat+0.2)
-                .setParameter("maxLng", lng+0.2);
+               .setParameter("minLng", lng-0.2)
+               .setParameter("maxLat", lat+0.2)
+               .setParameter("maxLng", lng+0.2);
                
         List<AnnuncioCasa> l = query.getResultList(); 
         return l;

@@ -12,6 +12,9 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,41 +31,14 @@ public class GestoreUtenti {
     private ModeratoreFacadeLocal moderatoreFacade;
     @EJB
     private UserComponentFacadeLocal userComponentFacade;
-    public void addModeratore(String moderatore){
-        Moderatore utenteModeratore = new Moderatore();
-        utenteModeratore.setEmail(moderatore);
-        utenteModeratore.setPassword(moderatore);
-        AnnuncioCasa annuncioCasa = new AnnuncioCasa();
-        annuncioCasa.setDescrizione("annuncio da gestUtenti");
-        List<Annuncio> annunci = utenteModeratore.getAnnunci();
-        annunci.add(annuncioCasa);
-        //annunci.add(annuncioCasa);
-        utenteModeratore.setAnnunci(annunci);
-        moderatoreFacade.create(utenteModeratore);
-    }
-
-    public void addRegistered(String registered){
-        Registered utenteRegistered = new Registered();
-        utenteRegistered.setEmail(registered);
-        utenteRegistered.setPassword(registered);
-        Prenotazione prenotazione = new Prenotazione();
-        Calendar data = new GregorianCalendar();
-        data.set(2013, 12, 14);
-        prenotazione.setDataPrenotazione(data);
-        List<Prenotazione> prenotazioni = utenteRegistered.getPrenotazioni();
-        prenotazioni.add(prenotazione);
-        utenteRegistered.setPrenotazioni(prenotazioni);
-        registeredFacade.create(utenteRegistered);
-    }  
     
-    public void addGuest(String guest){
-        Guest utenteGuest = new Guest();
-        utenteGuest.setEmail(guest);
-        utenteGuest.setPassword(guest);
-        guestFacade.create(utenteGuest);
+    @PersistenceContext(unitName = "CoHome-ejbPU")
+    private EntityManager em;
     
+    public void addUtente(UserComponent c) {
+        userComponentFacade.create(c);
     }
-     public UserComponent findUtente(int id){
+    public UserComponent findUtente(int id){
         //registered? guest?
         return userComponentFacade.find(id);
     }
@@ -70,7 +46,11 @@ public class GestoreUtenti {
         //registered? guest?
         return userComponentFacade.findAll();
     }
-    
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+
+    public UserComponent findUtenteFromName(String name) {
+        Query query;
+        query = em.createQuery("select u from UserComponent u where u.username='"+name+"'");
+        UserComponent l = (UserComponent) query.getSingleResult(); 
+        return l;
+    }
 }

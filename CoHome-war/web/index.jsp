@@ -215,10 +215,10 @@
                     </c:choose>           
                 </div>
                 <div class="col-xs-4">
-                    <h2>Inserisci Annuncio</h2>
+                    <h2>Registrati</h2>
                     <p>Condividi la tua casa in pochissimi passi.</p>
                     <img width="192" height="192" src="dist/image/home.png">
-                    <p><a href="/CoHome-war/MainServlet?op=inserisciAnnuncio"  class="btn btn-primary">Inserisci Annuncio</a></p>
+                    <p><a href="/CoHome-war/MainServlet?op=registrazione"  class="btn btn-primary">Registrati</a></p>
                 </div>
             </div>
             <hr>

@@ -82,13 +82,9 @@
                             </a>
                         </div>
                         <div class="listing-footer clearfix">
-                            <a class="media-link media-photo host-img" href="/CoHome-war/MainServlet?op=viewDettaglioAnnuncioCasa&index=<c:out value='${c.index-1}'/>">
-                                <img src="https://a1.muscache.com/ic/users/3647027/profile_pic/1348479910/original.jpg?interpolation=progressive-bicubic&amp;crop=w:w;*,*&amp;crop=h:h;*,*&amp;resize=50:*&amp;output-format=jpg&amp;output-quality=85">
-                            </a>
                             <a title="Stanza privata | Torino" href="/CoHome-war/MainServlet?op=viewDettaglioAnnuncioCasa&index=<c:out value='${c.index}'/>" class="listing-quick-info">
                                 <span class="listing-room-type">
-                                    <c:out value="${a.getIndirizzo()}"/><br>
-                                    <c:out value="${a.getLocalita()}"/>
+                                    <strong>&nbsp;Indirizzo: </strong><c:out value="${a.getIndirizzo()}"/><br>
                                 </span>
                             </a>
                         </div>

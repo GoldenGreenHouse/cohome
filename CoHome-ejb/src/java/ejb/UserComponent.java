@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToMany;
 
 /**
@@ -21,14 +22,17 @@ import javax.persistence.OneToMany;
  * @author marco
  */
 @Entity
+
 public class UserComponent implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    
+    private String username;
+    private String name;
     private String password;
     private String email;
+    private String ruolo;
     
     @OneToMany(cascade = ALL)
     private List<Commento> commenti = new ArrayList();
@@ -109,6 +113,30 @@ public class UserComponent implements Serializable {
         this.id = id;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getRuolo() {
+        return ruolo;
+    }
+
+    public void setRuolo(String ruolo) {
+        this.ruolo = ruolo;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
