@@ -7,7 +7,7 @@
 package ejb;
 
 
-import bean.AnnuncioCasaBean;
+import ejb.AnnuncioCasaBean;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -35,8 +35,6 @@ import javax.persistence.PersistenceContext;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-
 
 /**
  *
@@ -66,18 +64,17 @@ public class GestoreAnnunci {
     
     @PersistenceContext(unitName = "CoHome-ejbPU")
     private EntityManager em;
-   
-
-   public void addAnnuncioCasa(AnnuncioCasa annuncioCasa){
-        long j = 601;
+    
+    public void addAnnuncioCasa(AnnuncioCasa annuncioCasa){
+        long j = 751;
         UserComponent userComponent = userComponentFacade.find(j);
         List<Annuncio> annunci1 = userComponent.getAnnunci();
         annunci1.add(annuncioCasa);
         userComponent.setAnnunci(annunci1);
         userComponentFacade.create(userComponent);
+       
    }
-   
-   public void addAnnuncioCasa(AnnuncioCasaBean annuncioCasaBean){
+    public void addAnnuncioCasa(AnnuncioCasaBean annuncioCasaBean){
         int numeroPosti = 0;
         String informazione = null;
         String[] data = null;
@@ -129,7 +126,7 @@ public class GestoreAnnunci {
         annuncioCasa.setOpzioni(opzioni);
         
         //salvataggio su db dell annuncio
-        long id = 1;
+        long id = 751;
         UserComponent userComponent = userComponentFacade.find(id);
         List<Annuncio> annunci = userComponent.getAnnunci();
         annunci.add(annuncioCasa);

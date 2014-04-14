@@ -121,6 +121,11 @@ public class MainServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
         }
         
+        if(action.equals("provaAjax")){
+            response.getWriter().write(request.getParameter("checkin")+" "+request.getParameter("checkout")+" "+request.getParameter("guests")+" "+request.getParameter("desc"));
+            //response.sendError(400, "Errore");
+        }
+        
         if(action.equals("registrazione")){
             UserComponent c = new UserComponent();
             c.setEmail("xxandrea87@msn.com");
@@ -151,6 +156,7 @@ public class MainServlet extends HttpServlet {
             c.setUsername("guest");
             gestoreUtenti.addUtente(c);
         }
+        
         if(action.equals("jaas2")){
             String message="";
             try (PrintWriter out = response.getWriter()) {

@@ -6,7 +6,7 @@
 
 package web;
 
-import bean.AnnuncioCasaBean;
+import ejb.AnnuncioCasaBean;
 import ejb.GestoreAnnunci;
 import java.io.FileOutputStream;
 import java.io.IOException;

@@ -349,4 +349,8 @@ div.listing-img div.listing-img-container img{
     color:white;
     text-decoration: none;
 }
+#checkinWrapper,#checkoutWrapper,#posti,.custom-select-container{
+    display:inline !important;
+}
+
 /*-------------------------- FINE viewDetailsAnnuncio.jsp --------------------*/

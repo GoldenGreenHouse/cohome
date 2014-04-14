@@ -7,8 +7,10 @@
 package ejb;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import static javax.persistence.CascadeType.ALL;
 import javax.persistence.DiscriminatorColumn;
@@ -84,6 +86,20 @@ public abstract class Annuncio implements Serializable {
 
     public void setDataFine(Calendar dataFine) {
         this.dataFine = dataFine;
+    }
+    
+    public String getDataInizioString() {
+        Date date = new Date(dataInizio.getTimeInMillis());
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        String formattedDate = sdf.format(date);
+        return formattedDate;
+    }
+
+    public String getDataFineString() {
+        Date date = new Date(dataFine.getTimeInMillis());
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        String formattedDate = sdf.format(date);
+        return formattedDate;
     }
 
     public List<PropostaPrenotazione> getPropostaPrenotazione() {

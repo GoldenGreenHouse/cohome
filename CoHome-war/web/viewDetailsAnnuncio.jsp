@@ -28,29 +28,18 @@
         <!-- Custom styles for this template -->
         <link rel="stylesheet" href="dist/css/template-cohome.css">
         <link rel="stylesheet" href="dist/css/excite-bike/jquery-ui-1.10.4.custom.css">
-        
-        <script src="dist/js/jquery-1.10.2.js"></script>
+        <script type="text/javascript" src="dist/js/jquery-1.10.1.min.js"></script>
+        <!--<script src="dist/js/jquery-1.10.2.js"></script>!-->
         <script src="dist/js/jquery-ui-1.10.4.custom.js"></script>
         <!--<script type="text/javascript" src="dist/js/jquery_cycle.js"></script>!-->
-       <script type="text/javascript" src=" http://malsup.github.io/jquery.cycle.all.js"></script>
+        <script type="text/javascript" src=" http://malsup.github.io/jquery.cycle.all.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
         <script src="dist/js/mappaGoogle.js"></script>
-        <!--<script type="text/javascript">
-            $(document).ready(function() {
-              $('#photos').cycle({
-                fx:'fade',
-                speed:  1000,
-                timeout: 2000,
-                pager:  '#thumbnails ul',
-                next:   '#next',
-                prev:   '#prev',
-                pagerAnchorBuilder: function(idx, slide) {
-                    return '<li class="thumb"><a href="#" title="Thumbnail"><img width="40" height="40" src="' + slide.src + '"/></a></li>';
-                }
-              });
-            });
-        </script>!-->
-        <script>
+        <script src="dist/js/jquery.ui.core.js"></script>
+        <script src="dist/js/jquery.ui.widget.js"></script>
+        <script src="dist/js/jquery.ui.datepicker.js"></script>
+        
+        <!--<script>
             $(document).ready(function() {
                 $('#photos').cycle({
                     fx: 'fade',
@@ -71,12 +60,16 @@
                       loadingCompleteCallback: myCallback
                 });
             });
-        </script>
-       
+        </script>!-->
         <title>Dettaglio Annuncio</title>
     </head>
     <body>
-        
+        <div id="start" style="display:none">
+            <c:out value="${annuncio.getDataInizioString()}"/>
+        </div>
+        <div id="end" style="display:none">
+            <c:out value="${annuncio.getDataFineString()}"/>
+        </div>    
          <div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -103,16 +96,16 @@
         </div>
         <div id="cointainerLeft">
             <!-- Nav tabs -->
-           <!-- <ul id="myTab" class="nav nav-tabs">
+           <ul id="myTab" class="nav nav-tabs">
               <li class="active"><a href="#foto" data-toggle="tab">Foto</a></li>
               <li class="mappa"><a href="#mappa" data-toggle="tab">Mappa</a></li>
               <li><a href="#descrizione" data-toggle="tab">Descrizione</a></li>
               <li><a href="#calendario" data-toggle="tab">Calendario</a></li>
               <li><a href="#regole" data-toggle="tab">Regole</a></li>
-            </ul>-->
+            </ul>
 
             <!-- Tab panes -->
-            <!--<div id="myTabContent" class="tab-content">
+            <div id="myTabContent" class="tab-content">
                 <div class="tab-pane active" id="foto">
                     <div id="navPhotos">
                         <a id="prev" href=""><img src="dist/image/button_prev.png" alt="Prev photo"></a>
@@ -137,89 +130,175 @@
                     <div id="map-canvas" style="height:400px;"></div>
                    
                 </div>
-                <div class="tab-pane" id="descrizione"><c:out value="${annuncio.getDescrizione()}"/></div>
+                <div class="tab-pane" id="descrizione"><c:out escapeXml="false" value="${annuncio.getDescrizione()}"/></div>
                 <div class="tab-pane" id="calendario">Calendario</div>
                 <div class="tab-pane" id="regole">Regole</div>
-            </div>-->
-            
-         <ul id="myTab2" class="nav nav-tabs">
-                <li class="active"><a href="#commenti">Commenti</a></li>
-                <li><a href="#recensioni">Recensioni</a></li>
-            </ul>
-            
-            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addComment" style="float:right; margin: 10px;">+ Comment</button>
-            <!-- TabContent -->
-            <div class="tab-content" id="myTabContent">
-                <div id="commenti" class="tab-pane fade active in">
-                    <br>
-                    <% ListIterator<Commento> iter = commenti.listIterator();
-                            int c=0;
-                            while(iter.hasNext()){
-                                out.println("<div class=\"well well-lg\">");
-                                Commento a = iter.next();
-                    %>
-                    <h2><%= a.getAutore()%></h2><br>
-                    <%= a.getCommento()%><br><br>
-                    <!-- utente e annuncio da fare in modo parametrico -->
-                    <a href="/CoHome-war/MainServlet?op=deleteCommento&id=<%= a.getId()%>&utente=1&annuncio=2"><font size="2">Cancella</font></a>
-                                
-                    <%
-                                out.println("</div> <br>");
-                                c++;
-                            }
-                    %>
-                </div>
-                
-                <div id="recensioni" class="tab-pane fade">
-                  <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
-                </div>
-             
             </div>
+            
+            <ul id="myTab2" class="nav nav-tabs">
+                   <li class="active"><a href="#commenti">Commenti</a></li>
+            </ul>
+
+           <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addComment" style="float:right; margin: 10px;">+ Comment</button>
+           <!-- TabContent -->
+           <div class="tab-content" id="myTabContent">
+               <div id="commenti" class="tab-pane fade active in">
+                   <br>
+                   <% ListIterator<Commento> iter = commenti.listIterator();
+                           int c=0;
+                           while(iter.hasNext()){
+                               out.println("<div class=\"well well-lg\">");
+                               Commento a = iter.next();
+                   %>
+                   <h2><%= a.getAutore()%></h2><br>
+                   <%= a.getCommento()%><br><br>
+                   <!-- utente e annuncio da fare in modo parametrico -->
+                   <a href="/CoHome-war/MainServlet?op=deleteCommento&id=<%= a.getId()%>&utente=1&annuncio=2"><font size="2">Cancella</font></a>
+
+                   <%
+                               out.println("</div> <br>");
+                               c++;
+                           }
+                   %>
+               </div>
+
+           </div>
         </div>
         
-        <div id="cointainerRight">
-            
-        </div>
-        <!-- Modal -->
-        <div class="modal fade" id="addComment">
+        <div id="cointainerRight">      
+            <button id="buttonRichiestaPrenotazione" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addPrenotazione" style="float:right; margin: 10px;">Richiesta Prenotazione</button>
+            <div class="modal fade" id="addPrenotazione">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title">Modal title</h4>
+                  <h4 class="modal-title">Invia la tua richiesta di prenotazione</h4>
                 </div>
-                  
-                <!-- Inizio del Form -->
-                <!-- Modificare parametricamente il passaggio dell'id utente -->
-                <form role="form" action="/CoHome-war/MainServlet">
+            
+                <form role="form" action="/CoHome-war/MainServlet" >
                     <div class="modal-body">
-                      <div class="form-group">
-                        <label for="textComment">Commento...</label>
-                        <textarea name="newCommento" class="form-control" rows="3"></textarea>
-                      </div>
+                        <div class="form-group">
+                            <label for="textComment">Descrizione.</label>
+                            <textarea id="description" name="description" class="form-control" rows="3"></textarea>
+                        </div>
+                        <div class="input-wrapper" id="checkinWrapper">
+                            <input type="text" placeholder="Check-in" name="checkin" class="checkin search-option input-large input-contrast ui-datepicker-target" id="checkin">
+                            <span class="search-area-icon"></span>
+                        </div>
+                        <div class="input-wrapper" id="checkoutWrapper">
+                            <input type="text" placeholder="Check-out" name="checkout" class="checkout search-option input-large input-contrast ui-datepicker-target" id="checkout">
+                            <span class="search-area-icon search-area-icon-checkout"></span>
+                        </div>
+                        <div class="input-wrapper" id="posti">
+                            <div class="custom-select-container">
+                                <select class="search-option" name="guests" id="guests">
+                                    <c:forEach begin="1" end="${annuncio.getNumeroPosti()}" step="1" var="i">
+                                        <option value="<c:out value='${i}'/>"><c:out value="${i}"/> Ospite</option>
+                                    </c:forEach>>
+                                </select>
+                                <div aria-hidden="true" class="btn btn-large dropdown-toggle input-contrast"></div>
+                            </div>
+                        </div>
                     </div>
+                    
                     <div class="modal-footer">
-                      <input type="hidden" value="addCommento" name="op">
-                      <!-- utente e annuncio da fare in modo parametrico -->
-                      <input type="hidden" value="1" name="utente">
-                      <input type="hidden" value="2" name="annuncio">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Add Comment</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
+                        <button id="sendRichiestaPrenotazione" type="button" class="btn btn-primary">Invia Richiesta</button>
                     </div>
                 </form>
-              </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-         </div><!-- /.modal -->
-         <!-- Bootstrap core JavaScript
-        ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
-        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>!-->
-        <script src="dist/js/bootstrap.min.js"></script> 
-        <script>
-             $( ".mappa").click(function() {
-                initializeSingleMarker(<c:out value="${annuncio.getLat()}"/>,<c:out value="${annuncio.getLng()}"/>);
-             });
-        </script>
-        
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+         
+    </div>
+    <div id="risultati">
+    </div>
+    <div id="stato">
+    </div>       
+    <!-- Modal -->
+    <div class="modal fade" id="addComment">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">Modal title</h4>
+            </div>
+
+            <!-- Inizio del Form -->
+            <!-- Modificare parametricamente il passaggio dell'id utente -->
+            <form role="form" action="/CoHome-war/MainServlet">
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label for="textComment">Commento...</label>
+                    <textarea name="newCommento" class="form-control" rows="3"></textarea>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" value="addCommento" name="op">
+                    <!-- utente e annuncio da fare in modo parametrico -->
+                    <input type="hidden" value="1" name="utente">
+                    <input type="hidden" value="2" name="annuncio">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add Comment</button>
+                </div>
+            </form>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+     </div><!-- /.modal -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>!-->
+    <script src="dist/js/bootstrap.min.js"></script> 
+    <script>
+         $( ".mappa").click(function() {
+            initializeSingleMarker(<c:out value="${annuncio.getLat()}"/>,<c:out value="${annuncio.getLng()}"/>);
+         });
+    </script>
+    <script>   
+        $("#sendRichiestaPrenotazione").click(function(){
+            $.ajax({
+                type: "POST",
+                url : "MainServlet",
+                data: "op=provaAjax&checkin=" + $("#checkin").val() + "&checkout=" + $("#checkout").val() + "&guests=" + $("#guests").val() + "&desc=" + $("#description").val(),
+                success : function (data,stato) {
+                    $("#risultati").html(data);
+                    $("#stato").text(stato);
+                },
+                error : function (richiesta,stato,errori) {
+                    alert("E' evvenuto un errore. Il stato della chiamata: "+stato);
+                }
+            });
+        });
+    </script>
+    <script>
+        $(function() {
+            $( "#checkin" ).datepicker({
+                numberOfMonths: 1,       
+                beforeShow: function(){    
+                        $(".ui-datepicker").css('font-size', 12) 
+                    },        
+                showButtonPanel: true,
+                minDate: new Date( $( "#start" ).html()),
+                maxDate: new Date( $( "#end" ).html())
+            });
+            $( "#checkout" ).datepicker({
+                numberOfMonths: 1,
+                beforeShow: function(){    
+                        $(".ui-datepicker").css('font-size', 12) 
+                    },
+                showButtonPanel: true,
+                minDate: new Date( $( "#start" ).html()),
+                maxDate: new Date( $( "#end" ).html())
+                });     
+        });
+        $("#checkin").change( function() {
+        $( "#checkout" ).datepicker("destroy");
+        $( "#checkout" ).datepicker({
+            minDate:  new Date($( "#checkin" ).val()),
+            maxDate: new Date( $( "#end" ).html())
+        });
+    });
+    </script>
     </body>
 </html>

@@ -157,7 +157,7 @@
                                     <input type="text" placeholder="Check-out" name="checkout" class="checkout search-option input-large input-contrast ui-datepicker-target" id="checkout">
                                     <span class="search-area-icon search-area-icon-checkout"></span>
                                 </div>
-                                <div class="input-wrapper">
+                                <div class="input-wrapper" id="posti">
                                     <div class="custom-select-container">
                                         <select class="search-option" name="guests" id="guests">
                                             <option value="1">1 Ospite</option>
