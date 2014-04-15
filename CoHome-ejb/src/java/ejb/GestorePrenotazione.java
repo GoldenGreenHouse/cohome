@@ -42,15 +42,12 @@ public class GestorePrenotazione implements GestorePrenotazioneLocal {
         pp.setDescrizione(desc);
         pp.setNumeroPosti(Integer.parseInt(guests));
         
-        
         propostaPrenotazioneFacade.create(pp);
         UserComponent user = userComponentFacade.find(idUser);
         user.getPropostaPrenotazione().add(pp);
         a.getPropostaPrenotazione().add(pp);
         userComponentFacade.edit(user);
         annuncioFacade.edit(a);
-        
-        
     }
     
     

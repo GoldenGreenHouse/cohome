@@ -6,11 +6,13 @@
 
 package web;
 
-
+import bean.RicercaAnnunciCasa;
+import ejb.Annuncio;
 import ejb.AnnuncioCasa;
 import ejb.Commento;
 import ejb.GestoreAnnunci;
 import ejb.GestoreCommenti;
+import ejb.GestorePrenotazioneLocal;
 import ejb.GestoreUtenti;
 import ejb.UserComponent;
 import java.io.IOException;
@@ -36,6 +38,8 @@ import org.json.JSONObject;
  */
 @MultipartConfig
 public class MainServlet extends HttpServlet {
+    @EJB
+    private GestorePrenotazioneLocal gestorePrenotazione;
     @EJB
     private GestoreUtenti gestoreUtenti;
     @EJB
@@ -121,8 +125,11 @@ public class MainServlet extends HttpServlet {
         }
         
         if(action.equals("provaAjax")){
-            response.getWriter().write(request.getParameter("checkin")+" "+request.getParameter("checkout")+" "+request.getParameter("guests")+" "+request.getParameter("desc")+" "+request.getParameter("index"));
+            //response.getWriter().write(request.getParameter("checkin")+" "+request.getParameter("checkout")+" "+request.getParameter("guests")+" "+request.getParameter("desc")+" "+request.getParameter("index"));
             //response.sendError(400, "Errore");
+            RicercaAnnunciCasa rac = (RicercaAnnunciCasa) s.getAttribute("ricercaAnnunciCasa");
+            Annuncio a = rac.getSingleAnnuncio(Integer.parseInt(request.getParameter("index")));
+            gestorePrenotazione.addPropostaPrenotazione(request.getParameter("checkin"), request.getParameter("checkout"), request.getParameter("guests"), request.getParameter("desc"), 151, a);
         }
         
         if(action.equals("registrazione")){

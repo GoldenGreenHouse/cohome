@@ -260,7 +260,8 @@
             $.ajax({
                 type: "POST",
                 url : "MainServlet",
-                data: "op=provaAjax&checkin=" + $("#checkin").val() + "&checkout=" + $("#checkout").val() + "&guests=" + $("#guests").val() + "&desc=" + $("#description").val()+ "&indice="+<c:out value="${index}"/>
+                //data: "op=provaAjax",
+                data: "op=provaAjax&checkin=" + $("#checkin").val() + "&checkout=" + $("#checkout").val() + "&guests=" + $("#guests").val() + "&desc=" + $("#description").val()+ "&index=<c:out value='${index}'/>",
                 success : function (data,stato) {
                     $("#risultati").html(data);
                     $("#stato").text(stato);

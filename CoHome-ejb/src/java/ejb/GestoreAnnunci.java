@@ -66,7 +66,7 @@ public class GestoreAnnunci {
     private EntityManager em;
     
     public void addAnnuncioCasa(AnnuncioCasa annuncioCasa){
-        long j = 751;
+        long j = 151;
         UserComponent userComponent = userComponentFacade.find(j);
         List<Annuncio> annunci1 = userComponent.getAnnunci();
         annunci1.add(annuncioCasa);
@@ -126,7 +126,7 @@ public class GestoreAnnunci {
         annuncioCasa.setOpzioni(opzioni);
         
         //salvataggio su db dell annuncio
-        long id = 751;
+        long id = 151;
         UserComponent userComponent = userComponentFacade.find(id);
         List<Annuncio> annunci = userComponent.getAnnunci();
         annunci.add(annuncioCasa);
