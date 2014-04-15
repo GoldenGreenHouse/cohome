@@ -74,8 +74,7 @@ public class MainServlet extends HttpServlet {
             rd.forward(request,response);
         }
         
-        if(action.equals("cercaAnnunci")){
-            
+        if(action.equals("cercaAnnunci")){      
             try{
                 JSONObject location = gestoreAnnunci.getCoordinate(request.getParameter("location"));
                 List<AnnuncioCasa> annunci=gestoreAnnunci.trovaAnnunciCasa(Double.parseDouble(location.opt("lat").toString()),Double.parseDouble(location.opt("lng").toString()));
@@ -122,7 +121,7 @@ public class MainServlet extends HttpServlet {
         }
         
         if(action.equals("provaAjax")){
-            response.getWriter().write(request.getParameter("checkin")+" "+request.getParameter("checkout")+" "+request.getParameter("guests")+" "+request.getParameter("desc"));
+            response.getWriter().write(request.getParameter("checkin")+" "+request.getParameter("checkout")+" "+request.getParameter("guests")+" "+request.getParameter("desc")+" "+request.getParameter("index"));
             //response.sendError(400, "Errore");
         }
         
