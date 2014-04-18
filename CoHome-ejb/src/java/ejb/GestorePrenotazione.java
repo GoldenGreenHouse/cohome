@@ -28,16 +28,16 @@ public class GestorePrenotazione implements GestorePrenotazioneLocal {
     
 
     @Override
-    public void addPropostaPrenotazione(String checkin,String checkout,String guests,String desc,int idUser, Annuncio a) {
+    public void addPropostaPrenotazione(String checkin,String checkout,String guests,String desc,long idUser, Annuncio a) {
         Calendar dataGCI = new GregorianCalendar();
         Calendar dataGCF= new GregorianCalendar();
         PropostaPrenotazione pp = new PropostaPrenotazione();
         pp.setAttivo(true);   
         String[] data = checkin.split("/");
-        dataGCI.set(Integer.parseInt(data[2]),(Integer.parseInt(data[1]) -1),Integer.parseInt(data[0]));
+        dataGCI.set(Integer.parseInt(data[2]),(Integer.parseInt(data[0]) -1),Integer.parseInt(data[1]));
         pp.setDataInizio(dataGCI);
-        data = checkin.split("/");
-        dataGCF.set(Integer.parseInt(data[2]),(Integer.parseInt(data[1]) -1),Integer.parseInt(data[0]));
+        data = checkout.split("/");
+        dataGCF.set(Integer.parseInt(data[2]),(Integer.parseInt(data[0]) -1),Integer.parseInt(data[1]));
         pp.setDataFine(dataGCF);
         pp.setDescrizione(desc);
         pp.setNumeroPosti(Integer.parseInt(guests));

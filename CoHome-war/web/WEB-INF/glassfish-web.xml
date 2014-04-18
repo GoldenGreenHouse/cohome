@@ -6,8 +6,8 @@
     <group-name>admin</group-name>
   </security-role-mapping>
   <security-role-mapping>
-    <role-name>guest</role-name>
-    <group-name>guest</group-name>
+    <role-name>registered</role-name>
+    <group-name>registered</group-name>
   </security-role-mapping>
   <security-role-mapping>
     <role-name>moderatore</role-name>

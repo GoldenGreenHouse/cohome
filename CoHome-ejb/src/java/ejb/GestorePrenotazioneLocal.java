@@ -15,6 +15,6 @@ import javax.ejb.Local;
 @Local
 public interface GestorePrenotazioneLocal {
 
-    void addPropostaPrenotazione(String checkin,String checkout,String guests,String desc,int idUser, Annuncio a);
+    void addPropostaPrenotazione(String checkin,String checkout,String guests,String desc,long idUser, Annuncio a);
     
 }

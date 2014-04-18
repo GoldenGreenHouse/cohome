@@ -261,13 +261,13 @@
                 type: "POST",
                 url : "MainServlet",
                 //data: "op=provaAjax",
-                data: "op=provaAjax&checkin=" + $("#checkin").val() + "&checkout=" + $("#checkout").val() + "&guests=" + $("#guests").val() + "&desc=" + $("#description").val()+ "&index=<c:out value='${index}'/>",
+                data: "op=addPropostaPrenotazione&checkin=" + $("#checkin").val() + "&checkout=" + $("#checkout").val() + "&guests=" + $("#guests").val() + "&desc=" + $("#description").val()+ "&index=<c:out value='${index}'/>",
                 success : function (data,stato) {
-                    $("#risultati").html(data);
-                    $("#stato").text(stato);
+                    $("#addPrenotazione").modal('hide');
+                    alert("Proposta di prenotazione correttamente inviata");
                 },
                 error : function (richiesta,stato,errori) {
-                    alert("E' evvenuto un errore. Il stato della chiamata: "+stato);
+                    alert("ERRORE. "+errori);
                 }
             });
         });

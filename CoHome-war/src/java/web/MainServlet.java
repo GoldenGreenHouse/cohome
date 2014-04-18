@@ -98,7 +98,9 @@ public class MainServlet extends HttpServlet {
         
         if(action.equals("logout")){
             request.logout();
+            s.invalidate();
             getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
+            
         }
         
         if(action.equals("deleteCommento")){
@@ -124,12 +126,13 @@ public class MainServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
         }
         
-        if(action.equals("provaAjax")){
-            //response.getWriter().write(request.getParameter("checkin")+" "+request.getParameter("checkout")+" "+request.getParameter("guests")+" "+request.getParameter("desc")+" "+request.getParameter("index"));
-            //response.sendError(400, "Errore");
-            RicercaAnnunciCasa rac = (RicercaAnnunciCasa) s.getAttribute("ricercaAnnunciCasa");
-            Annuncio a = rac.getSingleAnnuncio(Integer.parseInt(request.getParameter("index")));
-            gestorePrenotazione.addPropostaPrenotazione(request.getParameter("checkin"), request.getParameter("checkout"), request.getParameter("guests"), request.getParameter("desc"), 151, a);
+        if(action.equals("addPropostaPrenotazione")){
+            if(request.isUserInRole("registered")){
+                RicercaAnnunciCasa rac = (RicercaAnnunciCasa) s.getAttribute("ricercaAnnunciCasa");
+                Annuncio a = rac.getSingleAnnuncio(Integer.parseInt(request.getParameter("index")));
+                gestorePrenotazione.addPropostaPrenotazione(request.getParameter("checkin"), request.getParameter("checkout"), request.getParameter("guests"), request.getParameter("desc"), new Long("751") , a);
+            }
+            response.sendError(401, "Eseguire il login prima di effettuare questa operazione");
         }
         
         if(action.equals("registrazione")){
@@ -155,11 +158,11 @@ public class MainServlet extends HttpServlet {
             c.setUsername("ale");
             gestoreUtenti.addUtente(c);
             c = new UserComponent();
-            c.setEmail("geust@msn.com");
-            c.setName("Guest");
-            c.setPassword("84983c60f7daadc1cb8698621f802c0d9f9a3c3c295c810748fb048115c186ec");
-            c.setRuolo("guest");
-            c.setUsername("guest");
+            c.setEmail("pippo@msn.com");
+            c.setName("Pippo");
+            c.setPassword("a2242ead55c94c3deb7cf2340bfef9d5bcaca22dfe66e646745ee4371c633fc8");
+            c.setRuolo("registered");
+            c.setUsername("pippo");
             gestoreUtenti.addUtente(c);
         }
         
@@ -174,8 +177,8 @@ public class MainServlet extends HttpServlet {
                     message += "Username : " + principal.getName() + " You are an Administrator";
                 }else if(request.isUserInRole("moderatore")){
                     message += "Username : " + principal.getName() + " You are a Moderatore";
-                }else if(request.isUserInRole("guest")){
-                    message += "Username : " + principal.getName() + " You are a Guest";
+                }else if(request.isUserInRole("registered")){
+                    message += "Username : " + principal.getName() + " You are a Registered";
                 }
                 else{
                     message += " You're simply user";
