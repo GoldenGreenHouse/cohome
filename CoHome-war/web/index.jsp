@@ -73,7 +73,12 @@
 	</script>
     </head>
     <body>
-      
+        <c:if test="${pageContext.request.getAttribute('error')!= null }"> 
+            <div class="alert alert-danger" style="width:90%; text-align: center; margin-left: auto; margin-right: auto;">  
+                <a class="close" data-dismiss="alert">×</a>
+                <strong>Warning!</strong> <c:out value="${pageContext.request.getAttribute('error')}"/>
+            </div>  
+        </c:if>
         <div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">

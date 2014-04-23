@@ -6,7 +6,7 @@
 
 package web;
 
-import ejb.AnnuncioCasaBean;
+import bean.AnnuncioCasaBean;
 import ejb.GestoreAnnunci;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -17,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 /**
@@ -43,7 +44,11 @@ public class CreaAnnuncioCasaServlet extends HttpServlet {
         String[] data = null;
         String path ="";
         //String informazione;
+        HttpSession session = request.getSession();
+        long userID = (long)session.getAttribute("userID");
+        
         AnnuncioCasaBean annuncioCasaBean = new AnnuncioCasaBean();
+        annuncioCasaBean.setUserID(userID);
         annuncioCasaBean.setTitolo(request.getParameter("titolo"));
         annuncioCasaBean.setIndirizzo(request.getParameter("indirizzo"));
         annuncioCasaBean.setNumeroPosti(request.getParameter("numeroPosti"));
@@ -77,7 +82,8 @@ public class CreaAnnuncioCasaServlet extends HttpServlet {
                     inputStream = filePart.getInputStream();
                     //outputStream = new FileOutputStream("C:/immagini/" + nomeFile);
                     ServletContext context = request.getServletContext();
-                    path = context.getRealPath("/") + "gallery";
+                    //path = context.getRealPath("/") + "gallery";
+                    path = "c://wamp/www/gallery";
                     annuncioCasaBean.setPathFile(path);
                     outputStream = new FileOutputStream(path +"\\"+ nomeFile);
                     visualizzaPath = path +"\\"+ nomeFile;
@@ -100,6 +106,7 @@ public class CreaAnnuncioCasaServlet extends HttpServlet {
         annuncioCasaBean.setPathFile(zipName);
         annuncioCasaBean.setPathDir(path);
         gestoreAnnunci.addAnnuncioCasa(annuncioCasaBean);
+        getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
     }
     private static String getFilename(Part part) {
       for (String cd : part.getHeader("content-disposition").split(";")) {
@@ -136,7 +143,7 @@ public class CreaAnnuncioCasaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+            processRequest(request, response);
     }
 
     /**

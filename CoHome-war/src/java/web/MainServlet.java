@@ -69,8 +69,15 @@ public class MainServlet extends HttpServlet {
            s.setAttribute("userID", u.getId());
         }
         if(action.equals("InserisciAnnuncioCasa")){
-            rd = getServletContext().getRequestDispatcher("/AnnuncioCasa.jsp");
-            rd.forward(request,response);
+            if(request.isUserInRole("administrator")){
+                rd = getServletContext().getRequestDispatcher("/AnnuncioCasa.jsp");
+                rd.forward(request,response);
+            }
+            else{
+                //response.sendError(401, "Eseguire il login prima di effettuare questa operazione");
+                request.setAttribute("error", "Eseguire il login prima di effettuare questa operazione");
+                getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
+            }
         }
   
         if(action.equals("creaAnnuncioCasa")){

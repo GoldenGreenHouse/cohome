@@ -2,9 +2,10 @@ var defaultLat=45.070982;
 var defaultLng=7.685676;
 var defaultZoom=13;
 var markers = new Array();
-var map;
+var map=null;
 var count=0;
 function initialize(lat,lng) {
+    
     var mapOptions = {
         zoom: defaultZoom,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -50,6 +51,9 @@ function initialize(lat,lng) {
 }
 
 function initializeSingleMarker(lat,lng) {
+    if(map!==null){
+       return;
+    }
     var mapOptions = {
         zoom: defaultZoom,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -64,8 +68,7 @@ function initializeSingleMarker(lat,lng) {
     
       
     map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
-    if (lat !== undefined)
-        addMarker(lat,lng);
+    addMarker(lat,lng);
     // [START region_getplaces]
     // Listen for the event fired when the user selects an item from the
     // pick list. Retrieve the matching places for that item.

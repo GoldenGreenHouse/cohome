@@ -23,6 +23,16 @@ public class AnnuncioCasaBean {
     String[] opzioniStr = null;
     String pathFile ="";
     String pathDir = "";
+    long userID  = -1;
+    
+    public long getUserID() {
+        return userID;
+    }
+
+
+   public void setUserID(long userID) {
+       this.userID = userID;
+   }
 
     public String getPathDir() {
         return pathDir;

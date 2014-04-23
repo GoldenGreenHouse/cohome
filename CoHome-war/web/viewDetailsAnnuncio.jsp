@@ -39,7 +39,7 @@
         <script src="dist/js/jquery.ui.widget.js"></script>
         <script src="dist/js/jquery.ui.datepicker.js"></script>
         
-        <!--<script>
+        <script>
             $(document).ready(function() {
                 $('#photos').cycle({
                     fx: 'fade',
@@ -60,7 +60,7 @@
                       loadingCompleteCallback: myCallback
                 });
             });
-        </script>!-->
+        </script>
         <title>Dettaglio Annuncio</title>
     </head>
     <body>
@@ -112,15 +112,14 @@
                         <a id="next" href=""><img src="dist/image/button_next.png" alt="Next photo"></a>
                     </div>
                     <div id="photos">                        
-                       <img src="gallery/<c:out value="${annuncio.getId()}"/>/1.jpg" alt=""/>
-                       <img src="gallery/<c:out value="${annuncio.getId()}"/>/2.jpg" alt=""/>
-                       <img src="gallery/<c:out value="${annuncio.getId()}"/>/3.jpg" alt=""/>
-                       <img src="gallery/<c:out value="${annuncio.getId()}"/>/4.jpg" alt=""/>
-                       <img src="gallery/<c:out value="${annuncio.getId()}"/>/5.jpg" alt=""/>
-                       <img src="gallery/<c:out value="${annuncio.getId()}"/>/6.jpg" alt=""/>
-                       <img src="gallery/<c:out value="${annuncio.getId()}"/>/7.jpg" alt=""/>
-                       <img src="gallery/<c:out value="${annuncio.getId()}"/>/8.jpg" alt=""/>
-                       
+                       <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/1.jpg" alt=""/>
+                       <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/2.jpg" alt=""/>
+                       <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/3.jpg" alt=""/>
+                       <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/4.jpg" alt=""/>
+                       <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/5.jpg" alt=""/>
+                       <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/6.jpg" alt=""/>
+                       <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/7.jpg" alt=""/>
+                       <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/8.jpg" alt=""/>       
                     </div>
                     <div id="thumbnails">
                        <ul></ul>

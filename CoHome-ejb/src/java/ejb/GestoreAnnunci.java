@@ -7,7 +7,7 @@
 package ejb;
 
 
-import ejb.AnnuncioCasaBean;
+import bean.AnnuncioCasaBean;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -93,12 +93,12 @@ public class GestoreAnnunci {
         
         informazione = annuncioCasaBean.getDataInizio();
         data = informazione.split("/");
-        dataGCI.set(Integer.parseInt(data[2]),(Integer.parseInt(data[1]) -1),Integer.parseInt(data[0]));
+        dataGCI.set(Integer.parseInt(data[2]),(Integer.parseInt(data[0]) -1),Integer.parseInt(data[1])); 
         annuncioCasa.setDataInizio(dataGCI);
         
         informazione = annuncioCasaBean.getDataFine();
         data = informazione.split("/");
-        dataGCF.set(Integer.parseInt(data[2]),(Integer.parseInt(data[1]) -1),Integer.parseInt(data[0]));
+        dataGCF.set(Integer.parseInt(data[2]),(Integer.parseInt(data[0]) -1),Integer.parseInt(data[1]));
         annuncioCasa.setDataFine(dataGCF);
         
         String lat = annuncioCasaBean.getLat();
@@ -126,11 +126,11 @@ public class GestoreAnnunci {
         annuncioCasa.setOpzioni(opzioni);
         
         //salvataggio su db dell annuncio
-        long id = 151;
+        long id = annuncioCasaBean.getUserID();
         UserComponent userComponent = userComponentFacade.find(id);
         List<Annuncio> annunci = userComponent.getAnnunci();
         annunci.add(annuncioCasa);
-        userComponent.setAnnunci(annunci);
+        //userComponent.setAnnunci(annunci);
         userComponentFacade.create(userComponent);
         
         //decompressione file

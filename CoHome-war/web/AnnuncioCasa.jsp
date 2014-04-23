@@ -34,7 +34,7 @@
         <script>
         $(document).ready(function() {
             $("#GetMaps").click(function(){
-                var input_address = $("#address").val();
+                var input_address = $("#address").val() + "  " + $("#country").val();
                 var geocoder = new google.maps.Geocoder();
                 geocoder.geocode( { address: input_address }, function(results, status) {
                     if (status === google.maps.GeocoderStatus.OK) {
@@ -42,7 +42,7 @@
                         var lng = results[0].geometry.location.lng();
                         $('<input type="hidden" name="lat" value="'+lat+'">').appendTo('form');
                         $('<input type="hidden" name="lng" value="'+lng+'">').appendTo('form');
-                        }
+                    }
                     else {
                         alert("Google Maps not found address!");
                         }
@@ -164,8 +164,21 @@
                             <td><input name="indirizzo" type="text" id="address" size="20"/></td>
                         </tr>
                         <tr>
+                          <td><label>Città'</label></td>
+                          <td><input name="localita" type="text" id="country" size="20"/></td>
+                       </tr>
+                        <tr>
                             <td><label>Numero posti</label></td>
-                            <td><input name="numeroPosti" type="text" id="GetMaps" size="20"/></td>
+                            <td>
+                                <select name="numeroPosti" id="GetMaps" style="width:100px;" >
+                                    <option value="1" selected="selected">1 Ospite</option>
+                                    <option value="2">2 Ospiti</option>
+                                    <option value="3">3 Ospiti</option>
+                                    <option value="4">4 Ospiti</option>
+                                    <option value="5">5 Ospiti</option>
+                                    <option value="6">6+ Ospiti</option>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td><label>Clicca sul campo per inserire la data di inizio</label></td>
@@ -213,7 +226,7 @@
                         </tr>
                         <tr>
                             <td><label>Descrizione</label></td>
-                            <td><input name="descrizione" type="text" size="20"/></td>
+                            <td><textarea name ="descrizione "rows="4" cols="50"></textarea></td>
                         </tr>
                         <tr>
                             <td><label>Localita'</label></td>
