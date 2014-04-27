@@ -23,6 +23,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .panel-header, .alert, .h5, .panel-h
 html body div#carousel-example-generic.carousel{
     margin-top:-20px;
 }
+.clear{
+    clear:both;
+}
 .logout, .login {
     float: right;
     padding-top: 9px;
@@ -352,5 +355,23 @@ div.listing-img div.listing-img-container img{
 #checkinWrapper,#checkoutWrapper,#posti,.custom-select-container{
     display:inline !important;
 }
+td.value{
+    border-left: 0;
+    font-weight: bold;
+    text-align: right;
+    word-wrap: break-word;
+}
+bordered>tfoot>tr>td {
+border-left: 1px solid #dbdbdb;
+}
+.col-5 {
+width: 40%;
 
+float:right;
+}
+.col-7 {
+width: 58%;
+
+float:left;
+}
 /*-------------------------- FINE viewDetailsAnnuncio.jsp --------------------*/

@@ -17,6 +17,7 @@
 <c:set var="lat" value="${pageContext.request.getParameter('lat')}"/>
 <c:set var="lng" value="${pageContext.request.getParameter('lng')}"/>
 <c:set var="annuncio" value="${ricercaAnnunciCasa.getSingleAnnuncio(index)}"/>
+<c:set var="opzioni" value="${annuncio.getOpzioni()}"/>
 <% List<Commento> commenti= (List<Commento>)request.getAttribute("commenti"); %>
 
 <!DOCTYPE html>
@@ -129,7 +130,24 @@
                     <div id="map-canvas" style="height:400px;"></div>
                    
                 </div>
-                <div class="tab-pane" id="descrizione"><c:out escapeXml="false" value="${annuncio.getDescrizione()}"/></div>
+                <div class="tab-pane" id="descrizione">
+                    <div class="col-7">
+                        <c:out escapeXml="false" value="${annuncio.getDescrizione()}"/>
+                    </div>
+                    <div class="col-5">
+                        <table class="table table-bordered table-striped" id="description_details" itemprop="breadcrumb">
+                            <tbody>
+                                <c:forEach items="${annuncio.getOpzioni()}" var="opt" varStatus="index">
+                                    <tr>
+                                        <td><c:out value="${opt.getNome()}"/></td>
+                                        <td class="value"><c:out value="${opt.getValore()}"/></td>   
+                                    </tr>
+                                </c:forEach>  
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="clear"></div>
+                </div>
                 <div class="tab-pane" id="calendario">Calendario</div>
                 <div class="tab-pane" id="regole">Regole</div>
             </div>

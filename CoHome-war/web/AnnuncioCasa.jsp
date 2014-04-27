@@ -197,8 +197,10 @@
                                     $('#dataInizioId').datepicker({ 
                                         beforeShow: function(){    
                                             $("#dataInizioId").css('font-size', 12) 
-                                        }
+                                        },
+                                    minDate:0
                                     });
+                                    
                                 });
                             </script>
                         </tr>
@@ -219,8 +221,10 @@
                                     $('#dataFineId').datepicker({ 
                                         beforeShow: function(){    
                                             $("#dataFineId").css('font-size', 12) 
-                                        }
+                                        },
+                                    minDate:0
                                     });
+                                    
                                 });
                             </script>
                         </tr>
@@ -253,6 +257,14 @@
         <!-- Placed at the end of the document so the pages load faster -->
         <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>!-->
         <script src="dist/js/bootstrap.min.js"></script>
-      
+        <script>
+            $("#dataInizioId").change( function() {
+               
+                $("#dataFineId").datepicker("destroy");
+                $("#dataFineId").datepicker({
+                    minDate:  new Date($("#dataInizioId").val())
+                });
+            });
+        </script>
     </body>
 </html>
