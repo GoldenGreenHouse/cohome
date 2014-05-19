@@ -61,7 +61,7 @@
     <div class="search-results">
         <div class="outer-listings-container">
            <ul id="results" class="listings-container list-unstyled clearfix">
-           <!--<c:out value="${annunci.size()}"/>!-->
+           <!--<c:out value="${annunci.size()}"/> -->
            <c:forEach items="${annunci}" var="a" varStatus="c">
                 <c:set var="lat" value="${a.getLat()}"/>
                 <c:set var="lng" value="${a.getLng()}"/>

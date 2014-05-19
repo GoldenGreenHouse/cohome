@@ -38,7 +38,7 @@ public class GestoreUtenti {
     public void addUtente(UserComponent c) {
         userComponentFacade.create(c);
     }
-    public UserComponent findUtente(int id){
+    public UserComponent findUtente(Long id){
         //registered? guest?
         return userComponentFacade.find(id);
     }

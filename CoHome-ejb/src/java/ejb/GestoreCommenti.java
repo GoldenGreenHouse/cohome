@@ -62,16 +62,20 @@ public class GestoreCommenti {
         UserComponent u;
         Annuncio a;
         u = userComponentFacade.find(idUtente);
-//        a = annuncioFacade.find(idAnnuncio);
-        Query query = em.createNamedQuery("findAllAnnunciCasa");
-        a = (Annuncio) query.getResultList().get(1);
-        
-        a.getCommenti().add(c);
+        a = annuncioFacade.find(idAnnuncio);
+//        Query query = em.createNamedQuery("findAllAnnunciCasa");
+//        a = (Annuncio) query.getResultList().get(0);
         c.setAutore(u);
         c.setCommento(commento);
-        em.merge(a);
-        em.merge(u);
-        em.persist(c);
+        a.getCommenti().add(c);
+        u.getCommenti().add(c);
+//        em.persist(c);
+//        em.merge(a);
+//        em.merge(u);
+        
+        commentoFacade.create(c);
+        annuncioFacade.edit(a);
+        userComponentFacade.edit(u);
     }
     
     public void delCommento(Long id, Long idUtente, Long idAnnuncio){
@@ -84,7 +88,7 @@ public class GestoreCommenti {
         Query query = em.createNamedQuery("findAllAnnunciCasa");
         a = (Annuncio) query.getResultList().get(1);
         
-        u.getCommenti().remove(c);
+//        u.getCommenti().remove(c);
         a.getCommenti().remove(a);
         em.merge(u);
         em.merge(a);

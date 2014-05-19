@@ -13,7 +13,10 @@ import ejb.Commento;
 import ejb.GestoreAnnunci;
 import ejb.GestoreCommenti;
 import ejb.GestorePrenotazioneLocal;
+import ejb.GestoreRichieste;
 import ejb.GestoreUtenti;
+import ejb.PropostaPrenotazione;
+import ejb.RichiestaCasa;
 import ejb.UserComponent;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -46,6 +49,8 @@ public class MainServlet extends HttpServlet {
     private GestoreCommenti gestoreCommenti;
     @EJB
     private GestoreAnnunci gestoreAnnunci;
+    @EJB
+    private GestoreRichieste gestoreRichieste;
     
     /**  
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -97,10 +102,28 @@ public class MainServlet extends HttpServlet {
         }
         
         if(action.equals("viewDettaglioAnnuncioCasa")){
+// Da rifare in modo parametrico            
+           Annuncio a = gestoreAnnunci.findAnnuncio(Long.parseLong("1"));
+           List<PropostaPrenotazione> lp = a.getPropostaPrenotazione();
            int index = Integer.parseInt(request.getParameter("index")); 
            List<Commento> c = gestoreCommenti.findAllCommenti(2);
            request.setAttribute("commenti", c);
+           request.setAttribute("proposte", lp);
            getServletContext().getRequestDispatcher("/viewDetailsAnnuncio.jsp").forward(request,response);
+        }
+        
+        if(action.equals("viewUser")){
+// Da rifare in modo parametrico
+           UserComponent u = gestoreUtenti.findUtente(Long.parseLong("2"));
+           request.setAttribute("utente", u);
+           getServletContext().getRequestDispatcher("/user.jsp").forward(request,response);
+        }
+        
+        if(action.equals("viewProposte")){
+            String annuncio = request.getParameter("idAnnuncio");
+            Annuncio a = gestoreAnnunci.findAnnuncio(Long.parseLong(annuncio));
+            request.setAttribute("annuncio", a);
+            getServletContext().getRequestDispatcher("/viewProposte.jsp").forward(request,response);
         }
         
         if(action.equals("logout")){

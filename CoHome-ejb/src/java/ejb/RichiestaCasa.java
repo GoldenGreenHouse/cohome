@@ -11,11 +11,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQuery;
 
 /**
  *
  * @author marco
  */
+@NamedNativeQuery(
+    name="getRichiesteByAnnuncio",
+    query= "select * "+
+           "from cohome.PROPOSTAPRENOTAZIONE as p "+
+           "where p.ANNUNCIO_ID = Annuncio_Id",
+    resultClass=Commento.class
+)
 @Entity
 public class RichiestaCasa extends Annuncio implements Serializable {
     private static final long serialVersionUID = 1L;

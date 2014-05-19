@@ -65,8 +65,14 @@ public class GestoreAnnunci {
     @PersistenceContext(unitName = "CoHome-ejbPU")
     private EntityManager em;
     
-    public void addAnnuncioCasa(AnnuncioCasa annuncioCasa){
-        long j = 151;
+
+   public Annuncio findAnnuncio(Long idAnnuncio){
+       return annuncioFacade.find(idAnnuncio);
+   }
+   
+
+   public void addAnnuncioCasa(AnnuncioCasa annuncioCasa){
+        long j = 601;
         UserComponent userComponent = userComponentFacade.find(j);
         List<Annuncio> annunci1 = userComponent.getAnnunci();
         annunci1.add(annuncioCasa);

@@ -265,5 +265,7 @@
         });
     });
     </script>
+    
+    <a href="MainServlet?op=viewUser">user</a>
 </body>
 </html>

@@ -4,6 +4,9 @@
     Author     : Andr3A
 --%>
 
+<%@page import="ejb.Annuncio"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="ejb.PropostaPrenotazione"%>
 <%@page import="java.util.ListIterator"%>
 <%@page import="ejb.Commento"%>
 <%@page import="java.net.URL"%>
@@ -19,6 +22,11 @@
 <c:set var="annuncio" value="${ricercaAnnunciCasa.getSingleAnnuncio(index)}"/>
 <c:set var="opzioni" value="${annuncio.getOpzioni()}"/>
 <% List<Commento> commenti= (List<Commento>)request.getAttribute("commenti"); %>
+<% //Annuncio a = (Annuncio)request.getAttribute("annuncio");
+//List<PropostaPrenotazione> lp = a.getPropostaPrenotazione();
+List<PropostaPrenotazione> lp = (List<PropostaPrenotazione>)request.getAttribute("proposte");
+int prop;
+%>
 
 <!DOCTYPE html>
 <html>
@@ -165,12 +173,12 @@
                            int c=0;
                            while(iter.hasNext()){
                                out.println("<div class=\"well well-lg\">");
-                               Commento a = iter.next();
+                               Commento ann = iter.next();
                    %>
-                   <h2><%= a.getAutore()%></h2><br>
-                   <%= a.getCommento()%><br><br>
+                   <h2><%= ann.getAutore()%></h2><br>
+                   <%= ann.getCommento()%><br><br>
                    <!-- utente e annuncio da fare in modo parametrico -->
-                   <a href="/CoHome-war/MainServlet?op=deleteCommento&id=<%= a.getId()%>&utente=1&annuncio=2"><font size="2">Cancella</font></a>
+                   <a href="/CoHome-war/MainServlet?op=deleteCommento&id=<%= ann.getId()%>&utente=1&annuncio=2"><font size="2">Cancella</font></a>
 
                    <%
                                out.println("</div> <br>");
@@ -184,6 +192,46 @@
         
         <div id="cointainerRight">      
             <button id="buttonRichiestaPrenotazione" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addPrenotazione" style="float:right; margin: 10px;">Richiesta Prenotazione</button>
+            
+<!-- ******************  Visualizzazione richieste *********************-->
+            <div class="panel-group" id="accordion">
+                    
+                <% 
+                    Iterator<PropostaPrenotazione> it = lp.iterator();
+                    c = 0;
+                    while(it.hasNext()){
+                        PropostaPrenotazione p = it.next();
+                        out.println(""
+                        + "<div class=\"panel panel-default\" style=\"text-align: left;\"> " +
+                            "<div class=\"panel-heading\">" +
+                                "<h4 class=\"panel-title text-primary\">" +
+                                    "<a data-toggle=\"collapse\" data-parent=\"#accordion\" "+
+                                    " href=\"#collapse"+c+"\"> "
+                        );
+                        out.println("Proposal by "+p.getUtente().getUsername());
+                        out.println(""
+                        + "</a> </h4> </div> <div id=\"collapse"+c+"\""
+                        + " class=\"panel-collapse collapse" );
+//                            if(c == 0)
+//                                out.print(" in");
+                        out.println( 
+                        " \"> <div class=\"panel-body\"> "
+                        + "");
+
+                        out.println("User: "+p.getUtente().getName());
+                        out.println("</br># Guests: "+p.getNumeroPosti());
+                        out.println("</br>Start: "+p.getDataInizio().getTime().toString());
+                        out.println("</br>End: "+p.getDataFine().getTime().toString());
+                        out.println("</br>Descrizione: "+p.getDescrizione());
+                        out.println("<button type=\"button\" class=\"btn btn-success\" "
+                                + "style=\"float: right;\">Accept</button> ");
+
+                        out.println( "</div> </div> </div>" );
+                        c++;
+                    }
+                %>
+            </div>
+<!-- ******************  Fine richieste *********************-->    
             <div class="modal fade" id="addPrenotazione">
             <div class="modal-dialog">
               <div class="modal-content">
