@@ -84,16 +84,27 @@ public class GestoreCommenti {
         UserComponent u;
         c = commentoFacade.find(id);
         u = userComponentFacade.find(idUtente);
-        //        a = annuncioFacade.find(idAnnuncio);
-        Query query = em.createNamedQuery("findAllAnnunciCasa");
-        a = (Annuncio) query.getResultList().get(1);
-        
+        a = annuncioFacade.find(idAnnuncio);
 //        u.getCommenti().remove(c);
-        a.getCommenti().remove(a);
-        em.merge(u);
-        em.merge(a);
-        em.remove(c);
+//        userComponentFacade.edit(u);
+//        a.getCommenti().remove(c);
+//        annuncioFacade.edit(a);
+        List<Commento> commentiAnnuncio = a.getCommenti();
+        List<Commento> commentiUtente = u.getCommenti();
+        commentiAnnuncio.remove(c);
+        commentiUtente.remove(c);
+        a.setCommenti(commentiAnnuncio);
+        u.setCommenti(commentiUtente);
+        userComponentFacade.edit(u);
+        annuncioFacade.edit(a);
         //commentoFacade.remove(c);
+        
+    }
+    
+    public void delCommentoProva(String id){
+        Commento c;
+        c = commentoFacade.find(Long.parseLong(id));
+        commentoFacade.remove(c);
     }
     
 //    public void deleteCommento(int id){

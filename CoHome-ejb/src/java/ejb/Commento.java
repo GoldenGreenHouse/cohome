@@ -33,7 +33,7 @@ public class Commento implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String commento;
-    @OneToOne(cascade = ALL, orphanRemoval=true)
+    @OneToOne
     private UserComponent autore;
     
     

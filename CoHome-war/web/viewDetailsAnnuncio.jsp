@@ -16,17 +16,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="ricercaAnnunciCasa" scope="session" class="bean.RicercaAnnunciCasa"/>
-<c:set var="index" value="${pageContext.request.getParameter('index')}"/>
-<c:set var="lat" value="${pageContext.request.getParameter('lat')}"/>
-<c:set var="lng" value="${pageContext.request.getParameter('lng')}"/>
-<c:set var="annuncio" value="${ricercaAnnunciCasa.getSingleAnnuncio(index)}"/>
+<% Annuncio annuncio= (Annuncio)request.getAttribute("annuncio"); %>
 <c:set var="opzioni" value="${annuncio.getOpzioni()}"/>
 <% List<Commento> commenti= (List<Commento>)request.getAttribute("commenti"); %>
 <% //Annuncio a = (Annuncio)request.getAttribute("annuncio");
 //List<PropostaPrenotazione> lp = a.getPropostaPrenotazione();
-List<PropostaPrenotazione> lp = (List<PropostaPrenotazione>)request.getAttribute("proposte");
+//List<PropostaPrenotazione> lp = (List<PropostaPrenotazione>)request.getAttribute("proposte");
 int prop;
 %>
+<%HttpSession s = request.getSession();%>
+<c:set var="lp" value="${annuncio.getPropostaPrenotazione()}"/>
 
 <!DOCTYPE html>
 <html>
@@ -165,7 +164,7 @@ int prop;
             </ul>
 
            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addComment" style="float:right; margin: 10px;">+ Comment</button>
-           <!-- TabContent -->
+<!-- TabContent Commenti -->
            <div class="tab-content" id="myTabContent">
                <div id="commenti" class="tab-pane fade active in">
                    <br>
@@ -173,12 +172,12 @@ int prop;
                            int c=0;
                            while(iter.hasNext()){
                                out.println("<div class=\"well well-lg\">");
-                               Commento ann = iter.next();
+                               Commento com = iter.next();
                    %>
-                   <h2><%= ann.getAutore()%></h2><br>
-                   <%= ann.getCommento()%><br><br>
+                   <h2><%= com.getAutore()%></h2><br>
+                   <%= com.getCommento()%><br><br>
                    <!-- utente e annuncio da fare in modo parametrico -->
-                   <a href="/CoHome-war/MainServlet?op=deleteCommento&id=<%= ann.getId()%>&utente=1&annuncio=2"><font size="2">Cancella</font></a>
+                   <a href="/CoHome-war/MainServlet?op=deleteCommento&id=<%= com.getId()%>&utente=<%= s.getAttribute("userID") %>&annuncio=<%= annuncio.getId() %>"><font size="2">Cancella</font></a>
 
                    <%
                                out.println("</div> <br>");
@@ -195,50 +194,38 @@ int prop;
             
 <!-- ******************  Visualizzazione richieste *********************-->
             <div class="panel-group" id="accordion">
-                    
-                <% 
-                    Iterator<PropostaPrenotazione> it = lp.iterator();
-                    c = 0;
-                    while(it.hasNext()){
-                        PropostaPrenotazione p = it.next();
-                        out.println(""
-                        + "<div class=\"panel panel-default\" style=\"text-align: left;\"> " +
-                            "<div class=\"panel-heading\">" +
-                                "<h4 class=\"panel-title text-primary\">" +
-                                    "<a data-toggle=\"collapse\" data-parent=\"#accordion\" "+
-                                    " href=\"#collapse"+c+"\"> "
-                        );
-                        out.println("Proposal by "+p.getUtente().getUsername());
-                        out.println(""
-                        + "</a> </h4> </div> <div id=\"collapse"+c+"\""
-                        + " class=\"panel-collapse collapse" );
-//                            if(c == 0)
-//                                out.print(" in");
-                        out.println( 
-                        " \"> <div class=\"panel-body\"> "
-                        + "");
-
-                        out.println("User: "+p.getUtente().getName());
-                        out.println("</br># Guests: "+p.getNumeroPosti());
-                        out.println("</br>Start: "+p.getDataInizio().getTime().toString());
-                        out.println("</br>End: "+p.getDataFine().getTime().toString());
-                        out.println("</br>Descrizione: "+p.getDescrizione());
-                        out.println("<button type=\"button\" class=\"btn btn-success\" "
-                                + "style=\"float: right;\">Accept</button> ");
-
-                        out.println( "</div> </div> </div>" );
-                        c++;
-                    }
-                %>
+                <c:forEach items="${lp}" var="a" varStatus="c">
+                    <div class="panel panel-default" style="text-align: left;">
+                        <div class="panel-heading">
+                            <h4 class="panel-title text-primary"> 
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse<c:out value='${c.index}'/>">
+                                    Proposal by <c:out value="${a.getUtente().getUsername()}"/>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse<c:out value='${c.index}'/>" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                User: <c:out value="${a.getUtente().getUsername()}"/>
+                                </br># Guests:  <c:out value="${a.getNumeroPosti()}"/>
+                                </br>Start:  <c:out value="${a.getDataInizio().getTime().toString()}"/>
+                                </br>End:  <c:out value="${a.getDataFine().getTime().toString()}"/>
+                                </br>Descrizion:  <c:out value="${p.getDescrizione()}"/>
+                                <button type="button" class="btn btn-success" style="float: right;">
+                                    Accept
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
             </div>
 <!-- ******************  Fine richieste *********************-->    
             <div class="modal fade" id="addPrenotazione">
             <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title">Invia la tua richiesta di prenotazione</h4>
-                </div>
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Invia la tua richiesta di prenotazione</h4>
+                    </div>
             
                 <form role="form" action="/CoHome-war/MainServlet" >
                     <div class="modal-body">
@@ -280,7 +267,7 @@ int prop;
     </div>
     <div id="stato">
     </div>       
-    <!-- Modal -->
+<!-- ********** Modal Add Commenti ************* -->
     <div class="modal fade" id="addComment">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -300,16 +287,16 @@ int prop;
                 </div>
                 <div class="modal-footer">
                     <input type="hidden" value="addCommento" name="op">
-                    <!-- utente e annuncio da fare in modo parametrico -->
-                    <input type="hidden" value="1" name="utente">
-                    <input type="hidden" value="2" name="annuncio">
+<!-- utente e annuncio da fare in modo parametrico -->
+                    <input type="hidden" value="<%= s.getAttribute("userID") %>" name="utente">
+                    <input type="hidden" value="<%= annuncio.getId() %>" name="annuncio">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Add Comment</button>
                 </div>
             </form>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
-     </div><!-- /.modal -->
+     </div><!-- /.modal add commenti -->
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

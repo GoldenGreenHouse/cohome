@@ -215,7 +215,7 @@
                         <h2>Area Riervata</h2>
                         <p>Entra per accedere al tuo profilo.</p>
                         <img width="192" height="192" src="dist/image/area-riservata.png">
-                        <p><a class="fancybox btn btn-primary" href="#areaRiservata" >Area Riservata</a></p>
+                        <p><a class="fancybox btn btn-primary" href="MainServlet?op=viewUser" >Area Riservata</a></p>
                     </c:otherwise>
                     </c:choose>           
                 </div>
@@ -266,6 +266,5 @@
     });
     </script>
     
-    <a href="MainServlet?op=viewUser">user</a>
 </body>
 </html>

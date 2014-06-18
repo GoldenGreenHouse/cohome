@@ -104,8 +104,8 @@ public class MainServlet extends HttpServlet {
         if(action.equals("viewDettaglioAnnuncioCasa")){
 // Da rifare in modo parametrico            
            Annuncio a = gestoreAnnunci.findAnnuncio(Long.parseLong("1"));
+           request.setAttribute("annuncio", a);
            List<PropostaPrenotazione> lp = a.getPropostaPrenotazione();
-           int index = Integer.parseInt(request.getParameter("index")); 
            List<Commento> c = gestoreCommenti.findAllCommenti(2);
            request.setAttribute("commenti", c);
            request.setAttribute("proposte", lp);
@@ -123,7 +123,12 @@ public class MainServlet extends HttpServlet {
             String annuncio = request.getParameter("idAnnuncio");
             Annuncio a = gestoreAnnunci.findAnnuncio(Long.parseLong(annuncio));
             request.setAttribute("annuncio", a);
-            getServletContext().getRequestDispatcher("/viewProposte.jsp").forward(request,response);
+            List<PropostaPrenotazione> lp = a.getPropostaPrenotazione();
+            List<Commento> c = gestoreCommenti.findAllCommenti(Integer.parseInt(annuncio));
+            request.setAttribute("commenti", c);
+            request.setAttribute("proposte", lp);
+            getServletContext().getRequestDispatcher("/viewDetailsAnnuncio.jsp").forward(request,response);
+            //getServletContext().getRequestDispatcher("/viewProposte.jsp").forward(request,response);
         }
         
         if(action.equals("logout")){
@@ -157,6 +162,7 @@ public class MainServlet extends HttpServlet {
         }
         
         if(action.equals("addPropostaPrenotazione")){
+//controllo se l'utente è registrato
             if(request.isUserInRole("registered")){
                 RicercaAnnunciCasa rac = (RicercaAnnunciCasa) s.getAttribute("ricercaAnnunciCasa");
                 Annuncio a = rac.getSingleAnnuncio(Integer.parseInt(request.getParameter("index")));
@@ -215,6 +221,12 @@ public class MainServlet extends HttpServlet {
                 }
                 out.println(message);
             }
+        }
+        
+// DA ELIMINAREEEEE!!!        
+        if(action.equals("eliminaCommentoProva")){
+            gestoreCommenti.delCommentoProva("302");
+            getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
         }
     }
 
