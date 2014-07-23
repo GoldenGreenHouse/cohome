@@ -139,7 +139,8 @@ public class MainServlet extends HttpServlet {
                 Annuncio a = rac.getSingleAnnuncio(Integer.parseInt(request.getParameter("index")));
                 gestorePrenotazione.addPropostaPrenotazione(request.getParameter("checkin"), request.getParameter("checkout"), request.getParameter("guests"), request.getParameter("desc"), new Long("751") , a);
             }
-            response.sendError(401, "Eseguire il login prima di effettuare questa operazione");
+            else
+                response.sendError(401, "Eseguire il login prima di effettuare questa operazione");
         }
         
         if(action.equals("registrazione")){
