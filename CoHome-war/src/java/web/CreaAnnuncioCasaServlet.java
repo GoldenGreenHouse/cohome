@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package web;
 
 import bean.AnnuncioCasaBean;
@@ -19,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import utility.PostToGoogle;
 
 /**
  *
@@ -66,6 +61,16 @@ public class CreaAnnuncioCasaServlet extends HttpServlet {
         }
         annuncioCasaBean.setOpzioniStr(opzioniStr);
         //gestoreAnnunci.addAnnuncioCasa(annuncioCasaBean);
+
+        //post su facebook
+        String msg = "Titolo: " + request.getParameter("titolo");
+        msg =  msg + " \n Luogo: " + request.getParameter("localita");
+        msg =  msg + " \n Descrizione: " + request.getParameter("descrizione");
+        msg = msg + " \n Numero posti: " + request.getParameter("numeroPosti");
+        msg = msg + " \n Dal: " + request.getParameter("dataInizio");
+        msg = msg + " al: " + request.getParameter("dataFine");
+        PostToGoogle postToGoogle = new PostToGoogle();
+        postToGoogle.postGoogle(msg);
         
         //memorizzazione file foto
         String nomeFile ="";
@@ -80,12 +85,13 @@ public class CreaAnnuncioCasaServlet extends HttpServlet {
                 FileOutputStream outputStream = null;
                 try{
                     inputStream = filePart.getInputStream();
-                    //outputStream = new FileOutputStream("C:/immagini/" + nomeFile);
+                    outputStream = new FileOutputStream("C:/immagini/" + nomeFile);
                     ServletContext context = request.getServletContext();
                     //path = context.getRealPath("/") + "gallery";
-                    path = "c://wamp/www/gallery";
+                    //path = "c://wamp/www/gallery";
+                    path = "C:/immagini/";
                     annuncioCasaBean.setPathFile(path);
-                    outputStream = new FileOutputStream(path +"\\"+ nomeFile);
+                    //outputStream = new FileOutputStream(path +"\\"+ nomeFile);
                     visualizzaPath = path +"\\"+ nomeFile;
                     System.out.println("path del file: " + visualizzaPath);
                     int c;

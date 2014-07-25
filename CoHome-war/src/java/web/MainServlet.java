@@ -60,7 +60,7 @@ public class MainServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     */
+     */   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
@@ -169,6 +169,24 @@ public class MainServlet extends HttpServlet {
                 gestorePrenotazione.addPropostaPrenotazione(request.getParameter("checkin"), request.getParameter("checkout"), request.getParameter("guests"), request.getParameter("desc"), new Long("751") , a);
             }
             response.sendError(401, "Eseguire il login prima di effettuare questa operazione");
+        }
+
+        if(action.equals("loginFacebook")){ 
+            if(request.isUserInRole("administrator")){
+                getServletContext().getRequestDispatcher("/LoginFacebook").forward(request,response);
+            }
+            response.sendError(401, "Eseguire il login prima di effettuare questa operazione");
+        }        
+ 
+        if(action.equals("index")){
+            getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
+        }        
+        
+        if(action.equals("accessToken")){
+            if(request.isUserInRole("administrator")){
+                rd = getServletContext().getRequestDispatcher("/GetAccessToken");
+                rd.forward(request,response);
+            } else response.sendError(401, "Eseguire il login prima di effettuare questa operazione");
         }
         
         if(action.equals("registrazione")){

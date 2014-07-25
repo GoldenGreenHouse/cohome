@@ -54,7 +54,8 @@ public class CreaAnnuncioHouse extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        //non serve!!!!!!!!!!!!!!!!!!!!!
+/*
         int numOp = 0;
         String[] data = null;
         String path ="";
@@ -116,7 +117,7 @@ public class CreaAnnuncioHouse extends HttpServlet {
         annuncioCasaBean.setPathFile(zipName);
         annuncioCasaBean.setPathDir(path);
         gestoreAnnunci.addAnnuncioCasa(annuncioCasaBean);
-        
+*/        
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -125,7 +126,7 @@ public class CreaAnnuncioHouse extends HttpServlet {
             out.println("<title>Servlet CreaAnnuncioHouse</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println(path);
+//            out.println(path);
             out.println("<h1>Servlet CreaAnnuncioHouse at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
