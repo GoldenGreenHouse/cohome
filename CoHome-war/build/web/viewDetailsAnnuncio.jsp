@@ -1,4 +1,4 @@
-<%-- 
+ <%-- 
     Document   : viewDetailsAnnuncio
     Created on : 12-mar-2014, 18.49.49
     Author     : Andr3A
@@ -19,6 +19,7 @@
 <% Annuncio annuncio= (Annuncio)request.getAttribute("annuncio"); %>
 <c:set var="opzioni" value="${annuncio.getOpzioni()}"/>
 <% List<Commento> commenti= (List<Commento>)request.getAttribute("commenti"); %>
+
 <% //Annuncio a = (Annuncio)request.getAttribute("annuncio");
 //List<PropostaPrenotazione> lp = a.getPropostaPrenotazione();
 //List<PropostaPrenotazione> lp = (List<PropostaPrenotazione>)request.getAttribute("proposte");
@@ -26,6 +27,8 @@ int prop;
 %>
 <%HttpSession s = request.getSession();%>
 <c:set var="lp" value="${annuncio.getPropostaPrenotazione()}"/>
+<% String index = request.getParameter("index"); %>
+
 
 <!DOCTYPE html>
 <html>
@@ -47,7 +50,30 @@ int prop;
         <script src="dist/js/jquery.ui.widget.js"></script>
         <script src="dist/js/jquery.ui.datepicker.js"></script>
         
+        
         <script>
+            $(function() {
+                $( "#checkin" ).datepicker({
+                    numberOfMonths: 1,       
+                    beforeShow: function(){    
+                            $(".ui-datepicker").css('font-size', 12) 
+                        },        
+                    showButtonPanel: true,
+                    minDate: new Date( $( "#start" ).html()),
+                    maxDate: new Date( $( "#end" ).html())
+                });
+                $( "#checkout" ).datepicker({
+                    numberOfMonths: 1,
+                    beforeShow: function(){    
+                            $(".ui-datepicker").css('font-size', 12) 
+                        },
+                    showButtonPanel: true,
+                    minDate: new Date( $( "#start" ).html()),
+                    maxDate: new Date( $( "#end" ).html())
+                    });     
+            });
+           </script>
+           <script>
             $(document).ready(function() {
                 $('#photos').cycle({
                     fx: 'fade',
@@ -72,6 +98,7 @@ int prop;
         <title>Dettaglio Annuncio</title>
     </head>
     <body>
+       
         <div id="start" style="display:none">
             <c:out value="${annuncio.getDataInizioString()}"/>
         </div>
@@ -103,7 +130,7 @@ int prop;
             <h3><c:out value="${annuncio.getIndirizzo()}"/>, <c:out value="${annuncio.getLocalita()}"/></h3>
         </div>
         <div id="cointainerLeft">
-            <!-- Nav tabs -->
+           <!--Nav tabs -->
            <ul id="myTab" class="nav nav-tabs">
               <li class="active"><a href="#foto" data-toggle="tab">Foto</a></li>
               <li class="mappa"><a href="#mappa" data-toggle="tab">Mappa</a></li>
@@ -112,7 +139,7 @@ int prop;
               <li><a href="#regole" data-toggle="tab">Regole</a></li>
             </ul>
 
-            <!-- Tab panes -->
+             <!--Tab panes--> 
             <div id="myTabContent" class="tab-content">
                 <div class="tab-pane active" id="foto">
                     <div id="navPhotos">
@@ -164,7 +191,8 @@ int prop;
             </ul>
 
            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addComment" style="float:right; margin: 10px;">+ Comment</button>
-<!-- TabContent Commenti -->
+
+           <!-- TabContent --> 
            <div class="tab-content" id="myTabContent">
                <div id="commenti" class="tab-pane fade active in">
                    <br>
@@ -178,14 +206,12 @@ int prop;
                    <%= com.getCommento()%><br><br>
                    <!-- utente e annuncio da fare in modo parametrico -->
                    <a href="/CoHome-war/MainServlet?op=deleteCommento&id=<%= com.getId()%>&utente=<%= s.getAttribute("userID") %>&annuncio=<%= annuncio.getId() %>"><font size="2">Cancella</font></a>
-
                    <%
-                               out.println("</div> <br>");
-                               c++;
-                           }
+                        out.println("</div> <br>");
+                        c++;
+                    }
                    %>
                </div>
-
            </div>
         </div>
         
@@ -276,8 +302,8 @@ int prop;
               <h4 class="modal-title">Modal title</h4>
             </div>
 
-            <!-- Inizio del Form -->
-            <!-- Modificare parametricamente il passaggio dell'id utente -->
+            <!--Inizio del Form 
+            Modificare parametricamente il passaggio dell'id utente -->
             <form role="form" action="/CoHome-war/MainServlet">
                 <div class="modal-body">
                   <div class="form-group">
@@ -287,9 +313,10 @@ int prop;
                 </div>
                 <div class="modal-footer">
                     <input type="hidden" value="addCommento" name="op">
-<!-- utente e annuncio da fare in modo parametrico -->
+                    <!-- utente e annuncio da fare in modo parametrico -->
                     <input type="hidden" value="<%= s.getAttribute("userID") %>" name="utente">
                     <input type="hidden" value="<%= annuncio.getId() %>" name="annuncio">
+
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Add Comment</button>
                 </div>
@@ -297,6 +324,7 @@ int prop;
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
      </div><!-- /.modal add commenti -->
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -305,15 +333,16 @@ int prop;
     <script>
          $( ".mappa").click(function() {
             initializeSingleMarker(<c:out value="${annuncio.getLat()}"/>,<c:out value="${annuncio.getLng()}"/>);
-         });
+        });
     </script>
     <script>   
         $("#sendRichiestaPrenotazione").click(function(){
+            var index= <%= index%>;
             $.ajax({
                 type: "POST",
                 url : "MainServlet",
                 //data: "op=provaAjax",
-                data: "op=addPropostaPrenotazione&checkin=" + $("#checkin").val() + "&checkout=" + $("#checkout").val() + "&guests=" + $("#guests").val() + "&desc=" + $("#description").val()+ "&index=<c:out value='${index}'/>",
+                data: "op=addPropostaPrenotazione&checkin=" + $("#checkin").val() + "&checkout=" + $("#checkout").val() + "&guests=" + $("#guests").val() + "&desc=" + $("#description").val()+ "&index="+index,
                 success : function (data,stato) {
                     $("#addPrenotazione").modal('hide');
                     alert("Proposta di prenotazione correttamente inviata");
@@ -325,33 +354,13 @@ int prop;
         });
     </script>
     <script>
-        $(function() {
-            $( "#checkin" ).datepicker({
-                numberOfMonths: 1,       
-                beforeShow: function(){    
-                        $(".ui-datepicker").css('font-size', 12) 
-                    },        
-                showButtonPanel: true,
-                minDate: new Date( $( "#start" ).html()),
+        $("#checkin").change( function() {  
+            $( "#checkout" ).datepicker("destroy");
+            $( "#checkout" ).datepicker({
+                minDate:  new Date($( "#checkin" ).val()),
                 maxDate: new Date( $( "#end" ).html())
             });
-            $( "#checkout" ).datepicker({
-                numberOfMonths: 1,
-                beforeShow: function(){    
-                        $(".ui-datepicker").css('font-size', 12) 
-                    },
-                showButtonPanel: true,
-                minDate: new Date( $( "#start" ).html()),
-                maxDate: new Date( $( "#end" ).html())
-                });     
         });
-        $("#checkin").change( function() {
-        $( "#checkout" ).datepicker("destroy");
-        $( "#checkout" ).datepicker({
-            minDate:  new Date($( "#checkin" ).val()),
-            maxDate: new Date( $( "#end" ).html())
-        });
-    });
     </script>
     </body>
 </html>

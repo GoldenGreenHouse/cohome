@@ -36,6 +36,10 @@
         <servlet-name>LoginFacebook</servlet-name>
         <servlet-class>web.LoginFacebook</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>JSONServlet</servlet-name>
+        <servlet-class>web.JSONServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
         <url-pattern>/MainServlet</url-pattern>
@@ -51,6 +55,10 @@
     <servlet-mapping>
         <servlet-name>LoginFacebook</servlet-name>
         <url-pattern>/LoginFacebook</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping><servlet-name>
+        <servlet-name>JSONServlet</servlet-name>
+        <url-pattern>/JSONServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
