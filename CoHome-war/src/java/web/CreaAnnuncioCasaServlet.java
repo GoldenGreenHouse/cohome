@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.ejb.EJB;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -84,16 +85,10 @@ public class CreaAnnuncioCasaServlet extends HttpServlet {
                 InputStream inputStream = null;
                 FileOutputStream outputStream = null;
                 try{
-                    inputStream = filePart.getInputStream();
-                    outputStream = new FileOutputStream("C:/immagini/" + nomeFile);
+                    inputStream = filePart.getInputStream();          
                     ServletContext context = request.getServletContext();
-                    //path = context.getRealPath("/") + "gallery";
-                    //path = "c://wamp/www/gallery";
-                    path = "C:/immagini/";
                     annuncioCasaBean.setPathFile(path);
-                    //outputStream = new FileOutputStream(path +"\\"+ nomeFile);
-                    visualizzaPath = path +"\\"+ nomeFile;
-                    System.out.println("path del file: " + visualizzaPath);
+                    outputStream = new FileOutputStream(path +"\\"+ nomeFile);       
                     int c;
                     while ((c = inputStream.read()) != -1) {
                         outputStream.write(c);
@@ -110,10 +105,13 @@ public class CreaAnnuncioCasaServlet extends HttpServlet {
             }
         }
         annuncioCasaBean.setPathFile(zipName);
-        annuncioCasaBean.setPathDir(path);
+        ServletConfig conf = getServletConfig();
+        ServletContext ctx = conf.getServletContext();
+        annuncioCasaBean.setPathDir(ctx.getInitParameter("pathImage"));
         gestoreAnnunci.addAnnuncioCasa(annuncioCasaBean);
         getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
     }
+    
     private static String getFilename(Part part) {
       for (String cd : part.getHeader("content-disposition").split(";")) {
          if (cd.trim().startsWith("filename")) {

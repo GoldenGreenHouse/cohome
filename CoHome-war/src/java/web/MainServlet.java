@@ -18,12 +18,14 @@ import ejb.GestoreUtenti;
 import ejb.PropostaPrenotazione;
 import ejb.RichiestaCasa;
 import ejb.UserComponent;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.Principal;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -103,10 +105,10 @@ public class MainServlet extends HttpServlet {
         
         if(action.equals("viewDettaglioAnnuncioCasa")){
 // Da rifare in modo parametrico            
-           Annuncio a = gestoreAnnunci.findAnnuncio(Long.parseLong("1"));
+           Annuncio a = gestoreAnnunci.findAnnuncio(Long.parseLong("351"));
            request.setAttribute("annuncio", a);
            List<PropostaPrenotazione> lp = a.getPropostaPrenotazione();
-           List<Commento> c = gestoreCommenti.findAllCommenti(2);
+           List<Commento> c = gestoreCommenti.findAllCommenti(351);
            request.setAttribute("commenti", c);
            request.setAttribute("proposte", lp);
            getServletContext().getRequestDispatcher("/viewDetailsAnnuncio.jsp").forward(request,response);
@@ -114,7 +116,7 @@ public class MainServlet extends HttpServlet {
         
         if(action.equals("viewUser")){
 // Da rifare in modo parametrico
-           UserComponent u = gestoreUtenti.findUtente(Long.parseLong("2"));
+           UserComponent u = gestoreUtenti.findUtente(Long.parseLong("751"));
            request.setAttribute("utente", u);
            getServletContext().getRequestDispatcher("/user.jsp").forward(request,response);
         }

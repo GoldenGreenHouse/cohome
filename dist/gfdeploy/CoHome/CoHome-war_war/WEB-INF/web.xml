@@ -20,6 +20,11 @@
         <param-name>urlGoogleApp</param-name>
         <param-value>http://www.exprova123.appspot.com/web</param-value>
     </context-param>
+    <context-param>
+        <description>Percorso su disco dove vengono salvare le immagini</description>
+        <param-name>pathImage</param-name>
+        <param-value>C:\\Users\\Andr3A\\Documents\\NetBeansProjects\\cohome\\CoHome-war\\web\\gallery</param-value>
+    </context-param>
     <servlet>
         <servlet-name>MainServlet</servlet-name>
         <servlet-class>web.MainServlet</servlet-class>
@@ -56,7 +61,7 @@
         <servlet-name>LoginFacebook</servlet-name>
         <url-pattern>/LoginFacebook</url-pattern>
     </servlet-mapping>
-    <servlet-mapping><servlet-name>
+    <servlet-mapping>
         <servlet-name>JSONServlet</servlet-name>
         <url-pattern>/JSONServlet</url-pattern>
     </servlet-mapping>
