@@ -36,9 +36,11 @@ public class CreaAnnuncioCasaServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        ServletConfig conf = getServletConfig();
+        ServletContext ctx = conf.getServletContext();
         int numOp = 0;
         String[] data = null;
-        String path ="";
+        String path =ctx.getInitParameter("pathImage");
         //String informazione;
         HttpSession session = request.getSession();
         long userID = (long)session.getAttribute("userID");
@@ -105,8 +107,7 @@ public class CreaAnnuncioCasaServlet extends HttpServlet {
             }
         }
         annuncioCasaBean.setPathFile(zipName);
-        ServletConfig conf = getServletConfig();
-        ServletContext ctx = conf.getServletContext();
+        
         annuncioCasaBean.setPathDir(ctx.getInitParameter("pathImage"));
         gestoreAnnunci.addAnnuncioCasa(annuncioCasaBean);
         getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);

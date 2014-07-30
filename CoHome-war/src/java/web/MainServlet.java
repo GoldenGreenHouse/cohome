@@ -104,11 +104,10 @@ public class MainServlet extends HttpServlet {
         }
         
         if(action.equals("viewDettaglioAnnuncioCasa")){
-// Da rifare in modo parametrico            
-           Annuncio a = gestoreAnnunci.findAnnuncio(Long.parseLong("351"));
+           Annuncio a = gestoreAnnunci.findAnnuncio(Long.parseLong(request.getParameter("idAnnuncio")));
            request.setAttribute("annuncio", a);
            List<PropostaPrenotazione> lp = a.getPropostaPrenotazione();
-           List<Commento> c = gestoreCommenti.findAllCommenti(351);
+           List<Commento> c = gestoreCommenti.findAllCommenti(Integer.parseInt(request.getParameter("idAnnuncio")));
            request.setAttribute("commenti", c);
            request.setAttribute("proposte", lp);
            getServletContext().getRequestDispatcher("/viewDetailsAnnuncio.jsp").forward(request,response);
@@ -125,7 +124,7 @@ public class MainServlet extends HttpServlet {
             String annuncio = request.getParameter("idAnnuncio");
             Annuncio a = gestoreAnnunci.findAnnuncio(Long.parseLong(annuncio));
             request.setAttribute("annuncio", a);
-            List<PropostaPrenotazione> lp = a.getPropostaPrenotazione();
+            List<PropostaPrenotazione> lp = a.getPropostaPrenotazione(); 
             List<Commento> c = gestoreCommenti.findAllCommenti(Integer.parseInt(annuncio));
             request.setAttribute("commenti", c);
             request.setAttribute("proposte", lp);

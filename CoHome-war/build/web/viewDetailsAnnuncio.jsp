@@ -19,6 +19,11 @@
 <% Annuncio annuncio= (Annuncio)request.getAttribute("annuncio"); %>
 <c:set var="opzioni" value="${annuncio.getOpzioni()}"/>
 <% List<Commento> commenti= (List<Commento>)request.getAttribute("commenti"); %>
+<%
+ServletConfig conf = getServletConfig();
+ServletContext ctx = conf.getServletContext();
+String pathImage=ctx.getInitParameter("pathImage");
+%>
 
 <% //Annuncio a = (Annuncio)request.getAttribute("annuncio");
 //List<PropostaPrenotazione> lp = a.getPropostaPrenotazione();
@@ -41,7 +46,7 @@ int prop;
         <link rel="stylesheet" href="dist/css/excite-bike/jquery-ui-1.10.4.custom.css">
         <script type="text/javascript" src="dist/js/jquery-1.10.1.min.js"></script>
         <!--<script src="dist/js/jquery-1.10.2.js"></script>!-->
-        <script src="dist/js/jquery-ui-1.10.4.custom.js"></script>
+            <!--<script src="dist/js/jquery-ui-1.10.4.custom.js"></script>!-->
         <!--<script type="text/javascript" src="dist/js/jquery_cycle.js"></script>!-->
         <script type="text/javascript" src=" http://malsup.github.io/jquery.cycle.all.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
@@ -146,15 +151,15 @@ int prop;
                         <a id="prev" href=""><img src="dist/image/button_prev.png" alt="Prev photo"></a>
                         <a id="next" href=""><img src="dist/image/button_next.png" alt="Next photo"></a>
                     </div>
-                    <div id="photos">                        
-                       <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/1.jpg" alt=""/>
-                       <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/2.jpg" alt=""/>
-                       <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/3.jpg" alt=""/>
-                       <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/4.jpg" alt=""/>
-                       <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/5.jpg" alt=""/>
-                       <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/6.jpg" alt=""/>
-                       <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/7.jpg" alt=""/>
-                       <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/8.jpg" alt=""/>       
+                  <div id="photos">                        
+                       <img src="gallery/ann<c:out value="${annuncio.getId()}"/>/1.jpg" alt=""/>
+                       <img src="gallery/ann<c:out value="${annuncio.getId()}"/>/2.jpg" alt=""/>
+                       <img src="gallery/ann<c:out value="${annuncio.getId()}"/>/3.jpg" alt=""/>
+                       <img src="gallery/ann<c:out value="${annuncio.getId()}"/>/4.jpg" alt=""/>
+                       <img src="gallery/ann<c:out value="${annuncio.getId()}"/>/5.jpg" alt=""/>
+                       <img src="gallery/ann<c:out value="${annuncio.getId()}"/>/6.jpg" alt=""/>
+                       <img src="gallery/ann<c:out value="${annuncio.getId()}"/>/7.jpg" alt=""/>
+                       <img src="gallery/ann<c:out value="${annuncio.getId()}"/>/8.jpg" alt=""/>       
                     </div>
                     <div id="thumbnails">
                        <ul></ul>
