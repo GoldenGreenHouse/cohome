@@ -66,18 +66,23 @@ public class JSONServlet extends HttpServlet {
                 Articolo2 a= new Articolo2("Prova1",true,true,new Info("Andrea"));
                   
                 Gson gson = new Gson();
+                JSONObject jsonc = new JSONObject(annunci);
+                
                 out.println(annunci);
-                out.println(location.toString());
-                out.println(gson.toJson(annunci)); 
-                JSONSerializer serializer = new JSONSerializer();
-                out.println(serializer.toJSON(a));
+                out.println(jsonc);
+                
+                // out.println(location.toString());
+                //out.println(gson.toJson(annunci)); 
+                //JSONSerializer serializer = new JSONSerializer();
+                //out.println(serializer.toJSON(a));
                 //request.setAttribute("annunci", annunci);
                 //request.setAttribute("lat", location.opt("lat") );
                 //request.setAttribute("lng", location.opt("lng") );
                 //getServletContext().getRequestDispatcher("/viewAnnunci.jsp").forward(request,response);
-            }catch(JSONException e){} catch (MarshallException ex) {
-                Logger.getLogger(JSONServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }catch(JSONException e){} 
+            //catch (MarshallException ex) {
+             //   Logger.getLogger(JSONServlet.class.getName()).log(Level.SEVERE, null, ex);
+            //}
         }
     }
 

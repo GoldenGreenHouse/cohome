@@ -182,7 +182,12 @@ public abstract class Annuncio implements Serializable {
 
     @Override
     public String toString() {
-        return "ejb.Annuncio[ id=" + id + " ]";
+        return  "id=" + id +
+                ", titolo=" + titolo +
+                //",dataInizio="+ dataInizio.toString()+
+                //",dataFine=" + dataFine.toString() +
+                ", descrizione=" + descrizione +
+                ", localita=" + localita;
     }
     
 }

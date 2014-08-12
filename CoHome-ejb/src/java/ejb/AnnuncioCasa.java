@@ -94,7 +94,12 @@ public class AnnuncioCasa extends Annuncio implements Serializable {
 
     @Override
     public String toString() {
-        return "ejb.AnnuncioCasa[ id=" + id + " ]";
+        
+        return  super.toString()+ 
+                ", indirizzo=" + indirizzo +
+                ", n_posti=" + numeroPosti +
+                ", lat=" + lat +
+                ", lng=" + lng;
     }
     
 }
