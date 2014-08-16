@@ -266,5 +266,7 @@
     });
     </script>
     
+    <a href="/CoHome-war/MainServlet?op=viewUser"> user </a>
+    
 </body>
 </html>

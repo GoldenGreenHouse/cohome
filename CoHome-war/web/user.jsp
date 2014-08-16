@@ -4,6 +4,7 @@
     Author     : Alessandro
 --%>
 
+<%@page import="ejb.Recensione"%>
 <%@page import="ejb.UserComponent"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="ejb.Annuncio"%>
@@ -11,6 +12,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% UserComponent utente = (UserComponent)request.getAttribute("utente"); %>
 <% List<Annuncio> annunci = utente.getAnnunci(); %>
+<% List<Recensione> recensioni = utente.getRecensioni(); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -52,6 +54,44 @@
             <div class="col-md-3">
                 <div class="well well-lg">
                     <img src="img/profilo.jpg" alt="foto profilo" class="img-circle" width="130">
+                </div>
+                ***  voto ***
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#evaluateModal">Valuta questo utente</button>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="evaluateModal" tabindex="-1" role="dialog" aria-labelledby="evaluateModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form role="form" action="/CoHome-war/MainServlet">
+                                    <h3> Voto: </h3>
+                                    <select name="vote">
+                                        <option value="1"> 1 </option>
+                                        <option value="2"> 2 </option>
+                                        <option value="3"> 3 </option>
+                                        <option value="4"> 4 </option>
+                                        <option value="5"> 5 </option>
+                                    </select>
+                                    <h3> Commento: </h3>
+                                    <textarea name="newEvaluate" class="form-control" rows="3"></textarea>
+                                    <div class="modal-footer">
+                                        <input type="hidden" value="addEvaluate" name="op">
+                                        <input type="hidden" value="<%= utente.getId() %>" name="utente">
+                                        
+                                        <!-- da rifare in modo parametrico - id utente dopo login -->
+                                        <input type="hidden" value="1" name="utenteLoggato">
+                                        
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -108,6 +148,23 @@
                     </table>
 
                 </div>
+                <div class="well well-lg"> 
+                    <h3>Recensioni</h3>
+                    <ul class="list-group">
+                        <li class="list-group-item">Cras justo odio</li>
+                        <%
+                            Iterator<Recensione> it2 = recensioni.iterator();
+                            while(it2.hasNext()){
+                                Recensione r = it2.next();
+
+                                out.println("<li class=\"list-group-item\">");
+                                out.println("Voto: "+r.getValutazione());
+                                out.println("\t - Commento: "+r.getDescrizione());
+                                out.println("</li>");
+                            }
+                        %>
+                    </ul>
+                </div>        
             </div>
         </div>
         <script src="dist/js/bootstrap.min.js"></script> 

@@ -13,6 +13,7 @@ import ejb.Commento;
 import ejb.GestoreAnnunci;
 import ejb.GestoreCommenti;
 import ejb.GestorePrenotazioneLocal;
+import ejb.GestoreRecensioni;
 import ejb.GestoreRichieste;
 import ejb.GestoreUtenti;
 import ejb.PropostaPrenotazione;
@@ -51,6 +52,8 @@ public class MainServlet extends HttpServlet {
     private GestoreAnnunci gestoreAnnunci;
     @EJB
     private GestoreRichieste gestoreRichieste;
+    @EJB
+    private GestoreRecensioni gestoreRecensioni;
     
     /**  
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -159,6 +162,18 @@ public class MainServlet extends HttpServlet {
             idAnnuncio = Long.parseLong(request.getParameter("annuncio"));
             gestoreCommenti.addCommento(idUtente, idAnnuncio, testoCommento);
             getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
+        }
+        
+        if(action.equals("addEvaluate")){
+            Long idUtente;
+            Long idUtenteLoggato;
+            String testoValutazione;
+            String voto;
+            testoValutazione = request.getParameter("newEvaluate");
+            voto = request.getParameter("vote");
+            idUtente = Long.parseLong(request.getParameter("utente"));
+            idUtenteLoggato = Long.parseLong(request.getParameter("utenteLoggato"));
+            gestoreRecensioni.addRecensione(idUtente, idUtenteLoggato, testoValutazione, voto);
         }
         
         if(action.equals("addPropostaPrenotazione")){
