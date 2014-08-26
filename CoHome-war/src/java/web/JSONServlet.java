@@ -11,7 +11,10 @@ import ejb.AnnuncioCasa;
 import ejb.GestoreAnnunci;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -21,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.jabsorb.JSONSerializer;
 import org.jabsorb.serializer.MarshallException;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -46,43 +50,42 @@ public class JSONServlet extends HttpServlet {
             throws ServletException, IOException {
         String action= request.getParameter("op");
         response.setContentType("text/html;charset=UTF-8");
-//        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet JSONServlet</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet JSONServlet at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-//        }
-        
+       
         if(action.equals("cercaAnnunci")){      
             try(PrintWriter out = response.getWriter()){
                 JSONObject location = gestoreAnnunci.getCoordinate(request.getParameter("location"));
                 List<AnnuncioCasa> annunci=gestoreAnnunci.trovaAnnunciCasa(Double.parseDouble(location.opt("lat").toString()),Double.parseDouble(location.opt("lng").toString()));
-                Articolo2 a= new Articolo2("Prova1",true,true,new Info("Andrea"));
-                  
-                Gson gson = new Gson();
-                JSONObject jsonc = new JSONObject(annunci);
+                ListIterator iter = annunci.listIterator();
+                //out.println("{\"annunci\":[");
+                String s ="{\"annunci\":[";
                 
-                out.println(annunci);
-                out.println(jsonc);
+                while(iter.hasNext()){
+                    JSONObject jsonc = new JSONObject(iter.next());
+                //    out.println(jsonc+",");
+                    s+=jsonc+",";
+                }
+                //out.println("{} ]}");
+                s+="{}]"+",coordinate:"+location.toString()+"}";
+                out.println(s);
+   
+//                JSONObject jsonc = new JSONObject(annunci.get(0));
+//                GregorianCalendar data_inizio = (GregorianCalendar) jsonc.get("dataInizio");
+//                GregorianCalendar data_fine = (GregorianCalendar) jsonc.get("dataFine");
+//                String descrizione = (String) jsonc.get("descrizione");
+//                double lat = jsonc.getDouble("lat");
+//                double lng = jsonc.getDouble("lng");
+//                out.println(jsonc);
+//                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//                out.println("Data Inizio: "+ sdf.format(data_inizio.getTime()));
+//                out.println("Data Fine: "+ sdf.format(data_fine.getTime()));
+//                out.println("Descrizione: "+ descrizione);
+//                out.println("Lat: "+ lat);
+//                out.println("Lng: "+ lng);
                 
-                // out.println(location.toString());
-                //out.println(gson.toJson(annunci)); 
-                //JSONSerializer serializer = new JSONSerializer();
-                //out.println(serializer.toJSON(a));
-                //request.setAttribute("annunci", annunci);
-                //request.setAttribute("lat", location.opt("lat") );
-                //request.setAttribute("lng", location.opt("lng") );
-                //getServletContext().getRequestDispatcher("/viewAnnunci.jsp").forward(request,response);
             }catch(JSONException e){} 
-            //catch (MarshallException ex) {
-             //   Logger.getLogger(JSONServlet.class.getName()).log(Level.SEVERE, null, ex);
-            //}
+//             catch (MarshallException ex) {
+//                Logger.getLogger(JSONServlet.class.getName()).log(Level.SEVERE, null, ex);
+//            }
         }
     }
 
@@ -125,30 +128,4 @@ public class JSONServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-}
-class Articolo2 {
- 
-    private String articolo;
-    private boolean pubblicato;
-    private boolean interessante;
-    
-     
-    Info info;
-    Articolo2(String a, boolean b ,boolean b1, Info info){
-        articolo=a;
-        pubblicato=b;
-        interessante=b1;
-        info=info;
-    }
-   
-}
- 
-class Info {
-     
-    private String autore;
-    Info(String a){
-        autore=a;
-    }
-     
-    
 }
