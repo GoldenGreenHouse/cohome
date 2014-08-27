@@ -6,6 +6,7 @@
 
 package ws;
 
+import java.util.List;
 import java.util.Vector;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
@@ -31,5 +32,5 @@ public class CoHomeWebService {
         v.add("Roma");
         v.add("Parigi");
         return v;
-    }
+    }  
 }
