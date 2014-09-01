@@ -72,10 +72,12 @@ public class MainServlet extends HttpServlet {
         String action= request.getParameter("op");
         String str = "";
         Principal principal = request.getUserPrincipal();
+        
         if(principal!=null && s.getAttribute("userID")==null){
            UserComponent u = gestoreUtenti.findUtenteFromName(principal.getName());
            s.setAttribute("userID", u.getId());
         }
+        
         if(action.equals("InserisciAnnuncioCasa")){
             if(request.isUserInRole("administrator")){
                 rd = getServletContext().getRequestDispatcher("/AnnuncioCasa.jsp");

@@ -102,171 +102,181 @@ int prop;
             <h1><c:out value="${annuncio.getTitolo()}"/></h1>
             <h3><c:out value="${annuncio.getIndirizzo()}"/>, <c:out value="${annuncio.getLocalita()}"/></h3>
         </div>
-        <div id="cointainerLeft">
-            <!-- Nav tabs -->
-           <ul id="myTab" class="nav nav-tabs">
-              <li class="active"><a href="#foto" data-toggle="tab">Foto</a></li>
-              <li class="mappa"><a href="#mappa" data-toggle="tab">Mappa</a></li>
-              <li><a href="#descrizione" data-toggle="tab">Descrizione</a></li>
-              <li><a href="#calendario" data-toggle="tab">Calendario</a></li>
-              <li><a href="#regole" data-toggle="tab">Regole</a></li>
-            </ul>
+        <!--<div id="cointainerLeft">-->
+        <div class="container">
+            <div class="col-md-9">
+                <!-- Nav tabs -->
+               <ul id="myTab" class="nav nav-tabs">
+                  <li class="active"><a href="#foto" data-toggle="tab">Foto</a></li>
+                  <li class="mappa"><a href="#mappa" data-toggle="tab">Mappa</a></li>
+                  <li><a href="#descrizione" data-toggle="tab">Descrizione</a></li>
+                  <li><a href="#calendario" data-toggle="tab">Calendario</a></li>
+                  <li><a href="#regole" data-toggle="tab">Regole</a></li>
+                </ul>
 
-            <!-- Tab panes -->
-            <div id="myTabContent" class="tab-content">
-                <div class="tab-pane active" id="foto">
-                    <div id="navPhotos">
-                        <a id="prev" href=""><img src="dist/image/button_prev.png" alt="Prev photo"></a>
-                        <a id="next" href=""><img src="dist/image/button_next.png" alt="Next photo"></a>
+                <!-- Tab panes -->
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane active" id="foto">
+                        <div id="navPhotos">
+                            <a id="prev" href=""><img src="dist/image/button_prev.png" alt="Prev photo"></a>
+                            <a id="next" href=""><img src="dist/image/button_next.png" alt="Next photo"></a>
+                        </div>
+                        <div id="photos">                        
+                           <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/1.jpg" alt=""/>
+                           <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/2.jpg" alt=""/>
+                           <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/3.jpg" alt=""/>
+                           <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/4.jpg" alt=""/>
+                           <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/5.jpg" alt=""/>
+                           <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/6.jpg" alt=""/>
+                           <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/7.jpg" alt=""/>
+                           <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/8.jpg" alt=""/>       
+                        </div>
+                        <div id="thumbnails">
+                           <ul></ul>
+                        </div>
                     </div>
-                    <div id="photos">                        
-                       <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/1.jpg" alt=""/>
-                       <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/2.jpg" alt=""/>
-                       <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/3.jpg" alt=""/>
-                       <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/4.jpg" alt=""/>
-                       <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/5.jpg" alt=""/>
-                       <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/6.jpg" alt=""/>
-                       <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/7.jpg" alt=""/>
-                       <img src="http://127.0.0.1/gallery/ann<c:out value="${annuncio.getId()}"/>/8.jpg" alt=""/>       
-                    </div>
-                    <div id="thumbnails">
-                       <ul></ul>
-                    </div>
-                </div>
-                <div class="tab-pane" id="mappa">
-                    <div id="map-canvas" style="height:400px;"></div>
-                   
-                </div>
-                <div class="tab-pane" id="descrizione">
-                    <div class="col-7">
-                        <c:out escapeXml="false" value="${annuncio.getDescrizione()}"/>
-                    </div>
-                    <div class="col-5">
-                        <table class="table table-bordered table-striped" id="description_details" itemprop="breadcrumb">
-                            <tbody>
-                                <c:forEach items="${annuncio.getOpzioni()}" var="opt" varStatus="index">
-                                    <tr>
-                                        <td><c:out value="${opt.getNome()}"/></td>
-                                        <td class="value"><c:out value="${opt.getValore()}"/></td>   
-                                    </tr>
-                                </c:forEach>  
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="clear"></div>
-                </div>
-                <div class="tab-pane" id="calendario">Calendario</div>
-                <div class="tab-pane" id="regole">Regole</div>
-            </div>
-            
-            <ul id="myTab2" class="nav nav-tabs">
-                   <li class="active"><a href="#commenti">Commenti</a></li>
-            </ul>
+                    <div class="tab-pane" id="mappa">
+                        <div id="map-canvas" style="height:400px;"></div>
 
-           <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addComment" style="float:right; margin: 10px;">+ Comment</button>
-<!-- TabContent Commenti -->
-           <div class="tab-content" id="myTabContent">
-               <div id="commenti" class="tab-pane fade active in">
-                   <br>
-                   <% ListIterator<Commento> iter = commenti.listIterator();
-                           int c=0;
-                           while(iter.hasNext()){
-                               out.println("<div class=\"well well-lg\">");
-                               Commento com = iter.next();
-                   %>
-                   <h2><%= com.getAutore()%></h2><br>
-                   <%= com.getCommento()%><br><br>
-                   <!-- utente e annuncio da fare in modo parametrico -->
-                   <a href="/CoHome-war/MainServlet?op=deleteCommento&id=<%= com.getId()%>&utente=<%= s.getAttribute("userID") %>&annuncio=<%= annuncio.getId() %>"><font size="2">Cancella</font></a>
+                    </div>
+                    <div class="tab-pane" id="descrizione">
+                        <div class="col-7">
+                            <c:out escapeXml="false" value="${annuncio.getDescrizione()}"/>
+                        </div>
+                        <div class="col-5">
+                            <table class="table table-bordered table-striped" id="description_details" itemprop="breadcrumb">
+                                <tbody>
+                                    <c:forEach items="${annuncio.getOpzioni()}" var="opt" varStatus="index">
+                                        <tr>
+                                            <td><c:out value="${opt.getNome()}"/></td>
+                                            <td class="value"><c:out value="${opt.getValore()}"/></td>   
+                                        </tr>
+                                    </c:forEach>  
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="tab-pane" id="calendario">Calendario</div>
+                    <div class="tab-pane" id="regole">Regole</div>
+                </div>
 
-                   <%
-                               out.println("</div> <br>");
-                               c++;
-                           }
-                   %>
+                <ul id="myTab2" class="nav nav-tabs">
+                       <li class="active"><a href="#commenti">Commenti</a></li>
+                       <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addComment" style="float:right; margin: 10px;">+ Comment</button>
+                </ul>
+
+               
+    <!-- TabContent Commenti -->
+               <div class="tab-content" id="myTabContent">
+                   <div id="commenti" class="tab-pane fade active in">
+                       <br>
+                       <% ListIterator<Commento> iter = commenti.listIterator();
+                               int c=0;
+                               while(iter.hasNext()){
+                                   out.println("<div class=\"well well-lg\">");
+                                   Commento com = iter.next();
+                       %>
+                                    <h2><%= com.getAutore()%></h2><br>
+                                    <%= com.getCommento()%><br><br>
+                                    <!-- fare controllo su u -->
+                                    <% if(request.isUserInRole("administrator") || s.getAttribute("userID") == com.getAutore().getId()){ %>
+                                         <a href="/CoHome-war/MainServlet?op=deleteCommento&id=<%= com.getId()%>&utente=<%= s.getAttribute("userID") %>&annuncio=<%= annuncio.getId() %>"><font size="2">Cancella</font></a>
+                                    <% } %>
+
+                       <%
+                                   out.println("</div> <br>");
+                                   c++;
+                               }
+                       %>
+                   </div>
+
                </div>
-
-           </div>
-        </div>
-        
-        <div id="cointainerRight">      
-            <button id="buttonRichiestaPrenotazione" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addPrenotazione" style="float:right; margin: 10px;">Richiesta Prenotazione</button>
-            
-<!-- ******************  Visualizzazione richieste *********************-->
-            <div class="panel-group" id="accordion">
-                <c:forEach items="${lp}" var="a" varStatus="c">
-                    <div class="panel panel-default" style="text-align: left;">
-                        <div class="panel-heading">
-                            <h4 class="panel-title text-primary"> 
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse<c:out value='${c.index}'/>">
-                                    Proposal by <c:out value="${a.getUtente().getUsername()}"/>
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapse<c:out value='${c.index}'/>" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                User: <c:out value="${a.getUtente().getUsername()}"/>
-                                </br># Guests:  <c:out value="${a.getNumeroPosti()}"/>
-                                </br>Start:  <c:out value="${a.getDataInizio().getTime().toString()}"/>
-                                </br>End:  <c:out value="${a.getDataFine().getTime().toString()}"/>
-                                </br>Descrizion:  <c:out value="${p.getDescrizione()}"/>
-                                <button type="button" class="btn btn-success" style="float: right;">
-                                    Accept
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </c:forEach>
             </div>
-<!-- ******************  Fine richieste *********************-->    
-            <div class="modal fade" id="addPrenotazione">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Invia la tua richiesta di prenotazione</h4>
+
+            <!--<div id="cointainerRight">-->
+            <div class="col-md-3">
+                <div class="row">
+                    <button id="buttonRichiestaPrenotazione" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addPrenotazione" style="float:right; margin: 10px;">Richiesta Prenotazione</button>
+                </div>
+<!-- ******************  Visualizzazione richieste *********************-->
+                <div class="row">
+                    <div class="panel-group" id="accordion">
+                        <c:forEach items="${lp}" var="a" varStatus="c">
+                            <div class="panel panel-default" style="text-align: left;">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title text-primary"> 
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse<c:out value='${c.index}'/>">
+                                            Proposal by <c:out value="${a.getUtente().getUsername()}"/>
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapse<c:out value='${c.index}'/>" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        User: <c:out value="${a.getUtente().getUsername()}"/>
+                                        </br># Guests:  <c:out value="${a.getNumeroPosti()}"/>
+                                        </br>Start:  <c:out value="${a.getDataInizio().getTime().toString()}"/>
+                                        </br>End:  <c:out value="${a.getDataFine().getTime().toString()}"/>
+                                        </br>Descrizion:  <c:out value="${p.getDescrizione()}"/>
+                                        <button type="button" class="btn btn-success" style="float: right;">
+                                            Accept
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
                     </div>
-            
-                <form role="form" action="/CoHome-war/MainServlet" >
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="textComment">Descrizione.</label>
-                            <textarea id="description" name="description" class="form-control" rows="3"></textarea>
+                </div>
+    <!-- ******************  Fine richieste *********************-->    
+                <div class="modal fade" id="addPrenotazione">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Invia la tua richiesta di prenotazione</h4>
                         </div>
-                        <div class="input-wrapper" id="checkinWrapper">
-                            <input type="text" placeholder="Check-in" name="checkin" class="checkin search-option input-large input-contrast ui-datepicker-target" id="checkin">
-                            <span class="search-area-icon"></span>
-                        </div>
-                        <div class="input-wrapper" id="checkoutWrapper">
-                            <input type="text" placeholder="Check-out" name="checkout" class="checkout search-option input-large input-contrast ui-datepicker-target" id="checkout">
-                            <span class="search-area-icon search-area-icon-checkout"></span>
-                        </div>
-                        <div class="input-wrapper" id="posti">
-                            <div class="custom-select-container">
-                                <select class="search-option" name="guests" id="guests">
-                                    <c:forEach begin="1" end="${annuncio.getNumeroPosti()}" step="1" var="i">
-                                        <option value="<c:out value='${i}'/>"><c:out value="${i}"/> Ospite</option>
-                                    </c:forEach>>
-                                </select>
-                                <div aria-hidden="true" class="btn btn-large dropdown-toggle input-contrast"></div>
+
+                    <form role="form" action="/CoHome-war/MainServlet" >
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="textComment">Descrizione.</label>
+                                <textarea id="description" name="description" class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="input-wrapper" id="checkinWrapper">
+                                <input type="text" placeholder="Check-in" name="checkin" class="checkin search-option input-large input-contrast ui-datepicker-target" id="checkin">
+                                <span class="search-area-icon"></span>
+                            </div>
+                            <div class="input-wrapper" id="checkoutWrapper">
+                                <input type="text" placeholder="Check-out" name="checkout" class="checkout search-option input-large input-contrast ui-datepicker-target" id="checkout">
+                                <span class="search-area-icon search-area-icon-checkout"></span>
+                            </div>
+                            <div class="input-wrapper" id="posti">
+                                <div class="custom-select-container">
+                                    <select class="search-option" name="guests" id="guests">
+                                        <c:forEach begin="1" end="${annuncio.getNumeroPosti()}" step="1" var="i">
+                                            <option value="<c:out value='${i}'/>"><c:out value="${i}"/> Ospite</option>
+                                        </c:forEach>>
+                                    </select>
+                                    <div aria-hidden="true" class="btn btn-large dropdown-toggle input-contrast"></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
-                        <button id="sendRichiestaPrenotazione" type="button" class="btn btn-primary">Invia Richiesta</button>
-                    </div>
-                </form>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-         
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Annulla</button>
+                            <button id="sendRichiestaPrenotazione" type="button" class="btn btn-primary">Invia Richiesta</button>
+                        </div>
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        </div>
     </div>
     <div id="risultati">
     </div>
     <div id="stato">
-    </div>       
+    </div>
 <!-- ********** Modal Add Commenti ************* -->
     <div class="modal fade" id="addComment">
         <div class="modal-dialog">

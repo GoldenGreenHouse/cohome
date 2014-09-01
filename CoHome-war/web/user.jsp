@@ -13,6 +13,7 @@
 <% UserComponent utente = (UserComponent)request.getAttribute("utente"); %>
 <% List<Annuncio> annunci = utente.getAnnunci(); %>
 <% List<Recensione> recensioni = utente.getRecensioni(); %>
+<%HttpSession s = request.getSession();%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -55,9 +56,10 @@
                 <div class="well well-lg">
                     <img src="img/profilo.jpg" alt="foto profilo" class="img-circle" width="130">
                 </div>
-                ***  voto ***
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#evaluateModal">Valuta questo utente</button>
-                
+                <div class="well well-lg">
+                    ***  voto ***
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#evaluateModal">Valuta questo utente</button>
+                </div>
                 <!-- Modal -->
                 <div class="modal fade" id="evaluateModal" tabindex="-1" role="dialog" aria-labelledby="evaluateModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-sm">
@@ -83,7 +85,7 @@
                                         <input type="hidden" value="<%= utente.getId() %>" name="utente">
                                         
                                         <!-- da rifare in modo parametrico - id utente dopo login -->
-                                        <input type="hidden" value="1" name="utenteLoggato">
+                                        <input type="hidden" value="<%= s.getAttribute("userID") %>" name="utenteLoggato">
                                         
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                         <button type="submit" class="btn btn-primary">Save changes</button>
