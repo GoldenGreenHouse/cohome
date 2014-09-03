@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%HttpSession s = request.getSession();%>
 <!DOCTYPE html>
 <html lang="it">
     <head>
@@ -111,7 +112,11 @@
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <div class="logout"><a href="/CoHome-war/MainServlet?op=logout" class="btn btn-success">Logout</a></div>
+                        <!--Visualizzare nome--> 
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/CoHome-war/MainServlet?op=viewUserLogged"> <%= request.getUserPrincipal().getName() %> </a></li>
+                            <li><div class="logout"><a href="/CoHome-war/MainServlet?op=logout" class="btn btn-success">Logout</a></div></li>
+                        </ul>
                     </c:otherwise>
                     </c:choose>
                 </div><!--/.nav-collapse -->
@@ -225,6 +230,18 @@
                     <img width="192" height="192" src="dist/image/home.png">
                     <p><a href="/CoHome-war/MainServlet?op=registrazione"  class="btn btn-primary">Registrati</a></p>
                 </div>
+                <div class="col-xs-4">
+                    <h2>Login facebook</h2>
+                    <p>Configurazione.</p>
+                    <img width="192" height="192" src="dist/image/facebook.png">
+                    <p><a href="/CoHome-war/MainServlet?op=loginFacebook"  class="btn btn-primary">Login facebook</a></p>
+                </div>
+                <div class="col-xs-4">
+                    <h2>Access token</h2>
+                    <p>Richiesta access token a Facebook.</p>
+                    <img width="192" height="192" src="dist/image/administrative.png">
+                    <p><a href="/CoHome-war/MainServlet?op=accessToken"  class="btn btn-primary">Access token</a></p>
+                </div>
             </div>
             <hr>
         </div>
@@ -266,7 +283,7 @@
     });
     </script>
     
-    <a href="/CoHome-war/MainServlet?op=viewUser"> user </a>
+    <a href="/CoHome-war/MainServlet?op=viewUser&userID=2"> user </a>
     
 </body>
 </html>

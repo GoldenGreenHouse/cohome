@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <context-param>
+        <description>ID applicazione facebook</description>
+        <param-name>clientId</param-name>
+        <param-value>250827445119511</param-value>
+    </context-param>
+    <context-param>
+        <description>App Secret applicazione facebook</description>
+        <param-name>clientSecret</param-name>
+        <param-value>a2d124f9892d000aadbb0d83925251c6</param-value>
+    </context-param>
+    <context-param>
+        <description>path name del browser</description>
+        <param-name>pathBrowser</param-name>
+        <param-value>C:\\Users\\marco\\AppData\\Local\\Mozilla Firefox\\firefox.exe</param-value>
+    </context-param>
+    <context-param>
+        <description>url della applicazione su google app engine</description>
+        <param-name>urlGoogleApp</param-name>
+        <param-value>http://www.exprova123.appspot.com/web</param-value>
+    </context-param>
+    <context-param>
+        <description>Percorso su disco dove vengono salvare le immagini</description>
+        <param-name>pathImage</param-name>
+        <param-value>C:\\Users\\Andr3A\\Documents\\NetBeansProjects\\cohome\\CoHome-war\\web\\gallery</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>MainServlet</servlet-name>
+        <servlet-class>web.MainServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreaAnnuncioCasaServlet</servlet-name>
+        <servlet-class>web.CreaAnnuncioCasaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginFacebook</servlet-name>
+        <servlet-class>web.LoginFacebook</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>JSONServlet</servlet-name>
+        <servlet-class>web.JSONServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MainServlet</servlet-name>
+        <url-pattern>/MainServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreaAnnuncioCasaServlet</servlet-name>
+        <url-pattern>/CreaAnnuncioCasaServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginFacebook</servlet-name>
+        <url-pattern>/LoginFacebook</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>JSONServlet</servlet-name>
+        <url-pattern>/JSONServlet</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>myFormRealm</realm-name>
+        <form-login-config>
+            <form-login-page>/login.xhtml</form-login-page>
+            <form-error-page>/error.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
+        <description/>
+        <role-name>administrator</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>moderatore</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>registered</role-name>
+    </security-role>
+</web-app>

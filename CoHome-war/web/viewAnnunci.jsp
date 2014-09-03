@@ -12,7 +12,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% List<AnnuncioCasa> annunci= (List<AnnuncioCasa>)request.getAttribute("annunci"); %>
 <jsp:useBean id="ricercaAnnunciCasa" scope="session" class="bean.RicercaAnnunciCasa"/>
-<% ricercaAnnunciCasa.setAnnunci(annunci); %>
+<% ricercaAnnunciCasa.setAnnunci(annunci); 
+ServletConfig conf = getServletConfig();
+ServletContext ctx = conf.getServletContext();
+String pathImage=ctx.getInitParameter("pathImage");
+%>
 <!DOCTYPE html>
 <html style="overflow-y: hidden;">
   <head>
@@ -75,14 +79,14 @@
                     <div class="listing" data-id="<c:out value='${c.index}'/>" data-user="3647027" data-name="CAMERA - Torino Centro" data-lng="7.68603707453739" data-lat="45.062101148056506">
                         <div class="listing-img media-photo">
                             <div class="listing-img-container">
-                                <a href="#"><img src="http://127.0.0.1/gallery/ann<c:out value='${a.getId()}'/>/1.jpg"></a>
+                                <a href="#"><img src="gallery/ann<c:out value='${a.getId()}'/>/1.jpg"></a>
                             </div>
-                            <a href="/CoHome-war/MainServlet?op=viewDettaglioAnnuncioCasa&index=<c:out value='${c.index}'/>" class="listing-name media-caption h4">
+                            <a href="/CoHome-war/MainServlet?op=viewDettaglioAnnuncioCasa&idAnnuncio=<c:out value='${ricercaAnnunciCasa.getSingleAnnuncio(c.index).getId()}'/>" class="listing-name media-caption h4">
                                 <c:out value="${titolo}"/>
                             </a>
                         </div>
                         <div class="listing-footer clearfix">
-                            <a title="Stanza privata | Torino" href="/CoHome-war/MainServlet?op=viewDettaglioAnnuncioCasa&index=<c:out value='${c.index}'/>" class="listing-quick-info">
+                            <a title="Stanza privata | Torino" href="/CoHome-war/MainServlet?op=viewDettaglioAnnuncioCasa&idAnnuncio=<c:out value='${ricercaAnnunciCasa.getSingleAnnuncio(c.index).getId()}'/>" class="listing-quick-info">
                                 <span class="listing-room-type">
                                     <strong>&nbsp;Indirizzo: </strong><c:out value="${a.getIndirizzo()}"/><br>
                                 </span>

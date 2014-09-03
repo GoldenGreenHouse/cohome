@@ -13,6 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import static javax.persistence.CascadeType.ALL;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -54,6 +55,7 @@ public abstract class Annuncio implements Serializable {
     private Calendar dataInizio;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Calendar dataFine;
+    @Column(length=10000)
     private String descrizione;
     private String localita;
     @OneToMany(cascade = ALL)

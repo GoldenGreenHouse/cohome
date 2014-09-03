@@ -19,12 +19,14 @@ import ejb.GestoreUtenti;
 import ejb.PropostaPrenotazione;
 import ejb.RichiestaCasa;
 import ejb.UserComponent;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.Principal;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -63,7 +65,7 @@ public class MainServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     */
+     */   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
@@ -76,6 +78,7 @@ public class MainServlet extends HttpServlet {
         if(principal!=null && s.getAttribute("userID")==null){
            UserComponent u = gestoreUtenti.findUtenteFromName(principal.getName());
            s.setAttribute("userID", u.getId());
+           s.setAttribute("userName", u.getName());
         }
         
         if(action.equals("InserisciAnnuncioCasa")){
@@ -107,19 +110,23 @@ public class MainServlet extends HttpServlet {
         }
         
         if(action.equals("viewDettaglioAnnuncioCasa")){
-// Da rifare in modo parametrico            
-           Annuncio a = gestoreAnnunci.findAnnuncio(Long.parseLong("1"));
+           Annuncio a = gestoreAnnunci.findAnnuncio(Long.parseLong(request.getParameter("idAnnuncio")));
            request.setAttribute("annuncio", a);
            List<PropostaPrenotazione> lp = a.getPropostaPrenotazione();
-           List<Commento> c = gestoreCommenti.findAllCommenti(2);
+           List<Commento> c = gestoreCommenti.findAllCommenti(Integer.parseInt(request.getParameter("idAnnuncio")));
            request.setAttribute("commenti", c);
            request.setAttribute("proposte", lp);
            getServletContext().getRequestDispatcher("/viewDetailsAnnuncio.jsp").forward(request,response);
         }
         
         if(action.equals("viewUser")){
-// Da rifare in modo parametrico
-           UserComponent u = gestoreUtenti.findUtente(Long.parseLong("2"));
+           UserComponent u = gestoreUtenti.findUtente(Long.parseLong(request.getParameter("userID"))); 
+           request.setAttribute("utente", u);
+           getServletContext().getRequestDispatcher("/user.jsp").forward(request,response);
+        }
+        
+        if(action.equals("viewUserLogged")){
+           UserComponent u = gestoreUtenti.findUtente((Long)s.getAttribute("userID")); 
            request.setAttribute("utente", u);
            getServletContext().getRequestDispatcher("/user.jsp").forward(request,response);
         }
@@ -128,7 +135,7 @@ public class MainServlet extends HttpServlet {
             String annuncio = request.getParameter("idAnnuncio");
             Annuncio a = gestoreAnnunci.findAnnuncio(Long.parseLong(annuncio));
             request.setAttribute("annuncio", a);
-            List<PropostaPrenotazione> lp = a.getPropostaPrenotazione();
+            List<PropostaPrenotazione> lp = a.getPropostaPrenotazione(); 
             List<Commento> c = gestoreCommenti.findAllCommenti(Integer.parseInt(annuncio));
             request.setAttribute("commenti", c);
             request.setAttribute("proposte", lp);
@@ -185,7 +192,26 @@ public class MainServlet extends HttpServlet {
                 Annuncio a = rac.getSingleAnnuncio(Integer.parseInt(request.getParameter("index")));
                 gestorePrenotazione.addPropostaPrenotazione(request.getParameter("checkin"), request.getParameter("checkout"), request.getParameter("guests"), request.getParameter("desc"), new Long("751") , a);
             }
+            else
+                response.sendError(401, "Eseguire il login prima di effettuare questa operazione");
+        }
+
+        if(action.equals("loginFacebook")){ 
+            if(request.isUserInRole("administrator")){
+                getServletContext().getRequestDispatcher("/LoginFacebook").forward(request,response);
+            }
             response.sendError(401, "Eseguire il login prima di effettuare questa operazione");
+        }        
+ 
+        if(action.equals("index")){
+            getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
+        }        
+        
+        if(action.equals("accessToken")){
+            if(request.isUserInRole("administrator")){
+                rd = getServletContext().getRequestDispatcher("/GetAccessToken");
+                rd.forward(request,response);
+            } else response.sendError(401, "Eseguire il login prima di effettuare questa operazione");
         }
         
         if(action.equals("registrazione")){

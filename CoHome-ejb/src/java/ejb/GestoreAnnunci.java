@@ -148,10 +148,7 @@ public class GestoreAnnunci {
                     FileInputStream fis = new FileInputStream(zipName);
                     ZipInputStream zis = new ZipInputStream(new BufferedInputStream(fis));
                     ZipEntry entry;
-                    //String Dir = "C:/immagini/" + idAnnuncioCasa;
-                    //String Dir = annuncioCasaBean.getPathDir()+"\\foto";
                     String Dir = annuncioCasaBean.getPathDir() + "\\ann" + idAnnuncioCasa;
-                    System.out.println("Dir: " + Dir);
                     boolean success = (new File(Dir)).mkdirs();
                     if (success){
                         // Read each entry from the ZipInputStream until no
@@ -161,9 +158,8 @@ public class GestoreAnnunci {
                             System.out.println("Unzipping: " + entry.getName());
                             int size;
                             byte[] buffer = new byte[2048];
-                            //FileOutputStream fos = new FileOutputStream("C:/immagini/" + idAnnuncioCasa + "/" + entry.getName());
+                            FileOutputStream fos = new FileOutputStream(Dir + "/" + entry.getName());
                             System.out.println("path dezippati: " + Dir + "\\" + entry.getName());
-                            FileOutputStream fos = new FileOutputStream(Dir + "\\" + entry.getName());
                             BufferedOutputStream bos =new BufferedOutputStream(fos, buffer.length);
                             while ((size = zis.read(buffer, 0, buffer.length)) != -1) {
                                 bos.write(buffer, 0, size);

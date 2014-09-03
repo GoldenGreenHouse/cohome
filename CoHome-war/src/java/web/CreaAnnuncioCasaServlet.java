@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package web;
 
 import bean.AnnuncioCasaBean;
@@ -12,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.ejb.EJB;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import utility.PostToGoogle;
 
 /**
  *
@@ -40,9 +36,11 @@ public class CreaAnnuncioCasaServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        ServletConfig conf = getServletConfig();
+        ServletContext ctx = conf.getServletContext();
         int numOp = 0;
         String[] data = null;
-        String path ="";
+        String path =ctx.getInitParameter("pathImage");
         //String informazione;
         HttpSession session = request.getSession();
         long userID = (long)session.getAttribute("userID");
@@ -66,6 +64,16 @@ public class CreaAnnuncioCasaServlet extends HttpServlet {
         }
         annuncioCasaBean.setOpzioniStr(opzioniStr);
         //gestoreAnnunci.addAnnuncioCasa(annuncioCasaBean);
+
+        //post su facebook
+        String msg = "Titolo: " + request.getParameter("titolo");
+        msg =  msg + " \n Luogo: " + request.getParameter("localita");
+        msg =  msg + " \n Descrizione: " + request.getParameter("descrizione");
+        msg = msg + " \n Numero posti: " + request.getParameter("numeroPosti");
+        msg = msg + " \n Dal: " + request.getParameter("dataInizio");
+        msg = msg + " al: " + request.getParameter("dataFine");
+        PostToGoogle postToGoogle = new PostToGoogle();
+        postToGoogle.postGoogle(msg);
         
         //memorizzazione file foto
         String nomeFile ="";
@@ -79,15 +87,10 @@ public class CreaAnnuncioCasaServlet extends HttpServlet {
                 InputStream inputStream = null;
                 FileOutputStream outputStream = null;
                 try{
-                    inputStream = filePart.getInputStream();
-                    //outputStream = new FileOutputStream("C:/immagini/" + nomeFile);
+                    inputStream = filePart.getInputStream();          
                     ServletContext context = request.getServletContext();
-                    //path = context.getRealPath("/") + "gallery";
-                    path = "c://wamp/www/gallery";
                     annuncioCasaBean.setPathFile(path);
-                    outputStream = new FileOutputStream(path +"\\"+ nomeFile);
-                    visualizzaPath = path +"\\"+ nomeFile;
-                    System.out.println("path del file: " + visualizzaPath);
+                    outputStream = new FileOutputStream(path +"\\"+ nomeFile);       
                     int c;
                     while ((c = inputStream.read()) != -1) {
                         outputStream.write(c);
@@ -104,10 +107,12 @@ public class CreaAnnuncioCasaServlet extends HttpServlet {
             }
         }
         annuncioCasaBean.setPathFile(zipName);
-        annuncioCasaBean.setPathDir(path);
+        
+        annuncioCasaBean.setPathDir(ctx.getInitParameter("pathImage"));
         gestoreAnnunci.addAnnuncioCasa(annuncioCasaBean);
         getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
     }
+    
     private static String getFilename(Part part) {
       for (String cd : part.getHeader("content-disposition").split(";")) {
          if (cd.trim().startsWith("filename")) {
