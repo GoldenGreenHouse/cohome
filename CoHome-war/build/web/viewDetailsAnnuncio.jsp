@@ -244,10 +244,12 @@ int prop;
                                         </br># Guests:  <c:out value="${a.getNumeroPosti()}"/>
                                         </br>Start:  <c:out value="${a.getDataInizio().getTime().toString()}"/>
                                         </br>End:  <c:out value="${a.getDataFine().getTime().toString()}"/>
-                                        </br>Descrizion:  <c:out value="${p.getDescrizione()}"/>
-                                        <button type="button" class="btn btn-success" style="float: right;">
-                                            Accept
-                                        </button>
+                                        </br>Descrizion:  <c:out value="${a.getDescrizione()}"/>
+                                        <a href="/CoHome-war/MainServlet?op=addPrenotazione&propostaID=<c:out value="${a.getId()}"/>">
+                                            <button type="button" class="btn btn-success" style="float: right;">
+                                                Accept
+                                            </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

@@ -50,5 +50,18 @@ public class GestorePrenotazione implements GestorePrenotazioneLocal {
         annuncioFacade.edit(a);
     }
     
+    public void addPrenotazione(long id){
+        PropostaPrenotazione pp = propostaPrenotazioneFacade.find(id);
+        Prenotazione p = new Prenotazione();
+        p.setAnnuncio(pp.getAnnuncio());
+        p.setDataFine(pp.getDataFine());
+        p.setDataInizio(pp.getDataInizio());
+        p.setDescrizione(pp.getDescrizione());
+        p.setNumeroPosti(pp.getNumeroPosti());
+        p.setUtente(pp.getUtente());
+        p.setAttivo(true);
+        prenotazioneFacade.create(p);
+    }
+    
     
 }

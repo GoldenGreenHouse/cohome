@@ -17,4 +17,6 @@ public interface GestorePrenotazioneLocal {
 
     void addPropostaPrenotazione(String checkin,String checkout,String guests,String desc,long idUser, Annuncio a);
     
+    void addPrenotazione(long propostaID);
+    
 }

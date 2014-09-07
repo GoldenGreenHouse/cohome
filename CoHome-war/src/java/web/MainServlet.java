@@ -195,6 +195,11 @@ public class MainServlet extends HttpServlet {
             else
                 response.sendError(401, "Eseguire il login prima di effettuare questa operazione");
         }
+        
+        if(action.equals("addPrenotazione")){
+            long propostaID = Long.parseLong(request.getParameter("propostaID"));
+            gestorePrenotazione.addPrenotazione(propostaID);
+        }
 
         if(action.equals("loginFacebook")){ 
             if(request.isUserInRole("administrator")){

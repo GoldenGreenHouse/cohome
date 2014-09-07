@@ -4,6 +4,7 @@
     Author     : Alessandro
 --%>
 
+<%@page import="ejb.Prenotazione"%>
 <%@page import="ejb.Recensione"%>
 <%@page import="ejb.UserComponent"%>
 <%@page import="java.util.Iterator"%>
@@ -12,6 +13,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% UserComponent utente = (UserComponent)request.getAttribute("utente"); %>
 <% List<Annuncio> annunci = utente.getAnnunci(); %>
+<% List<Prenotazione> prenotazioni = utente.getPrenotazioni(); %>
 <% List<Recensione> recensioni = utente.getRecensioni(); %>
 <%HttpSession s = request.getSession();%>
 <!DOCTYPE html>
@@ -98,7 +100,9 @@
             </div>
             
             <div class="col-md-9">
+                <!--I miei annunci-->
                 <div class="well well-lg">
+                    <h3>I miei annunci</h3>
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -148,8 +152,63 @@
                             %>
                         </tbody>
                     </table>
-
                 </div>
+                        
+                <!-- le prenotazioni accettate -->
+                <div class="well well-lg">
+                    <h3>Le prenotazioni accettate</h3>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    Utente
+                                </th>
+                                <th>
+                                    Data
+                                </th>
+                                <th>
+                                    # posti
+                                </th>
+                                <th>
+                                    Descrizione
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%
+                                Iterator<Prenotazione> it3 = prenotazioni.iterator();
+                                int c2 = 1;
+                                while(it3.hasNext()){
+                                    Prenotazione p = it3.next();
+                                    
+                                    out.println("<tr>");
+                                        out.println("<td>");
+                                            out.println(c2);
+                                        out.println("</td>");
+                                        out.println("<td>");
+                                            out.println(p.getUtente().getName());
+                                        out.println("</td>");
+                                        out.println("<td>");
+                                            out.println(p.getDataPrenotazione().getTime().toString());
+                                        out.println("</td>");
+                                        out.println("<td>");
+                                            out.println(p.getNumeroPosti());
+                                        out.println("</td>");
+                                        out.println("<td>");
+                                            out.println(p.getDescrizione());
+                                        out.println("</td>");
+                                    out.println("</tr>");
+                                    c2++;
+                                }
+                            %>
+                        </tbody>
+                    </table>
+                </div>
+                        
+                <!-- le recensioni ricevute -->
                 <div class="well well-lg"> 
                     <h3>Recensioni</h3>
                     <ul class="list-group">
