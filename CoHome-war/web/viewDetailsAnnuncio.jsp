@@ -18,6 +18,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="ricercaAnnunciCasa" scope="session" class="bean.RicercaAnnunciCasa"/>
 <% Annuncio annuncio= (Annuncio)request.getAttribute("annuncio"); %>
+<% Long idUtenteAnnuncio= (Long)request.getAttribute("idUtenteAnnuncio"); %>
 <c:set var="opzioni" value="${annuncio.getOpzioni()}"/>
 <% List<Commento> commenti= (List<Commento>)request.getAttribute("commenti"); %>
 <%
@@ -245,11 +246,13 @@ int prop;
                                         </br>Start:  <c:out value="${a.getDataInizio().getTime().toString()}"/>
                                         </br>End:  <c:out value="${a.getDataFine().getTime().toString()}"/>
                                         </br>Descrizion:  <c:out value="${a.getDescrizione()}"/>
-                                        <a href="/CoHome-war/MainServlet?op=addPrenotazione&propostaID=<c:out value="${a.getId()}"/>">
-                                            <button type="button" class="btn btn-success" style="float: right;">
-                                                Accept
-                                            </button>
-                                        </a>
+                                        <% if(idUtenteAnnuncio == (Long)s.getAttribute("userID")){ %>
+                                            <a href="/CoHome-war/MainServlet?op=addPrenotazione&propostaID=<c:out value="${a.getId()}"/>">
+                                                <button type="button" class="btn btn-success" style="float: right;">
+                                                    Accept
+                                                </button>
+                                            </a>
+                                        <% } %>
                                     </div>
                                 </div>
                             </div>

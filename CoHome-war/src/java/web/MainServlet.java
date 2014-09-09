@@ -116,6 +116,7 @@ public class MainServlet extends HttpServlet {
            List<Commento> c = gestoreCommenti.findAllCommenti(Integer.parseInt(request.getParameter("idAnnuncio")));
            request.setAttribute("commenti", c);
            request.setAttribute("proposte", lp);
+           request.setAttribute("idUtenteAnnuncio", gestoreAnnunci.getIdUtenteByIdAnnuncio(a.getId())); 
            getServletContext().getRequestDispatcher("/viewDetailsAnnuncio.jsp").forward(request,response);
         }
         
@@ -139,6 +140,7 @@ public class MainServlet extends HttpServlet {
             List<Commento> c = gestoreCommenti.findAllCommenti(Integer.parseInt(annuncio));
             request.setAttribute("commenti", c);
             request.setAttribute("proposte", lp);
+            request.setAttribute("idUtenteAnnuncio", gestoreAnnunci.getIdUtenteByIdAnnuncio(a.getId())); 
             getServletContext().getRequestDispatcher("/viewDetailsAnnuncio.jsp").forward(request,response);
             //getServletContext().getRequestDispatcher("/viewProposte.jsp").forward(request,response);
         }
@@ -206,7 +208,7 @@ public class MainServlet extends HttpServlet {
                 getServletContext().getRequestDispatcher("/LoginFacebook").forward(request,response);
             }
             response.sendError(401, "Eseguire il login prima di effettuare questa operazione");
-        }        
+        }
  
         if(action.equals("index")){
             getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);

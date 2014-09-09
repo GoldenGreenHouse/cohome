@@ -100,114 +100,138 @@
             </div>
             
             <div class="col-md-9">
+                <div class="panel-group" id="accordion">
                 <!--I miei annunci-->
-                <div class="well well-lg">
-                    <h3>I miei annunci</h3>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>
-                                    #
-                                </th>
-                                <th>
-                                    Titolo
-                                </th>
-                                <th>
-                                    Inizio
-                                </th>
-                                <th>
-                                    Fine
-                                </th>
-                                <th>
-                                    Dettagli
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <%
-                                Iterator<Annuncio> it = annunci.iterator();
-                                int c = 1;
-                                while(it.hasNext()){
-                                    Annuncio a = it.next();
-                                    
-                                    out.println("<tr>");
-                                        out.println("<td>");
-                                            out.println(c);
-                                        out.println("</td>");
-                                        out.println("<td>");
-                                            out.println(a.getTitolo());
-                                        out.println("</td>");
-                                        out.println("<td>");
-                                            out.println(a.getDataInizio().getTime().toString());
-                                        out.println("</td>");
-                                        out.println("<td>");
-                                            out.println(a.getDataFine().getTime().toString());
-                                        out.println("</td>");
-                                        out.println("<td>");
-                                            out.println("<a href=\"MainServlet?op=viewProposte&idAnnuncio="+a.getId()+"\"> View </a> ");
-                                        out.println("</td>");
-                                    out.println("</tr>");
-                                    c++;
-                                }
-                            %>
-                        </tbody>
-                    </table>
-                </div>
-                        
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                  I miei annunci
+                                </a>
+                            </h3>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            #
+                                        </th>
+                                        <th>
+                                            Titolo
+                                        </th>
+                                        <th>
+                                            Inizio
+                                        </th>
+                                        <th>
+                                            Fine
+                                        </th>
+                                        <th>
+                                            Dettagli
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%
+                                        Iterator<Annuncio> it = annunci.iterator();
+                                        int c = 1;
+                                        while(it.hasNext()){
+                                            Annuncio a = it.next();
+
+                                            out.println("<tr>");
+                                                out.println("<td>");
+                                                    out.println(c);
+                                                out.println("</td>");
+                                                out.println("<td>");
+                                                    out.println(a.getTitolo());
+                                                out.println("</td>");
+                                                out.println("<td>");
+                                                    out.println(a.getDataInizio().getTime().toString());
+                                                out.println("</td>");
+                                                out.println("<td>");
+                                                    out.println(a.getDataFine().getTime().toString());
+                                                out.println("</td>");
+                                                out.println("<td>");
+                                                    out.println("<a href=\"MainServlet?op=viewProposte&idAnnuncio="+a.getId()+"\"> View </a> ");
+                                                out.println("</td>");
+                                            out.println("</tr>");
+                                            c++;
+                                        }
+                                    %>
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                    </div>
                 <!-- le prenotazioni accettate -->
-                <div class="well well-lg">
-                    <h3>Le prenotazioni accettate</h3>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>
-                                    #
-                                </th>
-                                <th>
-                                    Utente
-                                </th>
-                                <th>
-                                    Data
-                                </th>
-                                <th>
-                                    # posti
-                                </th>
-                                <th>
-                                    Descrizione
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <%
-                                Iterator<Prenotazione> it3 = prenotazioni.iterator();
-                                int c2 = 1;
-                                while(it3.hasNext()){
-                                    Prenotazione p = it3.next();
-                                    
-                                    out.println("<tr>");
-                                        out.println("<td>");
-                                            out.println(c2);
-                                        out.println("</td>");
-                                        out.println("<td>");
-                                            out.println(p.getUtente().getName());
-                                        out.println("</td>");
-                                        out.println("<td>");
-                                            out.println(p.getDataPrenotazione().getTime().toString());
-                                        out.println("</td>");
-                                        out.println("<td>");
-                                            out.println(p.getNumeroPosti());
-                                        out.println("</td>");
-                                        out.println("<td>");
-                                            out.println(p.getDescrizione());
-                                        out.println("</td>");
-                                    out.println("</tr>");
-                                    c2++;
-                                }
-                            %>
-                        </tbody>
-                    </table>
+                    <% if(utente.getId() == (Long)s.getAttribute("userID")){ %>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                      Le prenotazioni accettate
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    #
+                                                </th>
+                                                <th>
+                                                    Utente
+                                                </th>
+                                                <th>
+                                                    Data
+                                                </th>
+                                                <th>
+                                                    # posti
+                                                </th>
+                                                <th>
+                                                    Descrizione
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <%
+                                                Iterator<Prenotazione> it3 = prenotazioni.iterator();
+                                                int c2 = 1;
+                                                while(it3.hasNext()){
+                                                    Prenotazione p = it3.next();
+
+                                                    out.println("<tr>");
+                                                        out.println("<td>");
+                                                            out.println(c2);
+                                                        out.println("</td>");
+                                                        out.println("<td>");
+                                                            out.println(p.getUtente().getName());
+                                                        out.println("</td>");
+                                                        out.println("<td>");
+                                                            out.println(p.getDataPrenotazione().getTime().toString());
+                                                        out.println("</td>");
+                                                        out.println("<td>");
+                                                            out.println(p.getNumeroPosti());
+                                                        out.println("</td>");
+                                                        out.println("<td>");
+                                                            out.println(p.getDescrizione());
+                                                        out.println("</td>");
+                                                    out.println("</tr>");
+                                                    c2++;
+                                                }
+                                            %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    <%}%>
+                    
                 </div>
-                        
+                    
                 <!-- le recensioni ricevute -->
                 <div class="well well-lg"> 
                     <h3>Recensioni</h3>
@@ -225,7 +249,7 @@
                             }
                         %>
                     </ul>
-                </div>        
+                </div>
             </div>
         </div>
         <script src="dist/js/bootstrap.min.js"></script> 

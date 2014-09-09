@@ -23,6 +23,12 @@ import javax.persistence.OneToMany;
  */
 @Entity
 
+@NamedNativeQuery(
+    name="getUtenteByIdAnnuncio",
+    query="SELECT ua.usercomponent_id FROM usercomponent_annuncio AS ua "
+       + "WHERE ua.annunci_id = annunci_id"
+    )
+
 public class UserComponent implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

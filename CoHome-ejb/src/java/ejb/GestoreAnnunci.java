@@ -78,8 +78,13 @@ public class GestoreAnnunci {
         annunci1.add(annuncioCasa);
         userComponent.setAnnunci(annunci1);
         userComponentFacade.create(userComponent);
-       
    }
+   
+   public long getIdUtenteByIdAnnuncio(long id){
+       Query q = em.createNamedQuery("getUtenteByIdAnnuncio").setParameter("annunci_id", id);
+       return (long)q.getResultList().get(0);
+   }
+   
     public void addAnnuncioCasa(AnnuncioCasaBean annuncioCasaBean){
         int numeroPosti = 0;
         String informazione = null;
