@@ -351,12 +351,12 @@ int prop;
         </script>
         <script>
             $("#sendRichiestaPrenotazione").click(function(){
-                var index= <%= index%>;
+                var id= <%= annuncio.getId()%>;
                 $.ajax({
                     type: "POST",
                     url : "MainServlet",
                     //data: "op=provaAjax",
-                    data: "op=addPropostaPrenotazione&checkin=" + $("#checkin").val() + "&checkout=" + $("#checkout").val() + "&guests=" + $("#guests").val() + "&desc=" + $("#description").val()+ "&index="+index,
+                    data: "op=addPropostaPrenotazione&checkin=" + $("#checkin").val() + "&checkout=" + $("#checkout").val() + "&guests=" + $("#guests").val() + "&desc=" + $("#description").val()+ "&id="+id,
                     success : function (data,stato) {
                         $("#addPrenotazione").modal('hide');
                         alert("Proposta di prenotazione correttamente inviata");

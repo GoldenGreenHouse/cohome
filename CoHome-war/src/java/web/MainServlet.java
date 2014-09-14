@@ -192,9 +192,10 @@ public class MainServlet extends HttpServlet {
         if(action.equals("addPropostaPrenotazione")){
 //controllo se l'utente è registrato
             if(request.isUserInRole("registered")){
-                RicercaAnnunciCasa rac = (RicercaAnnunciCasa) s.getAttribute("ricercaAnnunciCasa");
-                Annuncio a = rac.getSingleAnnuncio(Integer.parseInt(request.getParameter("index")));
-                gestorePrenotazione.addPropostaPrenotazione(request.getParameter("checkin"), request.getParameter("checkout"), request.getParameter("guests"), request.getParameter("desc"), new Long("751") , a);
+              //  RicercaAnnunciCasa rac = (RicercaAnnunciCasa) s.getAttribute("ricercaAnnunciCasa");
+                Annuncio a = gestoreAnnunci.findAnnuncio(Long.parseLong(request.getParameter("id")));
+                //Annuncio a = rac.getSingleAnnuncio(Integer.parseInt(request.getParameter("index")));
+                gestorePrenotazione.addPropostaPrenotazione(request.getParameter("checkin"), request.getParameter("checkout"), request.getParameter("guests"), request.getParameter("desc"),(Long)s.getAttribute("userID") , a);
             }
             else
                 response.sendError(401, "Eseguire il login prima di effettuare questa operazione");
