@@ -57,6 +57,7 @@ public class GestoreCommenti {
         utenteModeratore.setRecensioni(recensioni);
         moderatoreFacade.create(utenteModeratore);    
     }
+    
      public void addCommento(Long idUtente, Long idAnnuncio, String commento){
         Commento c = new Commento();
         UserComponent u;
@@ -113,9 +114,9 @@ public class GestoreCommenti {
 //        q = em.createNamedQuery("deleteCommento").setParameter("id_commento", id);
 //    }
     
-    public List<Commento> findAllCommenti(int id_annuncio){
+    public List<Commento> findAllCommenti(long id_annuncio){
        Query q;
-       q = em.createNamedQuery("findAllCommenti").setParameter("Annuncio_Id", id_annuncio);
+       q = em.createNamedQuery("findAllCommenti").setParameter("id", id_annuncio);
        return q.getResultList();
     }
     

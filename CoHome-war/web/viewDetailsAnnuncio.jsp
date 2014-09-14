@@ -208,7 +208,7 @@ int prop;
                                     </a><br>
                                     <%= com.getCommento()%><br><br>
                                     <!-- fare controllo su u -->
-                                    <% if(request.isUserInRole("administrator") || s.getAttribute("userID") == com.getAutore().getId()){ %>
+                                    <% if( (request.isUserInRole("administrator")) || (s.getAttribute("userID") == com.getAutore().getId()) ){ %>
                                          <a href="/CoHome-war/MainServlet?op=deleteCommento&id=<%= com.getId()%>&utente=<%= s.getAttribute("userID") %>&annuncio=<%= annuncio.getId() %>"><font size="2">Cancella</font></a>
                                     <% } %>
 

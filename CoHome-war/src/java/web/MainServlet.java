@@ -137,10 +137,12 @@ public class MainServlet extends HttpServlet {
             Annuncio a = gestoreAnnunci.findAnnuncio(Long.parseLong(annuncio));
             request.setAttribute("annuncio", a);
             List<PropostaPrenotazione> lp = a.getPropostaPrenotazione(); 
-            List<Commento> c = gestoreCommenti.findAllCommenti(Integer.parseInt(annuncio));
+            List<Commento> c = gestoreCommenti.findAllCommenti(Long.parseLong(annuncio));
+            
             request.setAttribute("commenti", c);
             request.setAttribute("proposte", lp);
-            request.setAttribute("idUtenteAnnuncio", gestoreAnnunci.getIdUtenteByIdAnnuncio(a.getId())); 
+            request.setAttribute("idUtenteAnnuncio", gestoreAnnunci.getIdUtenteByIdAnnuncio(a.getId()));
+            
             getServletContext().getRequestDispatcher("/viewDetailsAnnuncio.jsp").forward(request,response);
             //getServletContext().getRequestDispatcher("/viewProposte.jsp").forward(request,response);
         }

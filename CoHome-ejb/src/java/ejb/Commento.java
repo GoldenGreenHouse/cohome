@@ -23,9 +23,26 @@ import javax.persistence.OneToOne;
     name="findAllCommenti",
     query= "SELECT c.* "+
             "FROM Commento AS c, Annuncio_Commento AS ac "+
-            "WHERE ac.Commenti_Id=c.id AND ac.Annuncio_Id = Annuncio_Id",
+            "WHERE ac.Annuncio_Id = ?id "+
+            "AND c.Id = ac.Commenti_Id",
     resultClass=Commento.class
     )
+
+//@NamedNativeQuery(
+//    name="findAllCommenti",
+//    query= "select * "+
+//            "from Commento "+
+//            "inner join Annuncio_Commento "+
+//            "on Commento.ID = Annuncio_Commento.COMMENTI_ID "+
+//            "where Annuncio_Commento.ANNUNCIO_ID = 2",
+//    resultClass=Commento.class
+//    )
+
+//@NamedNativeQuery(
+//    name="findAllCommenti",
+//    query= "select * from Annuncio_Commento where Annuncio_Commento.ANNUNCIO_ID = 2"
+//    )
+
 @Entity
 public class Commento implements Serializable {
     private static final long serialVersionUID = 1L;
