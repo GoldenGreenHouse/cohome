@@ -49,26 +49,38 @@
                         <li><a href="#about">About</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
+
+                    <!--Visualizzare nome--> 
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/CoHome-war/MainServlet?op=viewUserLogged"> <%= request.getUserPrincipal().getName() %> </a></li>
+                        <li><div class="logout"><a href="/CoHome-war/MainServlet?op=logout" class="btn btn-success">Logout</a></div></li>
+                    </ul>
+                                
                 </div><!--/.nav-collapse -->
             </div>
         </div>
         
         <div class="container">
+            <!-- colonna sx -->
             <div class="col-md-3">
                 <div class="well well-lg">
                     <img src="img/profilo.jpg" alt="foto profilo" class="img-circle" width="130">
                 </div>
                 <div class="well well-lg">
                     <% int sum=0;
-                        Iterator<Recensione> itRec = recensioni.iterator();
-                        while(itRec.hasNext()){
-                            sum += Integer.parseInt(itRec.next().getValutazione());
+                        if(recensioni.size() > 0){
+                            Iterator<Recensione> itRec = recensioni.iterator();
+                            while(itRec.hasNext()){
+                                sum += Integer.parseInt(itRec.next().getValutazione());
+                            }
+                            sum = sum/recensioni.size();
+                            if(sum > 3)
+                                out.println("<h2><strong><p class=\"text-success\">"+sum+"/5</p></strong></h2>");
+                            else
+                                out.println("<h2><strong><p class=\"text-danger\">"+sum+"/5</p></strong></h2>");
                         }
-                        sum = sum/recensioni.size();
-                        if(sum > 3)
-                            out.println("<h2><strong><p class=\"text-success\">"+sum+"/5</p></strong></h2>");
-                        else
-                            out.println("<h2><strong><p class=\"text-danger\">"+sum+"/5</p></strong></h2>");
+                        else 
+                            out.println("<h2><strong><p class=\"text-danger\">Nessun voto pervenuto</p></strong></h2>");
                     %>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#evaluateModal">Valuta questo utente</button>
                 </div>
@@ -175,7 +187,7 @@
                         </div>
                     </div>
                 <!-- le prenotazioni accettate -->
-                    <% if(utente.getId() == (Long)s.getAttribute("userID")){ %>
+                    <% if(utente.getId().equals(s.getAttribute("userID"))){ %>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -191,6 +203,9 @@
                                             <tr>
                                                 <th>
                                                     #
+                                                </th>
+                                                <th>
+                                                    Annuncio
                                                 </th>
                                                 <th>
                                                     Utente
@@ -216,6 +231,9 @@
                                                     out.println("<tr>");
                                                         out.println("<td>");
                                                             out.println(c2);
+                                                        out.println("</td>");
+                                                        out.println("<td>");
+                                                            out.println(p.getAnnuncio().getTitolo());
                                                         out.println("</td>");
                                                         out.println("<td>");
                                                             out.println(p.getUtente().getName());

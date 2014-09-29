@@ -121,6 +121,13 @@ int prop;
                         <li><a href="#about">About</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
+                    
+                    <!--Visualizzare nome--> 
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/CoHome-war/MainServlet?op=viewUserLogged"> <%= request.getUserPrincipal().getName() %> </a></li>
+                        <li><div class="logout"><a href="/CoHome-war/MainServlet?op=logout" class="btn btn-success">Logout</a></div></li>
+                    </ul>
+                        
                 </div><!--/.nav-collapse -->
             </div>
         </div>
