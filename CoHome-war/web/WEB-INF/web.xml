@@ -23,7 +23,7 @@
     <context-param>
         <description>Percorso su disco dove vengono salvare le immagini</description>
         <param-name>pathImage</param-name>
-        <param-value>C:\\Users\\Andr3A\\Documents\\NetBeansProjects\\cohome\\CoHome-war\\web\\gallery</param-value>
+        <param-value>C:\\Users\\Alessandro\\Documents\\NetBeansProjects\\cohome\\CoHome-war\\web\\gallery</param-value>
     </context-param>
     <servlet>
         <servlet-name>MainServlet</servlet-name>
