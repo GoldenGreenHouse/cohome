@@ -25,10 +25,13 @@ public class GestorePrenotazione implements GestorePrenotazioneLocal {
     private PrenotazioneFacadeLocal prenotazioneFacade;
     @EJB
     private PropostaPrenotazioneFacadeLocal propostaPrenotazioneFacade;
+    @EJB
+    private GestoreAnnunci gestoreAnnunci;
     
 
     @Override
-    public void addPropostaPrenotazione(String checkin,String checkout,String guests,String desc,long idUser, Annuncio a) {
+    public void addPropostaPrenotazione(String checkin, String checkout, String guests, String desc, long idUser, Annuncio a) {
+        UserComponent user = userComponentFacade.find(idUser);
         Calendar dataGCI = new GregorianCalendar();
         Calendar dataGCF= new GregorianCalendar();
         PropostaPrenotazione pp = new PropostaPrenotazione();
@@ -41,9 +44,10 @@ public class GestorePrenotazione implements GestorePrenotazioneLocal {
         pp.setDataFine(dataGCF);
         pp.setDescrizione(desc);
         pp.setNumeroPosti(Integer.parseInt(guests));
+        pp.setAnnuncio(a);
+        pp.setUtente(user);
         
         propostaPrenotazioneFacade.create(pp);
-        UserComponent user = userComponentFacade.find(idUser);
         user.getPropostaPrenotazione().add(pp);
         a.getPropostaPrenotazione().add(pp);
         userComponentFacade.edit(user);

@@ -357,7 +357,10 @@ int prop;
                     type: "POST",
                     url : "MainServlet",
                     //data: "op=provaAjax",
-                    data: "op=addPropostaPrenotazione&checkin=" + $("#checkin").val() + "&checkout=" + $("#checkout").val() + "&guests=" + $("#guests").val() + "&desc=" + $("#description").val()+ "&id="+id,
+                    data: "op=addPropostaPrenotazione&checkin=" + $("#checkin").val() + 
+                            "&checkout=" + $("#checkout").val() + "&guests=" + $("#guests").val() +
+                            "&desc=" + $("#description").val()+ "&id="+ id + 
+                            "&utenteAnnuncioId=" + $("#utenteAnnuncioId").val(),
                     success : function (data,stato) {
                         $("#addPrenotazione").modal('hide');
                         alert("Proposta di prenotazione correttamente inviata");
