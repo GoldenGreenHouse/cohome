@@ -64,7 +64,13 @@ public class GestorePrenotazione implements GestorePrenotazioneLocal {
         p.setNumeroPosti(pp.getNumeroPosti());
         p.setUtente(pp.getUtente());
         p.setAttivo(true);
+        p.setDataPrenotazione(Calendar.getInstance());
+        
         prenotazioneFacade.create(p);
+        Long idUtente = gestoreAnnunci.getIdUtenteByIdAnnuncio(pp.getAnnuncio().getId());
+        UserComponent user = userComponentFacade.find(idUtente);
+        user.getPrenotazioni().add(p);
+        userComponentFacade.edit(user);
     }
     
     
