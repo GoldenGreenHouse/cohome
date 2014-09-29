@@ -26,7 +26,7 @@ import javax.persistence.OneToMany;
 @NamedNativeQuery(
     name="getUtenteByIdAnnuncio",
     query="SELECT ua.usercomponent_id FROM usercomponent_annuncio AS ua "
-       + "WHERE ua.annunci_id = annunci_id"
+       + "WHERE ua.annunci_id = ?id"
     )
 
 public class UserComponent implements Serializable {

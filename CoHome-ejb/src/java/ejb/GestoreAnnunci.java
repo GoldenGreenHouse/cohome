@@ -81,7 +81,7 @@ public class GestoreAnnunci {
    }
    
    public long getIdUtenteByIdAnnuncio(long id){
-       Query q = em.createNamedQuery("getUtenteByIdAnnuncio").setParameter("annunci_id", id);
+       Query q = em.createNamedQuery("getUtenteByIdAnnuncio").setParameter("id", id);
        return (long)q.getResultList().get(0);
    }
    

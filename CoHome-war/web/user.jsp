@@ -59,7 +59,17 @@
                     <img src="img/profilo.jpg" alt="foto profilo" class="img-circle" width="130">
                 </div>
                 <div class="well well-lg">
-                    ***  voto ***
+                    <% int sum=0;
+                        Iterator<Recensione> itRec = recensioni.iterator();
+                        while(itRec.hasNext()){
+                            sum += Integer.parseInt(itRec.next().getValutazione());
+                        }
+                        sum = sum/recensioni.size();
+                        if(sum > 3)
+                            out.println("<h2><strong><p class=\"text-success\">"+sum+"/5</p></strong></h2>");
+                        else
+                            out.println("<h2><strong><p class=\"text-danger\">"+sum+"/5</p></strong></h2>");
+                    %>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#evaluateModal">Valuta questo utente</button>
                 </div>
                 <!-- Modal -->

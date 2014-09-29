@@ -208,7 +208,7 @@ int prop;
                                     </a><br>
                                     <%= com.getCommento()%><br><br>
                                     <!-- fare controllo su u -->
-                                    <% if( (request.isUserInRole("administrator")) || (s.getAttribute("userID") == com.getAutore().getId()) ){ %>
+                                    <% if( (request.isUserInRole("administrator")) || (s.getAttribute("userID").equals(com.getAutore().getId())) ){ %>
                                          <a href="/CoHome-war/MainServlet?op=deleteCommento&id=<%= com.getId()%>&utente=<%= s.getAttribute("userID") %>&annuncio=<%= annuncio.getId() %>"><font size="2">Cancella</font></a>
                                     <% } %>
 
@@ -246,7 +246,7 @@ int prop;
                                         </br>Start:  <c:out value="${a.getDataInizio().getTime().toString()}"/>
                                         </br>End:  <c:out value="${a.getDataFine().getTime().toString()}"/>
                                         </br>Descrizion:  <c:out value="${a.getDescrizione()}"/>
-                                        <% if(idUtenteAnnuncio == (Long)s.getAttribute("userID")){ %>
+                                        <% if(idUtenteAnnuncio.equals(s.getAttribute("userID"))){ %>
                                             <a href="/CoHome-war/MainServlet?op=addPrenotazione&propostaID=<c:out value="${a.getId()}"/>">
                                                 <button type="button" class="btn btn-success" style="float: right;">
                                                     Accept
@@ -259,7 +259,8 @@ int prop;
                         </c:forEach>
                     </div>
                 </div>
-    <!-- ******************  Fine richieste *********************-->    
+    <!-- ******************  Fine richieste *********************--> 
+    
                 <div class="modal fade" id="addPrenotazione">
                 <div class="modal-dialog">
                     <div class="modal-content">

@@ -5,6 +5,7 @@
         <group>
             <file>file:/C:/Users/Alessandro/Documents/NetBeansProjects/cohome/CoHome-ejb/src/java/ejb/Annuncio.java</file>
             <file>file:/C:/Users/Alessandro/Documents/NetBeansProjects/cohome/CoHome-ejb/src/java/ejb/Commento.java</file>
+            <file>file:/C:/Users/Alessandro/Documents/NetBeansProjects/cohome/CoHome-ejb/src/java/ejb/UserComponent.java</file>
             <file>file:/C:/Users/Alessandro/Documents/NetBeansProjects/cohome/CoHome-ejb/src/java/ejb/GestoreAnnunci.java</file>
             <file>file:/C:/Users/Alessandro/Documents/NetBeansProjects/cohome/CoHome-ejb/src/java/ejb/GestoreCommenti.java</file>
         </group>
