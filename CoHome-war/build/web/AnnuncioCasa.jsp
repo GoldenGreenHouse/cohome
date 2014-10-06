@@ -142,115 +142,116 @@
           </table>
         </div>
         <div class="container">
-        <h1>Inserisci i dati dell'annuncio della disponibilita' di una casa</h1>
-        <form name="f1" method="POST" action="/CoHome-war/MainServlet" enctype="multipart/form-data">
-        <!-- Nav tabs -->
-            <ul id="myTab" class="nav nav-tabs">
-              <li class="active"><a href="#descrizione" data-toggle="tab">Descrizione</a></li>
-              <li><a href="#opzioni" data-toggle="tab">Opzioni</a></li>
-              <li><a href="#foto" data-toggle="tab">Foto</a></li>
-            </ul>
+            <div class="col-md-9">
+                <h1>Inserisci i dati dell'annuncio della disponibilita' di una casa</h1>
+                <form class="form-horizontal" role="form" name="f1" method="POST" action="/CoHome-war/MainServlet" enctype="multipart/form-data">
+                <!-- Nav tabs -->
+                    <ul id="myTab" class="nav nav-tabs">
+                      <li class="active"><a href="#descrizione" data-toggle="tab">Descrizione</a></li>
+                      <li><a href="#opzioni" data-toggle="tab">Opzioni</a></li>
+                      <li><a href="#foto" data-toggle="tab">Foto</a></li>
+                    </ul>
 
-            <!-- Tab panes -->
-            <div class="tab-content">
-                <div class="tab-pane active" id="descrizione">
-                    <table id="tabella"
-                        <tr>
-                            <td><label>Titolo</label></td>
-                            <td><input name="titolo" type="text" size="20"/></td>
-                        </tr>
-                        <tr>
-                            <td><label>Indirizzo</label></td>
-                            <td><input name="indirizzo" type="text" id="address" size="20"/></td>
-                        </tr>
-                        <tr>
-                          <td><label>Città'</label></td>
-                          <td><input name="localita" type="text" id="country" size="20"/></td>
-                       </tr>
-                        <tr>
-                            <td><label>Numero posti</label></td>
-                            <td>
-                                <select name="numeroPosti" id="GetMaps" style="width:100px;" >
-                                    <option value="1" selected="selected">1 Ospite</option>
-                                    <option value="2">2 Ospiti</option>
-                                    <option value="3">3 Ospiti</option>
-                                    <option value="4">4 Ospiti</option>
-                                    <option value="5">5 Ospiti</option>
-                                    <option value="6">6+ Ospiti</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label>Clicca sul campo per inserire la data di inizio</label></td>
-                            <td id="dataInizio">
-                                <input
-                                    name="dataInizio"
-                                    id="dataInizioId"
-                                    type="text"
-                                    maxlength="20"
-                                    size="20"
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="descrizione">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Titolo</label>
+                                <div class="col-md-10"> <input class="form-control" name="titolo" type="text" size="20"/> </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Indirizzo</label>
+                                <div class="col-md-10"> <input class="form-control" name="indirizzo" type="text" id="address" size="20"/> </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Città'</label>
+                                <div class="col-md-10"> <input class="form-control" name="localita" type="text" id="country" size="20"/> </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Numero posti</label>
+                                <div class="col-md-10">
+                                    <select class="form-control" name="numeroPosti" id="GetMaps" style="width:100px;" >
+                                        <option value="1" selected="selected">1 Ospite</option>
+                                        <option value="2">2 Ospiti</option>
+                                        <option value="3">3 Ospiti</option>
+                                        <option value="4">4 Ospiti</option>
+                                        <option value="5">5 Ospiti</option>
+                                        <option value="6">6+ Ospiti</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Clicca sul campo per inserire la data di inizio</label>
+                                <div class="col-md-10" id="dataInizio">
+                                    <input class="form-control"
+                                        name="dataInizio"
+                                        id="dataInizioId"
+                                        type="text"
+                                        maxlength="20"
+                                        size="20"
+                                    />
+                                </div>
+
+                                <script type="text/javascript">
+                                    $(document).ready(function(){
+                                        $('#dataInizioId').datepicker({ 
+                                            beforeShow: function(){    
+                                                $("#dataInizioId").css('font-size', 12) 
+                                            },
+                                        minDate:0
+                                        });
+
+                                    });
+                                </script>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Clicca sul campo per inserire la data di fine</label>
+                                <div class="col-md-10" id="dataFine">
+                                    <input
+                                        class="form-control"
+                                        name="dataFine"
+                                        id="dataFineId"
+                                        type="text"
+                                        maxlength="20"
+                                        size="20"
                                 />
-                            </td>
+                                </div>
 
-                            <script type="text/javascript">
-                                $(document).ready(function(){
-                                    $('#dataInizioId').datepicker({ 
-                                        beforeShow: function(){    
-                                            $("#dataInizioId").css('font-size', 12) 
-                                        },
-                                    minDate:0
-                                    });
-                                    
-                                });
-                            </script>
-                        </tr>
-                        <tr>
-                            <td><label>Clicca sul campo per inserire la data di fine</label></td>
-                            <td id="dataFine">
-                                <input
-                                    name="dataFine"
-                                    id="dataFineId"
-                                    type="text"
-                                    maxlength="20"
-                                    size="20"
-                            />
-                            </td>
+                                <script type="text/javascript">
+                                    $(document).ready(function(){
+                                        $('#dataFineId').datepicker({ 
+                                            beforeShow: function(){    
+                                                $("#dataFineId").css('font-size', 12) 
+                                            },
+                                        minDate:0
+                                        });
 
-                            <script type="text/javascript">
-                                $(document).ready(function(){
-                                    $('#dataFineId').datepicker({ 
-                                        beforeShow: function(){    
-                                            $("#dataFineId").css('font-size', 12) 
-                                        },
-                                    minDate:0
                                     });
-                                    
-                                });
-                            </script>
-                        </tr>
-                        <tr>
-                            <td><label>Descrizione</label></td>
-                            <td><textarea name ="descrizione "rows="4" cols="50"></textarea></td>
-                        </tr>
-                        <tr>
-                            <td><label>Localita'</label></td>
-                            <td><input name="localita" type="text" size="20"/></td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="tab-pane" id="opzioni">
-                    <button id="openFinestra" class="btn btn-warning" >Inserimento Opzioni</button></td>
-                    <div id="addOption"></div>
-                </div>
-                <div class="tab-pane" id="foto">
-                    <input type="file" name="nomeFile"/>
-                </div>
-                
+                                </script>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Descrizione</label>
+                                <div class="col-md-10"><textarea class="form-control" name ="descrizione "rows="4" cols="50"></textarea></div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Localita'</label>
+                                <div class="col-md-10"><input class="form-control" name="localita" type="text" size="20"/></div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="opzioni">
+                            <button id="openFinestra" class="btn btn-warning" >Inserimento Opzioni</button></td>
+                            <div id="addOption"></div>
+                        </div>
+                        <div class="tab-pane" id="foto">
+                            <input type="file" name="nomeFile"/>
+                        </div>
+
+                    </div>
+                    <input type="hidden" name="numerOpzioni" value="">
+                    <input type="submit" class="btn btn-primary" value="invio" id="GetMaps1"/>
+                    <input type="hidden" name="op" value="creaAnnuncioCasa">
+                </form>
             </div>
-            <input type="hidden" name="numerOpzioni" value="">
-            <input type="submit" class="btn btn-primary" value="invio" id="GetMaps1"/>
-            <input type="hidden" name="op" value="creaAnnuncioCasa">
-        </form>
         </div>
         <!-- Bootstrap core JavaScript
 ================================================== -->
