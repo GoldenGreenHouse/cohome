@@ -163,7 +163,6 @@ public class MainServlet extends HttpServlet {
             idUtente = Long.parseLong(request.getParameter("utente"));
             idAnnuncio = Long.parseLong(request.getParameter("annuncio"));
             gestoreCommenti.delCommento(id, idUtente, idAnnuncio);
-            getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
         }
         
         if(action.equals("addCommento")){
@@ -174,7 +173,6 @@ public class MainServlet extends HttpServlet {
             idUtente = Long.parseLong(request.getParameter("utente"));
             idAnnuncio = Long.parseLong(request.getParameter("annuncio"));
             gestoreCommenti.addCommento(idUtente, idAnnuncio, testoCommento);
-            getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
         }
         
         if(action.equals("addEvaluate")){
@@ -202,8 +200,11 @@ public class MainServlet extends HttpServlet {
         }
         
         if(action.equals("addPrenotazione")){
+            UserComponent u = gestoreUtenti.findUtente(Long.parseLong(request.getParameter("userID"))); 
             long propostaID = Long.parseLong(request.getParameter("propostaID"));
             gestorePrenotazione.addPrenotazione(propostaID);
+            request.setAttribute("utente", u);
+            getServletContext().getRequestDispatcher("/user.jsp").forward(request,response);
         }
 
         if(action.equals("loginFacebook")){ 

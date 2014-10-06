@@ -10,6 +10,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -27,6 +29,8 @@ public class GestorePrenotazione implements GestorePrenotazioneLocal {
     private PropostaPrenotazioneFacadeLocal propostaPrenotazioneFacade;
     @EJB
     private GestoreAnnunci gestoreAnnunci;
+    @PersistenceContext(unitName = "CoHome-ejbPU")
+    private EntityManager em;
     
 
     @Override
@@ -56,6 +60,7 @@ public class GestorePrenotazione implements GestorePrenotazioneLocal {
     
     public void addPrenotazione(long id){
         PropostaPrenotazione pp = propostaPrenotazioneFacade.find(id);
+        Annuncio a = pp.getAnnuncio();
         Prenotazione p = new Prenotazione();
         p.setAnnuncio(pp.getAnnuncio());
         p.setDataFine(pp.getDataFine());
@@ -65,12 +70,17 @@ public class GestorePrenotazione implements GestorePrenotazioneLocal {
         p.setUtente(pp.getUtente());
         p.setAttivo(true);
         p.setDataPrenotazione(Calendar.getInstance());
+        pp.setAttivo(false);
         
-        prenotazioneFacade.create(p);
+        //prenotazioneFacade.create(p);
         Long idUtente = gestoreAnnunci.getIdUtenteByIdAnnuncio(pp.getAnnuncio().getId());
         UserComponent user = userComponentFacade.find(idUtente);
         user.getPrenotazioni().add(p);
         userComponentFacade.edit(user);
+        annuncioFacade.edit(a);
+        propostaPrenotazioneFacade.edit(pp);
+        em.flush();
+        
     }
     
     

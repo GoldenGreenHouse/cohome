@@ -216,7 +216,9 @@ int prop;
                                     <%= com.getCommento()%><br><br>
                                     <!-- fare controllo su u -->
                                     <% if( (request.isUserInRole("administrator")) || (s.getAttribute("userID").equals(com.getAutore().getId())) ){ %>
-                                         <a href="/CoHome-war/MainServlet?op=deleteCommento&id=<%= com.getId()%>&utente=<%= s.getAttribute("userID") %>&annuncio=<%= annuncio.getId() %>"><font size="2">Cancella</font></a>
+                                        <a class="deleteComment" data-id="<%= com.getId()%>" href="#">
+                                             <span class="glyphicon glyphicon-trash"></span>
+                                         </a>
                                     <% } %>
 
                        <%
@@ -239,29 +241,31 @@ int prop;
                     <div class="panel-group" id="accordion">
                         <c:forEach items="${lp}" var="a" varStatus="c">
                             <div class="panel panel-default" style="text-align: left;">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title text-primary"> 
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse<c:out value='${c.index}'/>">
-                                            Proposal by <font color="#2A92D1"><c:out value="${a.getUtente().getUsername()}"/></font>
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapse<c:out value='${c.index}'/>" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        User: <c:out value="${a.getUtente().getUsername()}"/>
-                                        </br># Guests:  <c:out value="${a.getNumeroPosti()}"/>
-                                        </br>Start:  <c:out value="${a.getDataInizio().getTime().toString()}"/>
-                                        </br>End:  <c:out value="${a.getDataFine().getTime().toString()}"/>
-                                        </br>Descrizion:  <c:out value="${a.getDescrizione()}"/>
-                                        <% if(idUtenteAnnuncio.equals(s.getAttribute("userID"))){ %>
-                                            <a href="/CoHome-war/MainServlet?op=addPrenotazione&propostaID=<c:out value="${a.getId()}"/>">
-                                                <button type="button" class="btn btn-success" style="float: right;">
-                                                    Accept
-                                                </button>
+                                <c:if test="${a.isAttivo()}">    
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title text-primary"> 
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse<c:out value='${c.index}'/>">
+                                                Proposal by <font color="#2A92D1"><c:out value="${a.getUtente().getUsername()}"/></font>
                                             </a>
-                                        <% } %>
+                                        </h4>
                                     </div>
-                                </div>
+                                    <div id="collapse<c:out value='${c.index}'/>" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            User: <c:out value="${a.getUtente().getUsername()}"/>
+                                            </br># Guests:  <c:out value="${a.getNumeroPosti()}"/>
+                                            </br>Start:  <c:out value="${a.getDataInizio().getTime().toString()}"/>
+                                            </br>End:  <c:out value="${a.getDataFine().getTime().toString()}"/>
+                                            </br>Description:  <c:out value="${a.getDescrizione()}"/>
+                                            <% if(idUtenteAnnuncio.equals(s.getAttribute("userID"))){ %>
+                                                <a href="/CoHome-war/MainServlet?op=addPrenotazione&propostaID=<c:out value="${a.getId()}"/>&userID=<c:out value="${idUtenteAnnuncio}"/>">
+                                                    <button type="button" class="btn btn-success" style="float: right;">
+                                                        Accept
+                                                    </button>
+                                                </a>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                </c:if>
                             </div>
                         </c:forEach>
                     </div>
@@ -332,16 +336,16 @@ int prop;
                     <div class="modal-body">
                       <div class="form-group">
                         <label for="textComment">Commento...</label>
-                        <textarea name="newCommento" class="form-control" rows="3"></textarea>
+                        <textarea id="newCommento" name="newCommento" class="form-control" rows="3"></textarea>
                       </div>
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" value="addCommento" name="op">
     <!-- utente e annuncio da fare in modo parametrico -->
-                        <input type="hidden" value="<%= s.getAttribute("userID") %>" name="utente">
-                        <input type="hidden" value="<%= annuncio.getId() %>" name="annuncio">
+                        <input id="utente" type="hidden" value="<%= s.getAttribute("userID") %>" name="utente">
+                        <input id="annuncio" type="hidden" value="<%= annuncio.getId() %>" name="annuncio">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Add Comment</button>
+                        <button id="sendComment" type="button" class="btn btn-primary">Add Comment</button>
                     </div>
                 </form>
               </div><!-- /.modal-content -->
@@ -377,6 +381,52 @@ int prop;
                     }
                 });
             });
+        </script>
+        <script>
+            $("#sendComment").click(function(){
+//                alert("valori: "+$("#newCommento").val()+" "+ $("#annuncio").val()+" "+$("#utente").val());
+                $.ajax({
+                    type: "POST",
+                    url : "MainServlet",
+                    //data: "op=provaAjax",
+                    data: "op=addCommento&newCommento="+ $("#newCommento").val() +
+                            "&utente="+ $("#utente").val()+"&annuncio="+ $("#annuncio").val(),
+                    success : function (data) {
+                        setTimeout(
+                            function() 
+                            {
+                               location.reload();
+                            }, 0001); 
+                    },
+                    error : function (richiesta,stato,errori) {
+                        alert("ERRORE. "+errori);
+                    }
+                });
+            });
+        </script>
+        <script>
+            $(".deleteComment").click(function(){
+                    var aid= <%= annuncio.getId()%>;
+                    var uid= <%= s.getAttribute("userID") %>;
+                    $.ajax({
+                        type: "POST",
+                        url : "MainServlet",
+                        data: "op=deleteCommento&id="+$(this).attr('data-id')+"&utente="+uid+"&annuncio="+aid,
+                        success : function (data,stato) {
+//                            alert("Commento correttamente eliminato");
+                            setTimeout(
+                                function() 
+                                {
+                                   location.reload();
+                                }, 0001);
+                        },
+                        error : function (richiesta,stato,errori) {
+                            alert("ERRORE. "+errori);
+                        }
+                    });
+
+                
+            })
         </script>
         <script>
         $("#checkin").change( function() {
