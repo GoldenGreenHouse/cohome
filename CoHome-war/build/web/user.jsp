@@ -61,10 +61,11 @@
         </div>
         
         <div class="container">
+            <div class="row"><h2><%= utente.getName() %></h2></div>
             <!-- colonna sx -->
             <div class="col-md-3">
                 <div class="well well-lg">
-                    <img src="img/profilo.jpg" alt="foto profilo" class="img-circle" width="130">
+                    <div class="row"><img src="img/profilo.jpg" alt="foto profilo" class="img-circle" width="130"></div>
                 </div>
                 <div class="well well-lg">
                     <% int sum=0;
@@ -75,12 +76,12 @@
                             }
                             sum = sum/recensioni.size();
                             if(sum > 3)
-                                out.println("<h2><strong><p class=\"text-success\">"+sum+"/5</p></strong></h2>");
+                                out.println("<h2><strong><span class=\"text-success\">"+sum+"/5</span></strong></h2>");
                             else
-                                out.println("<h2><strong><p class=\"text-danger\">"+sum+"/5</p></strong></h2>");
+                                out.println("<h2><strong><span class=\"text-danger\">"+sum+"/5</span></strong></h2>");
                         }
                         else 
-                            out.println("<h2><strong><p class=\"text-danger\">Nessun voto pervenuto</p></strong></h2>");
+                            out.println("<h2><strong><span class=\"text-danger\">Nessun voto pervenuto</span></strong></h2>");
                     %>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#evaluateModal">Valuta questo utente</button>
                 </div>
@@ -264,15 +265,19 @@
                 <div class="well well-lg"> 
                     <h3>Recensioni</h3>
                     <ul class="list-group">
-                        <li class="list-group-item">Cras justo odio</li>
                         <%
                             Iterator<Recensione> it2 = recensioni.iterator();
                             while(it2.hasNext()){
                                 Recensione r = it2.next();
 
                                 out.println("<li class=\"list-group-item\">");
-                                out.println("Voto: "+r.getValutazione());
-                                out.println("\t - Commento: "+r.getDescrizione());
+                                if(Integer.parseInt(r.getValutazione()) < 4){
+                                    out.println("<strong>Voto: </strong> <span class=\"text-danger\">"+r.getValutazione()+"</span>");
+                                }
+                                else{
+                                    out.println("<strong>Voto: </strong> <span class=\"text-success\">"+r.getValutazione()+"</span>");
+                                }
+                                out.println("<strong> Commento: </strong>"+r.getDescrizione());
                                 out.println("</li>");
                             }
                         %>

@@ -134,6 +134,7 @@ int prop;
         <div id="containerTop">
             <h1><c:out value="${annuncio.getTitolo()}"/></h1>
             <h3><c:out value="${annuncio.getIndirizzo()}"/>, <c:out value="${annuncio.getLocalita()}"/></h3>
+            <h4><a href="/CoHome-war/MainServlet?op=viewUser&userID=<%= idUtenteAnnuncio.toString() %>"> Autore </a></h4>
         </div>
         <!--<div id="cointainerLeft">-->
         <div class="container">
@@ -206,12 +207,13 @@ int prop;
                        <br>
                        <% ListIterator<Commento> iter = commenti.listIterator();
                                int c=0;
+                               out.println("<ul class=\"list-group\">");
                                while(iter.hasNext()){
-                                   out.println("<div class=\"well well-lg\">");
+                                   out.println("<li class=\"list-group-item\">");
                                    Commento com = iter.next();
                        %>
                                     <a href="/CoHome-war/MainServlet?op=viewUser&userID=<%= com.getAutore().getId()%>">
-                                        <font color="#2A92D1"><h2><%= com.getAutore().getName()%></h2></font>
+                                        <font color="#2A92D1"><h4><%= com.getAutore().getName()%></h4></font>
                                     </a><br>
                                     <%= com.getCommento()%><br><br>
                                     <!-- fare controllo su u -->
@@ -222,9 +224,10 @@ int prop;
                                     <% } %>
 
                        <%
-                                   out.println("</div> <br>");
+                                   out.println("</li>");
                                    c++;
                                }
+                               out.println("</ul>");
                        %>
                    </div>
 
@@ -251,18 +254,26 @@ int prop;
                                     </div>
                                     <div id="collapse<c:out value='${c.index}'/>" class="panel-collapse collapse">
                                         <div class="panel-body">
-                                            User: <c:out value="${a.getUtente().getUsername()}"/>
-                                            </br># Guests:  <c:out value="${a.getNumeroPosti()}"/>
-                                            </br>Start:  <c:out value="${a.getDataInizio().getTime().toString()}"/>
-                                            </br>End:  <c:out value="${a.getDataFine().getTime().toString()}"/>
-                                            </br>Description:  <c:out value="${a.getDescrizione()}"/>
-                                            <% if(idUtenteAnnuncio.equals(s.getAttribute("userID"))){ %>
-                                                <a href="/CoHome-war/MainServlet?op=addPrenotazione&propostaID=<c:out value="${a.getId()}"/>&userID=<c:out value="${idUtenteAnnuncio}"/>">
-                                                    <button type="button" class="btn btn-success" style="float: right;">
-                                                        Accept
-                                                    </button>
-                                                </a>
-                                            <% } %>
+                                            <table class="table">
+                                                    <tr> <td>
+                                                        <strong>User</strong>: </td> <td>
+                                                        <a href="/CoHome-war/MainServlet?op=viewUser&userID="+<c:out value="${a.getUtente().getId()}"/> >
+                                                            <c:out value="${a.getUtente().getUsername()}"/>
+                                                        </a> 
+                                                    </td> </tr>
+                                                    
+                                                    <tr><td><strong># Guests:</strong></td> <td> <c:out value="${a.getNumeroPosti()}"/></td></tr>
+                                                    <tr><td><strong>Start:</strong></td> <td>  <c:out value="${a.getDataInizio().getTime().toString()}"/></td></tr>
+                                                    <tr><td><strong>End:</strong></td> <td> <c:out value="${a.getDataFine().getTime().toString()}"/></td></tr>
+                                                    <tr><td><strong>Description:</strong></td> <td> <c:out value="${a.getDescrizione()}"/></td></tr>
+                                                    <% if(idUtenteAnnuncio.equals(s.getAttribute("userID"))){ %>
+                                                        <tr><td><strong><a href="/CoHome-war/MainServlet?op=addPrenotazione&propostaID=<c:out value="${a.getId()}"/>&userID=<c:out value="${idUtenteAnnuncio}"/>"></strong>
+                                                            </td> <td><button type="button" class="btn btn-success" style="float: right;">
+                                                                Accept
+                                                            </button>
+                                                        </a></td></tr>
+                                                    <% } %>
+                                            </table>
                                         </div>
                                     </div>
                                 </c:if>
@@ -327,7 +338,7 @@ int prop;
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title">Modal title</h4>
+                  <h4 class="modal-title">Aggiungi Commento</h4>
                 </div>
 
                 <!-- Inizio del Form -->
@@ -375,6 +386,11 @@ int prop;
                     success : function (data,stato) {
                         $("#addPrenotazione").modal('hide');
                         alert("Proposta di prenotazione correttamente inviata");
+                        setTimeout(
+                            function() 
+                            {
+                               location.reload();
+                            }, 0001); 
                     },
                     error : function (richiesta,stato,errori) {
                         alert("ERRORE. "+errori);
