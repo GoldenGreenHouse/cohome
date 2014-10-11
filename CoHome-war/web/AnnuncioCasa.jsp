@@ -81,7 +81,7 @@
                             //crea il campo nascosto
                             $('<input type="hidden" name="opzione'+i+'" value="'+valore+'/'+contenuto+'">').appendTo('form');
                             //scrive l'opzione nella tabella
-                            $('<label>'+valore+' : '+contenuto+'</label><br/>').appendTo('#addOption');
+                            $('<li class="list-group-item"><label>'+valore+' </label>: '+contenuto+'</li>').appendTo('#addOption');
                             $( this ).dialog( "close" );
                             },
                         "Chiudi": function() {
@@ -121,7 +121,7 @@
           <table>
               <tr>
                   <td>
-                      <p>Valore dell'opzione&nbsp&nbsp&nbsp&nbsp</p>
+                      <p>Valore dell'opzione</p>
                   </td>
                   <td>
                       <p>Descrivi l'opzione</p>
@@ -239,17 +239,26 @@
                             </div>
                         </div>
                         <div class="tab-pane" id="opzioni">
-                            <button id="openFinestra" class="btn btn-warning" >Inserimento Opzioni</button></td>
-                            <div id="addOption"></div>
+                            <div class="row well well-l">
+                                <div class="col-md-9">
+                                    <ul class="list-group" id="addOption" ></ul>
+                                </div>
+                                <div class="col-md-3">
+                                    <button id="openFinestra" class="btn btn-warning" >Inserimento Opzioni</button>
+                                </div>
+                            </div>
                         </div>
                         <div class="tab-pane" id="foto">
                             <input type="file" name="nomeFile"/>
                         </div>
 
                     </div>
-                    <input type="hidden" name="numerOpzioni" value="">
-                    <input type="submit" class="btn btn-primary" value="invio" id="GetMaps1"/>
-                    <input type="hidden" name="op" value="creaAnnuncioCasa">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <input type="hidden" name="numerOpzioni" value="">
+                        <input type="submit" class="btn btn-primary" value="invio" id="GetMaps1"/>
+                        <input type="hidden" name="op" value="creaAnnuncioCasa">
+                    </div>
                 </form>
             </div>
         </div>
