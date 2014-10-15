@@ -3,10 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Alessandro/Documents/NetBeansProjects/cohome/CoHome-war/src/java/web/MainServlet.java</file>
             <file>file:/C:/Users/Alessandro/Documents/NetBeansProjects/cohome/CoHome-war/web/user.jsp</file>
-            <file>file:/C:/Users/Alessandro/Documents/NetBeansProjects/cohome/CoHome-war/web/dist/css/template-cohome.css</file>
-            <file>file:/C:/Users/Alessandro/Documents/NetBeansProjects/cohome/CoHome-war/web/AnnuncioCasa.jsp</file>
+            <file>file:/C:/Users/Alessandro/Documents/NetBeansProjects/cohome/CoHome-war/web/viewDetailsAnnuncio.jsp</file>
         </group>
     </open-files>
 </project-private>
