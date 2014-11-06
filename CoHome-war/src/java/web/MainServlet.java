@@ -184,7 +184,12 @@ public class MainServlet extends HttpServlet {
             voto = request.getParameter("vote");
             idUtente = Long.parseLong(request.getParameter("utente"));
             idUtenteLoggato = Long.parseLong(request.getParameter("utenteLoggato"));
-            gestoreRecensioni.addRecensione(idUtente, idUtenteLoggato, testoValutazione, voto);
+            try{
+                gestoreRecensioni.addRecensione(idUtente, idUtenteLoggato, testoValutazione, voto);
+            }
+            catch(javax.ejb.EJBTransactionRolledbackException e){
+                response.sendError(401, e+" - You have just eveluate this user!");
+            }
         }
         
         if(action.equals("addPropostaPrenotazione")){

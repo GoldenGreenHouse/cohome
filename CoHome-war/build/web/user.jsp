@@ -91,31 +91,23 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                <h4 class="modal-title" id="myModalLabel">Valutazione Utente</h4>
                             </div>
                             <div class="modal-body">
-                                <form role="form" action="/CoHome-war/MainServlet">
-                                    <h3> Voto: </h3>
-                                    <select name="vote">
-                                        <option value="1"> 1 </option>
-                                        <option value="2"> 2 </option>
-                                        <option value="3"> 3 </option>
-                                        <option value="4"> 4 </option>
-                                        <option value="5"> 5 </option>
-                                    </select>
-                                    <h3> Commento: </h3>
-                                    <textarea name="newEvaluate" class="form-control" rows="3"></textarea>
-                                    <div class="modal-footer">
-                                        <input type="hidden" value="addEvaluate" name="op">
-                                        <input type="hidden" value="<%= utente.getId() %>" name="utente">
-                                        
-                                        <!-- da rifare in modo parametrico - id utente dopo login -->
-                                        <input type="hidden" value="<%= s.getAttribute("userID") %>" name="utenteLoggato">
-                                        
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                    </div>
-                                </form>
+                                <h3> Voto: </h3>
+                                <select id="vote" name="vote">
+                                    <option value="1"> 1 </option>
+                                    <option value="2"> 2 </option>
+                                    <option value="3"> 3 </option>
+                                    <option value="4"> 4 </option>
+                                    <option value="5"> 5 </option>
+                                </select>
+                                <h3> Commento: </h3>
+                                <textarea id="new-evaluate" name="newEvaluate" class="form-control" rows="3"></textarea>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button id="add-evaluate" type="button" class="btn btn-primary">Save changes</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -286,5 +278,26 @@
             </div>
         </div>
         <script src="dist/js/bootstrap.min.js"></script> 
+        <script>
+            $("#add-evaluate").click(function(){
+                $.ajax({
+                    type: "POST",
+                    url : "MainServlet",
+                    //data: "op=provaAjax",
+                    data: "op=addEvaluate&newEvaluate="+ $("#new-evaluate").val() +
+                            "&vote="+ $("#vote").val() +"&utente="+ <%= utente.getId() %> +"&utenteLoggato="+ <%= s.getAttribute("userID") %>,
+                    success : function (data) {
+                        setTimeout(
+                            function() 
+                            {
+                               location.reload();
+                            }, 0001); 
+                    },
+                    error : function (richiesta,stato,errori) {
+                        alert("ERRORE. "+errori);
+                    }
+                });
+            });
+        </script>
     </body>
 </html>

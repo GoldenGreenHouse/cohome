@@ -442,7 +442,7 @@ int prop;
                     });
 
                 
-            })
+            });
         </script>
         <script>
         $("#checkin").change( function() {
