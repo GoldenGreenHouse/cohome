@@ -1,0 +1,377 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 3-mar-2014, 10.12.13
+    Author     : Andr3A
+*/
+html{
+    font-family:Shift,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .panel-header, .alert, .h5, .panel-header-small, .tab-item, .h6 {
+    font-weight: bold;
+    text-rendering: optimizelegibility;
+}
+.text-special {
+    font-family: Shift,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.navbar-fixed-top, .navbar-fixed-bottom {
+    position: relative !important;
+}
+html body div#carousel-example-generic.carousel{
+    margin-top:-20px;
+}
+.clear{
+    clear:both;
+}
+.logout, .login {
+    float: right;
+    padding-top: 9px;
+}
+.login{
+    font-size:11px;
+}
+.login label{
+    color:white;
+}
+/*------------------------------------CSS index.jsp----------------------------*/
+.fancybox-custom .fancybox-skin {
+        box-shadow: 0 0 50px #222;
+}
+.search-area {
+    height: 300px;
+    padding-top: 140px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 160;
+}
+#location {
+    width: 290px;
+}
+.form-inline .input-wrapper {
+    float: left;
+    margin-right: 4px;
+    position: relative;
+}
+.row > .col-1, .row > .col-2, .row > .col-3, .row > .col-4, .row > .col-5, .row > .col-6, .row > .col-7, .row > .col-8, .row > .col-9, .row > .col-10, .row > .col-11, .row > .col-12 {
+    padding-left: 12.5px;
+    padding-right: 12.5px;
+}
+.search-area h1 {
+    font-size: 48px;
+    margin-bottom: 0;
+}
+.search-area h1, .search-area h2 {
+    color: #FFFFFF;
+    line-height: 1.1;
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.6);
+}
+.search-area form {
+    background: none repeat scroll 0 0 rgba(57, 60, 61, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    border-radius: 3px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    float: left;
+    line-height: 1.2;
+    padding: 4px;
+    font-weight:bold;
+}
+.input-large {
+    padding: 10px 12px 11px;
+    font-size:15px;
+}
+.page-container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+    width: 80%;
+}
+#guests {
+    padding: 11.5px;
+    color: #888888;
+}
+ select#guests.search-option option{
+     margin:10px;
+    }
+    
+#submit_location{
+        padding:10px 12px !important;
+    }
+.container h1 {
+    font-size: 60px;
+    font-weight: 200;
+    letter-spacing: -1px;
+    line-height: 1;
+    margin: 60px 0 10px;
+}
+.container{
+    /*text-align: center;*/
+}
+/*-------------------------- FINE CSS index.jsp ------------------------------*/
+
+/*-------------------------- CSS viewAnnunci.jsp -----------------------------*/
+#map {
+    bottom: 0;
+    left: 0;
+    float:left;
+    top: 47px;
+    width: 40%;
+}
+#map-canvas {
+        height:700px;
+        background-color: #E5E3DF;
+        overflow: hidden;
+        position: relative;
+}   
+
+.search-results{
+        background: none repeat scroll 0 0 #F7F7F7;
+        bottom: 0;
+        overflow-y: scroll;
+        position: fixed;
+        right: 0;
+        top: 47px;
+        width: 60%;
+        float:right;
+        padding: 20px 0 20px 20px;    
+}
+#map:before {
+    box-shadow: -1px 0 1px rgba(0, 0, 0, 0.3) inset;
+    content: "";
+    height: 100%;
+    position: absolute;
+    right: 0;
+    width: 2px;
+    z-index: 2;
+}
+.search-result {
+    width: 50%;
+    float:left;
+}
+.listing {
+    background: none repeat scroll 0 0 #FFFFFF;
+    margin: 0 20px 20px 0;
+    position: relative;
+}
+div.listing-img div.listing-img-container img{
+   width:100%;
+}
+.media-caption {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
+    border-radius: 2px;
+    bottom: 19px;
+    color: #FFFFFF;
+    font-weight: bold;
+    left: 0;
+    padding: 25px 13px 13px;
+    position: absolute;
+    right: 0;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
+    z-index:2;
+}
+.media-caption-infowindow {
+    background-color: rgba(0, 0, 0, 0);
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));
+    border-radius: 2px;
+    bottom: -10px;
+    color: #FFFFFF;
+    font-weight: 600 !important;
+    left: 0;
+    padding: 25px 13px 13px;
+    position: absolute;
+    right: 0;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
+    z-index:2;
+}
+.media-caption-infowindow:hover{
+    font-weight: 600 !important;
+    color:#ccc !important;
+}
+.listing-footer .host-img img {
+    height: 35px;
+    width: 35px;
+}
+.listing-footer .listing-quick-info {
+    display: block;
+    float: left;
+    padding-top: 8px;
+    width: 70%;
+}
+.media-photo:after {
+    border-radius: 2px;
+    bottom: 1px;
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.4) inset;
+    content: "";
+    left: 1px;
+    position: absolute;
+    right: 1px;
+    top: 1px;
+}
+.media-photo:after {
+    border-radius: 2px;
+    bottom: 1px;
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.4) inset;
+    content: "";
+    left: 1px;
+    position: absolute;
+    right: 1px;
+    top: 1px;
+}
+.listing-footer .host-img {
+    float: left;
+    margin: 8px 10px 8px 8px;
+}
+.listing-footer {
+    border-color: -moz-use-text-color #D3D3D3 #D3D3D3;
+    border-image: none;
+    border-radius: 0 0 2px 2px;
+    border-right: 1px solid #D3D3D3;
+    border-style: none solid solid;
+    border-width: medium 1px 1px;
+    cursor: pointer;
+    position: relative;
+}
+/*-------------------------- FINE CSS viewAnnunci.jsp ------------------------*/
+
+/*-------------------------- CSS viewDetailsAnnuncio.jsp ---------------------*/
+#cointainerLeft{
+    padding-left:5%;
+    width:60%;
+    float:left;
+}
+#cointainerRight{
+    width:40%;
+    float:right;
+    padding-left:5%;
+    padding-right:5%;
+}
+#myTab > li, #myTab2 > li{
+    font-size:16px;
+}
+#photos{
+    margin-left:auto;
+    margin-right:auto;
+}
+#thumbnails ul li {
+    display: inline;
+    margin: 0 10px 0 0;
+    padding: 0 0 10px;
+}
+#thumbnails{
+    margin-top:5px;
+    background:#D0D9DD;
+}
+.tab-content{
+    /*border: 1px solid  #888;*/
+}
+#navPhotos {
+    height: 30px;
+    line-height: 30px;
+    position: absolute;
+    top: 220px;
+    width: 100%;
+    z-index: 1000;
+    position:relative;
+}
+#navPhotos #prev {
+    float: left;
+}
+#navPhotos #next {
+    float: right;
+}
+#myTab, #myTab2{
+    background:#D0D9DD;
+    /*border: 1px solid  #888;*/
+    border-bottom:none;
+    padding: 5px 5px 0px;
+}
+#containerTop{
+    padding-left:5%;
+}
+#myTab2{
+    margin-top:30px;
+}
+#descrizione{
+    padding:10px;
+    font-size:13px;
+}
+.imgUser {
+    text-align: center;
+}
+.imgUser {
+    float: left;
+    vertical-align: middle;
+}
+.comment{
+    padding-left:10px;
+    padding-top:15px;
+}
+.panel-dark {
+    background-color: #EFEFEF !important;
+}
+.panel-quote {
+    margin-left: 8px;
+    position: relative;
+    margin-right:15px;
+}
+.panel, code, pre, .label, .dot-info {
+    background-color: #FEFEFE;
+    border: 1px solid #DBDBDB;
+    border-radius: 2px;
+}
+.review-text{font-size:11px}
+#mappa{
+    padding:10px;
+}
+#buttonRichiestaPrenotazione{
+    /*width:100%;
+    height:80px;
+    font-size:32px;
+    border-radius:10px;
+    background-color: #428BCA;
+    border-color: #357EBD;
+    color: #FFFFFF;
+    text-align:center;
+    vertical-align: middle;
+    cursor: pointer;
+    padding-top:15px;*/
+}
+#buttonRichiestaPrenotazione a{
+   color:white;
+}
+#buttonRichiestaPrenotazione:hover{ 
+    background-color: #3276b1;
+    border-color: #285E8E;
+}
+#buttonRichiestaPrenotazione a:hover{ 
+    color:white;
+    text-decoration: none;
+}
+#checkinWrapper,#checkoutWrapper,#posti,.custom-select-container{
+    display:inline !important;
+}
+td.value{
+    border-left: 0;
+    font-weight: bold;
+    text-align: right;
+    word-wrap: break-word;
+}
+bordered>tfoot>tr>td {
+border-left: 1px solid #dbdbdb;
+}
+.col-5 {
+width: 40%;
+
+float:right;
+}
+.col-7 {
+width: 58%;
+
+float:left;
+}
+/*-------------------------- FINE viewDetailsAnnuncio.jsp --------------------*/

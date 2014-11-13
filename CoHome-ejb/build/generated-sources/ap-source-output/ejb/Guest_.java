@@ -3,7 +3,7 @@ package ejb;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.1.v20130918-rNA", date="2014-09-29T16:52:00")
+@Generated(value="EclipseLink-2.5.0.v20130507-rNA", date="2014-11-13T13:43:40")
 @StaticMetamodel(Guest.class)
 public class Guest_ extends UserComponent_ {
 
