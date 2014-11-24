@@ -85,7 +85,7 @@ public class GestoreAnnunci {
        return (long)q.getResultList().get(0);
    }
    
-    public void addAnnuncioCasa(AnnuncioCasaBean annuncioCasaBean){
+    public long addAnnuncioCasa(AnnuncioCasaBean annuncioCasaBean){
         int numeroPosti = 0;
         String informazione = null;
         String[] data = null;
@@ -145,44 +145,44 @@ public class GestoreAnnunci {
         userComponentFacade.create(userComponent);
         
         //decompressione file
-        Long idAnnuncioCasa = annuncioCasa.getId();
-        System.out.println("idAnnuncioCasa: " + idAnnuncioCasa);
-        String zipName = annuncioCasaBean.getPathFile();
-        if(!zipName.equals("")){
-                try {
-                    FileInputStream fis = new FileInputStream(zipName);
-                    ZipInputStream zis = new ZipInputStream(new BufferedInputStream(fis));
-                    ZipEntry entry;
-                    String Dir = annuncioCasaBean.getPathDir() + "\\ann" + idAnnuncioCasa;
-                    boolean success = (new File(Dir)).mkdirs();
-                    if (success){
-                        // Read each entry from the ZipInputStream until no
-                        // more entry found indicated by a null return value
-                        // of the getNextEntry() method.
-                        while ((entry = zis.getNextEntry()) != null) {
-                            System.out.println("Unzipping: " + entry.getName());
-                            int size;
-                            byte[] buffer = new byte[2048];
-                            FileOutputStream fos = new FileOutputStream(Dir + "/" + entry.getName());
-                            System.out.println("path dezippati: " + Dir + "\\" + entry.getName());
-                            BufferedOutputStream bos =new BufferedOutputStream(fos, buffer.length);
-                            while ((size = zis.read(buffer, 0, buffer.length)) != -1) {
-                                bos.write(buffer, 0, size);
-                            }
-                            bos.flush();
-                            bos.close();
+      long idAnnuncioCasa = annuncioCasa.getId();
+      System.out.println("idAnnuncioCasa: " + idAnnuncioCasa);
+      String zipName = annuncioCasaBean.getPathFile();
+      if(!zipName.equals("")){
+            try {
+                File f = new File (annuncioCasaBean.getPathDir()+"/myNewFolder");
+                f.mkdir();
+                
+                FileInputStream fis = new FileInputStream(zipName);
+                ZipInputStream zis = new ZipInputStream(new BufferedInputStream(fis));
+                ZipEntry entry;
+                String Dir= annuncioCasaBean.getPathDir();
+                boolean success = (new File(Dir)).mkdirs();
+                if (success){
+                   
+                    while ((entry = zis.getNextEntry()) != null) {
+                        int size;
+                        byte[] buffer = new byte[2048];
+                        FileOutputStream fos = new FileOutputStream(Dir + "\\" +idAnnuncioCasa+"_"+ entry.getName());
+                        BufferedOutputStream bos =new BufferedOutputStream(fos, buffer.length);
+                        while ((size = zis.read(buffer, 0, buffer.length)) != -1) {
+                            bos.write(buffer, 0, size);   
                         }
+                        bos.flush();
+                        bos.close();
                     }
-                    zis.close();
-                    fis.close();
-                    //File fileZip = new File("C:/immagini/" + nomeFile);
-                    File fileZip = new File(zipName);
-                    fileZip.delete();
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
-        }
-   } 
+                zis.close();
+                fis.close();
+                //File fileZip = new File("C:/immagini/" + nomeFile);
+                //File fileZip = new File(zipName);
+                //fileZip.delete();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+    }
+    return(annuncioCasa.getId());
+} 
     
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")

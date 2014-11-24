@@ -259,6 +259,9 @@ public class MainServlet extends HttpServlet {
             c.setRuolo("registered");
             c.setUsername("pippo");
             gestoreUtenti.addUtente(c);
+            
+            request.setAttribute("success", "Utenti Registrati con successo");
+            getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
         }
         
         if(action.equals("jaas2")){

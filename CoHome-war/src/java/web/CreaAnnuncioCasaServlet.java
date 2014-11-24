@@ -2,9 +2,15 @@ package web;
 
 import bean.AnnuncioCasaBean;
 import ejb.GestoreAnnunci;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 import javax.ejb.EJB;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -96,20 +102,80 @@ public class CreaAnnuncioCasaServlet extends HttpServlet {
                         outputStream.write(c);
                     }
                 }finally{
-                    if(inputStream != null) {
                         inputStream.close();
-                    }
-                    if (outputStream != null) {
                         outputStream.close();
-                    }
                 }
                 zipName = path +"\\"+ nomeFile;
             }
         }
         annuncioCasaBean.setPathFile(zipName);
-        
         annuncioCasaBean.setPathDir(ctx.getInitParameter("pathImage"));
-        gestoreAnnunci.addAnnuncioCasa(annuncioCasaBean);
+        
+        long id= gestoreAnnunci.addAnnuncioCasa(annuncioCasaBean);
+       
+        /*if(!zipName.equals("")){
+            try {
+                FileInputStream fis = new FileInputStream(zipName);
+                ZipInputStream zis = new ZipInputStream(new BufferedInputStream(fis));
+                ZipEntry entry;
+                File img;
+                String Dir = annuncioCasaBean.getPathDir() + "\\ann"+id;
+                boolean success = (new File(Dir)).mkdirs();
+                if (success){
+                    // Read each entry from the ZipInputStream until no more entry found indicated by a null return value of the getNextEntry() method.
+                    while ((entry = zis.getNextEntry()) != null) {
+                        System.out.println("Unzipping: " + entry.getName());
+                        int size;
+                        byte[] buffer = new byte[2048];
+                        FileOutputStream fos = new FileOutputStream(Dir + "\\" + entry.getName());
+                        System.out.println("path dezippati: " + Dir + "\\" + entry.getName());
+                        img=new File(Dir + "\\" + entry.getName());
+                        BufferedOutputStream bos =new BufferedOutputStream(fos, buffer.length);
+                        while ((size = zis.read(buffer, 0, buffer.length)) != -1) {
+                            bos.write(buffer, 0, size);
+                        }
+                        bos.flush();
+                        bos.close();
+                    }
+                }
+                zis.close();
+                fis.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }*/
+        //unzip file in folder ann+idAnnuncio
+//        if(!zipName.equals("")){
+//            try {
+//                FileInputStream fis = new FileInputStream(zipName);
+//                ZipInputStream zis = new ZipInputStream(new BufferedInputStream(fis));
+//                ZipEntry entry;
+//                String Dir = annuncioCasaBean.getPathDir() + "\\ann" + id;
+//                boolean success = (new File(Dir)).mkdirs();
+//                if (success){
+//                    // Read each entry from the ZipInputStream until no more entry found indicated by a null return value of the getNextEntry() method.
+//                    while ((entry = zis.getNextEntry()) != null) {
+//                        System.out.println("Unzipping: " + entry.getName());
+//                        int size;
+//                        byte[] buffer = new byte[2048];
+//                        FileOutputStream fos = new FileOutputStream(Dir + "\\" + entry.getName());
+//                        System.out.println("path dezippati: " + Dir + "\\" + entry.getName());
+//                        BufferedOutputStream bos =new BufferedOutputStream(fos, buffer.length);
+//                        while ((size = zis.read(buffer, 0, buffer.length)) != -1) {
+//                            bos.write(buffer, 0, size);
+//                        }
+//                        bos.flush();
+//                        bos.close();
+//                    }
+//                }
+//                zis.close();
+//                fis.close();
+//                File fileZip = new File(zipName);
+//                fileZip.delete();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
         getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
     }
     

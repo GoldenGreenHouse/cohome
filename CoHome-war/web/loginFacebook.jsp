@@ -28,9 +28,11 @@
     <body>
         <% 
         try {
-            Runtime.getRuntime().exec(pathBrowser + " https://www.facebook.com/dialog/oauth?client_id=" + clientId + "&redirect_uri=https://www.facebook.com/connect/login_success.html"); 
-        } catch (Exception e) {}           
+            //Runtime.getRuntime().exec(pathBrowser + " https://www.facebook.com/dialog/oauth?client_id=" + clientId + "&redirect_uri=https://www.facebook.com/connect/login_success.html");
+            Runtime.getRuntime().exec(pathBrowser + " https://www.facebook.com/dialog/oauth?client_id=" + clientId + "&redirect_uri=http://localhost:8080/CoHome-war/GetAccessToken"); 
+        } catch (Exception e) {}         
         %>
+        
         
         <div style="text-align:center">
             <h2>Home</h2>
