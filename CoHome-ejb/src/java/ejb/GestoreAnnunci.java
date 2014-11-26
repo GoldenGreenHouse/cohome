@@ -143,41 +143,8 @@ public class GestoreAnnunci {
         annunci.add(annuncioCasa);
         //userComponent.setAnnunci(annunci);
         userComponentFacade.create(userComponent);
-        
-        //decompressione file
-      long idAnnuncioCasa = annuncioCasa.getId();
-      System.out.println("idAnnuncioCasa: " + idAnnuncioCasa);
-      String zipName = annuncioCasaBean.getPathFile();
-      if(!zipName.equals("")){
-            try {
-                FileInputStream fis = new FileInputStream(zipName);
-                ZipInputStream zis = new ZipInputStream(new BufferedInputStream(fis));
-                ZipEntry entry;
-                String Dir= annuncioCasaBean.getPathDir();
-                //boolean success = (new File(Dir)).mkdirs();
-               // if (success){
-                    while ((entry = zis.getNextEntry()) != null) {
-                        int size;
-                        byte[] buffer = new byte[2048];
-                        FileOutputStream fos = new FileOutputStream(Dir + "\\" +idAnnuncioCasa+"_"+ entry.getName());
-                        BufferedOutputStream bos =new BufferedOutputStream(fos, buffer.length);
-                        while ((size = zis.read(buffer, 0, buffer.length)) != -1) {
-                            bos.write(buffer, 0, size);   
-                        }
-                        bos.flush();
-                        bos.close();
-                    }
-                //}
-                zis.close();
-                fis.close();
-                //File fileZip = new File("C:/immagini/" + nomeFile);
-                File fileZip = new File(zipName);
-                fileZip.delete();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-    }
-    return(annuncioCasa.getId());
+      
+        return(annuncioCasa.getId());
 } 
     
     // Add business logic below. (Right-click in editor and choose
