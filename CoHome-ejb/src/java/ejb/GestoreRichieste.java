@@ -27,11 +27,5 @@ public class GestoreRichieste {
     @PersistenceContext(unitName = "CoHome-ejbPU")
     private EntityManager em;
     
-    public List<RichiestaCasa> getRichiesteByAnnuncio(Long idAnnuncio){
-        List<RichiestaCasa> richieste;
-        Query query = em.createNamedQuery("getRichiesteByAnnuncio").setParameter("Annuncio_Id", idAnnuncio);;
-        richieste = query.getResultList();
-        return richieste;
-    }
     
 }

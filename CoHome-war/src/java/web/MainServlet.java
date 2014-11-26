@@ -12,7 +12,7 @@ import ejb.AnnuncioCasa;
 import ejb.Commento;
 import ejb.GestoreAnnunci;
 import ejb.GestoreCommenti;
-import ejb.GestorePrenotazioneLocal;
+import ejb.GestorePrenotazione;
 import ejb.GestoreRecensioni;
 import ejb.GestoreRichieste;
 import ejb.GestoreUtenti;
@@ -45,7 +45,7 @@ import org.json.JSONObject;
 @MultipartConfig
 public class MainServlet extends HttpServlet {
     @EJB
-    private GestorePrenotazioneLocal gestorePrenotazione;
+    private GestorePrenotazione gestorePrenotazione;
     @EJB
     private GestoreUtenti gestoreUtenti;
     @EJB
@@ -258,6 +258,20 @@ public class MainServlet extends HttpServlet {
             c.setPassword("a2242ead55c94c3deb7cf2340bfef9d5bcaca22dfe66e646745ee4371c633fc8");
             c.setRuolo("registered");
             c.setUsername("pippo");
+            gestoreUtenti.addUtente(c);
+            c = new UserComponent();
+            c.setEmail("user1@msn.com");
+            c.setName("User1");
+            c.setPassword("0a041b9462caa4a31bac3567e0b6e6fd9100787db2ab433d96f6d178cabfce90");
+            c.setRuolo("registered");
+            c.setUsername("user1");
+            gestoreUtenti.addUtente(c);
+            c = new UserComponent();
+            c.setEmail("user2@msn.com");
+            c.setName("User2");
+            c.setPassword("6025d18fe48abd45168528f18a82e265dd98d421a7084aa09f61b341703901a3");
+            c.setRuolo("registered");
+            c.setUsername("user2");
             gestoreUtenti.addUtente(c);
             
             request.setAttribute("success", "Utenti Registrati con successo");

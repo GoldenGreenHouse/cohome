@@ -12,12 +12,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.Temporal;
 
 /**
  *
  * @author marco
  */
+@NamedNativeQuery(
+    name="getProposteByAnnuncio",
+    query= "select * "+
+           "from cohome.PROPOSTAPRENOTAZIONE as p "+
+           "where p.ANNUNCIO_ID = Annuncio_Id AND ATTIVO=1",
+    resultClass=PropostaPrenotazione.class
+)
 @Entity
 public class Prenotazione extends PropostaPrenotazione implements Serializable {
     private static final long serialVersionUID = 1L;

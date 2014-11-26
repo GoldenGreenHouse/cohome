@@ -8,17 +8,23 @@ package ejb;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
+import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.Local;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
  * @author Andr3A
  */
 @Stateless
-public class GestorePrenotazione implements GestorePrenotazioneLocal {
+@LocalBean
+public class GestorePrenotazione {
     @EJB
     private AnnuncioFacadeLocal annuncioFacade;
     @EJB
@@ -32,8 +38,6 @@ public class GestorePrenotazione implements GestorePrenotazioneLocal {
     @PersistenceContext(unitName = "CoHome-ejbPU")
     private EntityManager em;
     
-
-    @Override
     public void addPropostaPrenotazione(String checkin, String checkout, String guests, String desc, long idUser, Annuncio a) {
         UserComponent user = userComponentFacade.find(idUser);
         Calendar dataGCI = new GregorianCalendar();
@@ -72,15 +76,31 @@ public class GestorePrenotazione implements GestorePrenotazioneLocal {
         p.setDataPrenotazione(Calendar.getInstance());
         pp.setAttivo(false);
         
-        //prenotazioneFacade.create(p);
         Long idUtente = gestoreAnnunci.getIdUtenteByIdAnnuncio(pp.getAnnuncio().getId());
         UserComponent user = userComponentFacade.find(idUtente);
         user.getPrenotazioni().add(p);
         userComponentFacade.edit(user);
         annuncioFacade.edit(a);
+        
+        
+        List<PropostaPrenotazione> proposte = getPropostaByAnnuncio(a.getId());
+        Iterator iter = proposte.listIterator();
+        while(iter.hasNext()){
+            PropostaPrenotazione x = (PropostaPrenotazione)iter.next();
+            if ( (x.getDataInizio().after(p.getDataInizio()) && x.getDataInizio().before(p.getDataFine())) ||
+                 (x.getDataFine().after(p.getDataInizio()) && x.getDataFine().before(p.getDataFine())) ||
+                 (x.getDataInizio().before(p.getDataInizio()) && x.getDataFine().after(p.getDataFine())) )
+                    x.setAttivo(false);
+        }
         propostaPrenotazioneFacade.edit(pp);
         em.flush();
         
+    }
+    public List<PropostaPrenotazione> getPropostaByAnnuncio(Long idAnnuncio){
+        List<PropostaPrenotazione> proposte;
+        Query query = em.createNamedQuery("getProposteByAnnuncio").setParameter("Annuncio_Id", idAnnuncio);
+        proposte = query.getResultList();
+        return proposte;
     }
     
     

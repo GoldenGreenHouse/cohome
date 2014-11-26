@@ -111,7 +111,7 @@ public class CreaAnnuncioCasaServlet extends HttpServlet {
         annuncioCasaBean.setPathFile(zipName);
         annuncioCasaBean.setPathDir(ctx.getInitParameter("pathImage"));
         
-        long id= gestoreAnnunci.addAnnuncioCasa(annuncioCasaBean);
+        long idAnnuncioCasa= gestoreAnnunci.addAnnuncioCasa(annuncioCasaBean);
        
         if(!zipName.equals("")){
             try {

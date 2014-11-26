@@ -267,11 +267,14 @@ int prop;
                                                     <tr><td><strong>End:</strong></td> <td> <c:out value="${a.getDataFine().getTime().toString()}"/></td></tr>
                                                     <tr><td><strong>Description:</strong></td> <td> <c:out value="${a.getDescrizione()}"/></td></tr>
                                                     <% if(idUtenteAnnuncio.equals(s.getAttribute("userID"))){ %>
-                                                        <tr><td><strong><a href="/CoHome-war/MainServlet?op=addPrenotazione&propostaID=<c:out value="${a.getId()}"/>&userID=<c:out value="${idUtenteAnnuncio}"/>"></strong>
-                                                            </td> <td><button type="button" class="btn btn-success" style="float: right;">
+                                                    <tr>
+                                                        <td><a href="/CoHome-war/MainServlet?op=addPrenotazione&propostaID=<c:out value="${a.getId()}"/>&userID=<c:out value="${idUtenteAnnuncio}"/>">
+                                                            <button type="button" class="btn btn-success" style="float: right;">
                                                                 Accept
                                                             </button>
-                                                        </a></td></tr>
+                                                        </a>
+                                                        </td>
+                                                    </tr>
                                                     <% } %>
                                             </table>
                                         </div>
