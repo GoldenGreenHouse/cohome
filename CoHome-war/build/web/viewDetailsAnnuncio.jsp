@@ -156,14 +156,14 @@ int prop;
                             <a id="next" href=""><img src="dist/image/button_next.png" alt="Next photo"></a>
                         </div>
                         <div id="photos">
-                            <img src="gallery/ann<c:out value="${annuncio.getId()}"/>/1.jpg" alt=""/>
-                            <img src="gallery/ann<c:out value="${annuncio.getId()}"/>/2.jpg" alt=""/>
-                            <img src="gallery/ann<c:out value="${annuncio.getId()}"/>/3.jpg" alt=""/>
-                            <img src="gallery/ann<c:out value="${annuncio.getId()}"/>/4.jpg" alt=""/>
-                            <img src="gallery/ann<c:out value="${annuncio.getId()}"/>/5.jpg" alt=""/>
-                            <img src="gallery/ann<c:out value="${annuncio.getId()}"/>/6.jpg" alt=""/>
-                            <img src="gallery/ann<c:out value="${annuncio.getId()}"/>/7.jpg" alt=""/>
-                            <img src="gallery/ann<c:out value="${annuncio.getId()}"/>/8.jpg" alt=""/>
+                            <img src="gallery/<c:out value="${annuncio.getId()}"/>_1.jpg" alt=""/>
+                            <img src="gallery/<c:out value="${annuncio.getId()}"/>_2.jpg" alt=""/>
+                            <img src="gallery/<c:out value="${annuncio.getId()}"/>_3.jpg" alt=""/>
+                            <img src="gallery/<c:out value="${annuncio.getId()}"/>_4.jpg" alt=""/>
+                            <img src="gallery/<c:out value="${annuncio.getId()}"/>_5.jpg" alt=""/>
+                            <img src="gallery/<c:out value="${annuncio.getId()}"/>_6.jpg" alt=""/>
+                            <img src="gallery/<c:out value="${annuncio.getId()}"/>_7.jpg" alt=""/>
+                            <img src="gallery/<c:out value="${annuncio.getId()}"/>_8.jpg" alt=""/>
                         </div>
                         <div id="thumbnails">
                             <ul></ul>
