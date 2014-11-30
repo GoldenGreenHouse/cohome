@@ -52,6 +52,21 @@ int prop;
         <script src="dist/js/jquery.ui.datepicker.js"></script>
         
         <script>
+            function unavailable(date) {
+                var busyStarts = ["2014-11-28"];
+                var busyEnds = ["2014-11-29"];
+                var cssClass = '';
+                for (var i=0; i < busyStarts.length; i++) {
+                    var busyStart = new Date(busyStarts[i]).setHours(0, 0, 0, 0);
+                    var busyEnd = new Date(busyEnds[i]).setHours(0, 0, 0, 0);  
+                    if (date >= busyStart && date <= busyEnd) {
+                        cssClass = 'ui-datepicker-unselectable ui-state-disabled';
+                    }
+                 }
+                 return [true, cssClass];
+            }
+
+            
             $(function() {
                 $( "#checkin" ).datepicker({
                     numberOfMonths: 1,
@@ -60,7 +75,8 @@ int prop;
                     },
                     showButtonPanel: true,
                     minDate: new Date( $( "#start" ).html()),
-                    maxDate: new Date( $( "#end" ).html())
+                    maxDate: new Date( $( "#end" ).html()),
+                    beforeShowDay: unavailable
                 });
                 $( "#checkout" ).datepicker({
                     numberOfMonths: 1,
@@ -69,7 +85,8 @@ int prop;
                     },
                     showButtonPanel: true,
                     minDate: new Date( $( "#start" ).html()),
-                    maxDate: new Date( $( "#end" ).html())
+                    maxDate: new Date( $( "#end" ).html()),
+                    beforeShowDay: unavailable
                 });
             });
         </script>
