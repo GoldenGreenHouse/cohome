@@ -9,19 +9,19 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.1.v20130918-rNA", date="2014-11-26T22:45:17")
+@Generated(value="EclipseLink-2.5.1.v20130918-rNA", date="2014-11-28T11:40:25")
 @StaticMetamodel(Annuncio.class)
 public abstract class Annuncio_ { 
 
+    public static volatile SingularAttribute<Annuncio, String> localita;
+    public static volatile ListAttribute<Annuncio, Opzione> opzioni;
+    public static volatile SingularAttribute<Annuncio, Calendar> dataInizio;
+    public static volatile SingularAttribute<Annuncio, String> descrizione;
+    public static volatile SingularAttribute<Annuncio, String> titolo;
+    public static volatile SingularAttribute<Annuncio, Calendar> dataFine;
     public static volatile SingularAttribute<Annuncio, Long> id;
     public static volatile ListAttribute<Annuncio, Commento> commenti;
-    public static volatile SingularAttribute<Annuncio, String> descrizione;
-    public static volatile SingularAttribute<Annuncio, Boolean> attivo;
-    public static volatile SingularAttribute<Annuncio, Calendar> dataFine;
-    public static volatile SingularAttribute<Annuncio, String> localita;
-    public static volatile SingularAttribute<Annuncio, Calendar> dataInizio;
-    public static volatile SingularAttribute<Annuncio, String> titolo;
-    public static volatile ListAttribute<Annuncio, Opzione> opzioni;
     public static volatile ListAttribute<Annuncio, PropostaPrenotazione> propostaPrenotazione;
+    public static volatile SingularAttribute<Annuncio, Boolean> attivo;
 
 }

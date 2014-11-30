@@ -268,11 +268,12 @@ int prop;
                                                     <tr><td><strong>Description:</strong></td> <td> <c:out value="${a.getDescrizione()}"/></td></tr>
                                                     <% if(idUtenteAnnuncio.equals(s.getAttribute("userID"))){ %>
                                                     <tr>
-                                                        <td><a href="/CoHome-war/MainServlet?op=addPrenotazione&propostaID=<c:out value="${a.getId()}"/>&userID=<c:out value="${idUtenteAnnuncio}"/>">
-                                                            <button type="button" class="btn btn-success" style="float: right;">
-                                                                Accept
-                                                            </button>
-                                                        </a>
+                                                        <td>
+                                                            <a class="accettaProposta" data-id="<c:out value="${a.getId()}"/>" href="#">
+                                                                <button type="button" class="btn btn-success" style="float: right;">
+                                                                    Accept
+                                                                </button>
+                                                            </a>
                                                         </td>
                                                     </tr>
                                                     <% } %>
@@ -447,6 +448,33 @@ int prop;
                 
             });
         </script>
+        
+        <script>
+            $(".accettaProposta").click(function(){
+                    var pid= $(this).attr('data-id');
+                    var uid= <%= idUtenteAnnuncio %>;
+                    $.ajax({
+//                        /CoHome-war/MainServlet?op=addPrenotazione&propostaID=<c:out value="${a.getId()}"/>&userID=<c:out value="${idUtenteAnnuncio}"/>
+                        type: "POST",
+                        url : "MainServlet",
+                        data: "op=addPrenotazione&propostaID="+pid+"&userID="+uid,
+                        success : function (data,stato) {
+//                            alert("Commento correttamente eliminato");
+                            setTimeout(
+                                function() 
+                                {
+                                   location.reload();
+                                }, 0001);
+                        },
+                        error : function (richiesta,stato,errori) {
+                            alert("ERRORE. "+errori);
+                        }
+                    });
+
+                
+            });
+        </script>
+        
         <script>
         $("#checkin").change( function() {
             $( "#checkout" ).datepicker("destroy");

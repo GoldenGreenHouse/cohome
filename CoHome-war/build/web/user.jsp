@@ -83,7 +83,10 @@
                         else 
                             out.println("<h2><strong><span class=\"text-danger\">Nessun voto pervenuto</span></strong></h2>");
                     %>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#evaluateModal">Valuta questo utente</button>
+                    
+                    <% if(!(utente.getId().equals(s.getAttribute("userID")))){ %>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#evaluateModal">Valuta questo utente</button>
+                    <% } %>
                 </div>
                 <!-- Modal -->
                 <div class="modal fade" id="evaluateModal" tabindex="-1" role="dialog" aria-labelledby="evaluateModalLabel" aria-hidden="true">
