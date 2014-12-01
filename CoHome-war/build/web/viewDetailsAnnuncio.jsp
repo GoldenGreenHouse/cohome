@@ -141,8 +141,10 @@ int prop;
                     
                     <!--Visualizzare nome--> 
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/CoHome-war/MainServlet?op=viewUserLogged"> <%= request.getUserPrincipal().getName() %> </a></li>
-                        <li><div class="logout"><a href="/CoHome-war/MainServlet?op=logout" class="btn btn-success">Logout</a></div></li>
+                        <% if(s.getAttribute("userID") != null){  %>
+                            <li><a href="/CoHome-war/MainServlet?op=viewUserLogged"> <%= request.getUserPrincipal().getName() %> </a></li>
+                            <li><div class="logout"><a href="/CoHome-war/MainServlet?op=logout" class="btn btn-success">Logout</a></div></li>
+                        <% } %> 
                     </ul>
                         
                 </div><!--/.nav-collapse -->
@@ -234,7 +236,7 @@ int prop;
                                     </a><br>
                                     <%= com.getCommento()%><br><br>
                                     <!-- fare controllo su u -->
-                                    <% if( (request.isUserInRole("administrator")) || (s.getAttribute("userID").equals(com.getAutore().getId())) ){ %>
+                                    <% if( (request.isUserInRole("administrator")) || (com.getAutore().getId().equals(s.getAttribute("userID"))) ){ %>
                                         <a class="deleteComment" data-id="<%= com.getId()%>" href="#">
                                              <span class="glyphicon glyphicon-trash"></span>
                                          </a>
