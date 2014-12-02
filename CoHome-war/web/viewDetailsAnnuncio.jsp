@@ -276,7 +276,7 @@ int prop;
                                             <table class="table">
                                                     <tr> <td>
                                                         <strong>User</strong>: </td> <td>
-                                                        <a href="/CoHome-war/MainServlet?op=viewUser&userID="+<c:out value="${a.getUtente().getId()}"/> >
+                                                        <a href="/CoHome-war/MainServlet?op=viewUser&userID=<c:out value="${a.getUtente().getId()}"/>" >
                                                             <c:out value="${a.getUtente().getUsername()}"/>
                                                         </a> 
                                                     </td> </tr>
