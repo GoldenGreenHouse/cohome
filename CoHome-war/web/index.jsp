@@ -61,6 +61,7 @@
                 });     
          }); 
         </script>
+        
         <script>
             $( document ).ready(function() {
                 $('.fancybox').fancybox({
@@ -236,18 +237,20 @@
                     <img width="192" height="192" src="dist/image/home.png">
                     <p><a href="/CoHome-war/MainServlet?op=registrazione"  class="btn btn-primary">Registrati</a></p>
                 </div>
-                <div class="col-xs-4">
-                    <h2>Login facebook</h2>
-                    <p>Configurazione.</p>
-                    <img width="192" height="192" src="dist/image/facebook.png">
-                    <p><a href="/CoHome-war/MainServlet?op=loginFacebook"  class="btn btn-primary">Login facebook</a></p>
-                </div>
-                <div class="col-xs-4">
-                    <h2>Access token</h2>
-                    <p>Richiesta access token a Facebook.</p>
-                    <img width="192" height="192" src="dist/image/administrative.png">
-                    <p><a href="/CoHome-war/MainServlet?op=accessToken"  class="btn btn-primary">Access token</a></p>
-                </div>
+                <% if(request.isUserInRole("administrator")){ %>
+                    <div class="col-xs-4">
+                        <h2>Login facebook</h2>
+                        <p>Configurazione.</p>
+                        <img width="192" height="192" src="dist/image/facebook.png">
+                        <p><a href="/CoHome-war/MainServlet?op=loginFacebook"  class="btn btn-primary">Login facebook</a></p>
+                    </div>
+                    <div class="col-xs-4">
+                        <h2>Access token</h2>
+                        <p>Richiesta access token a Facebook.</p>
+                        <img width="192" height="192" src="dist/image/administrative.png">
+                        <p><a href="/CoHome-war/MainServlet?op=accessToken"  class="btn btn-primary">Access token</a></p>
+                    </div>
+                <% } %>
             </div>
             <hr>
         </div>
