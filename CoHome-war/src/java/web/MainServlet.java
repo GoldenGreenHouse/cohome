@@ -211,6 +211,15 @@ public class MainServlet extends HttpServlet {
             request.setAttribute("utente", u);
             getServletContext().getRequestDispatcher("/user.jsp").forward(request,response);
         }
+        
+        if(action.equals("refPropostaPrenotazione")){
+            UserComponent u = gestoreUtenti.findUtente(Long.parseLong(request.getParameter("userID"))); 
+            long propostaID = Long.parseLong(request.getParameter("propostaID"));
+            gestorePrenotazione.refPropostaPrenotazione(propostaID);
+            request.setAttribute("utente", u);
+            getServletContext().getRequestDispatcher("/user.jsp").forward(request,response);
+        }
+        
 
         if(action.equals("loginFacebook")){ 
             if(request.isUserInRole("administrator")){

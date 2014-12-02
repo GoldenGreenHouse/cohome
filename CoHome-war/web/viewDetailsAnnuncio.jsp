@@ -289,8 +289,15 @@ int prop;
                                                     <tr>
                                                         <td>
                                                             <a class="accettaProposta" data-id="<c:out value="${a.getId()}"/>" href="#">
-                                                                <button type="button" class="btn btn-success" style="float: right;">
+                                                                <button type="button" class="btn btn-success">
                                                                     Accept
+                                                                </button>
+                                                            </a>
+                                                        </td>
+                                                        <td>
+                                                            <a class="rifiutaProposta" data-id="<c:out value="${a.getId()}"/>" href="#">
+                                                                <button type="button" class="btn btn-danger">
+                                                                    Refuse
                                                                 </button>
                                                             </a>
                                                         </td>
@@ -477,6 +484,32 @@ int prop;
                         type: "POST",
                         url : "MainServlet",
                         data: "op=addPrenotazione&propostaID="+pid+"&userID="+uid,
+                        success : function (data,stato) {
+//                            alert("Commento correttamente eliminato");
+                            setTimeout(
+                                function() 
+                                {
+                                   location.reload();
+                                }, 0001);
+                        },
+                        error : function (richiesta,stato,errori) {
+                            alert("ERRORE. "+errori);
+                        }
+                    });
+
+                
+            });
+        </script>
+        
+        <script>
+            $(".rifiutaProposta").click(function(){
+                    var pid= $(this).attr('data-id');
+                    var uid= <%= idUtenteAnnuncio %>;
+                    $.ajax({
+//                        /CoHome-war/MainServlet?op=addPrenotazione&propostaID=<c:out value="${a.getId()}"/>&userID=<c:out value="${idUtenteAnnuncio}"/>
+                        type: "POST",
+                        url : "MainServlet",
+                        data: "op=refPropostaPrenotazione&propostaID="+pid+"&userID="+uid,
                         success : function (data,stato) {
 //                            alert("Commento correttamente eliminato");
                             setTimeout(
