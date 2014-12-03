@@ -42,8 +42,6 @@ import org.json.JSONObject;
  */
 @Stateless
 @LocalBean
-
-
 public class GestoreAnnunci {
     @EJB
     private RichiestaVisitaFacadeLocal richiestaVisitaFacade;

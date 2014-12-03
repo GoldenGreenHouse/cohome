@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
@@ -21,6 +22,14 @@ import javax.persistence.Temporal;
  *
  * @author marco
  */
+@NamedNativeQuery(
+        name="getProposteByAnnuncio",
+        query= "select * "+
+               "from cohome.PROPOSTAPRENOTAZIONE as p "+
+               "where p.ANNUNCIO_ID = Annuncio_Id AND ATTIVO=1",
+        resultClass=PropostaPrenotazione.class
+        
+)
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class PropostaPrenotazione implements Serializable {

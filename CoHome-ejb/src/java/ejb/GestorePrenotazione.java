@@ -100,14 +100,8 @@ public class GestorePrenotazione {
     public void refPropostaPrenotazione(long id){
         PropostaPrenotazione pp = propostaPrenotazioneFacade.find(id);
         Annuncio a = pp.getAnnuncio();
-        
         pp.setAttivo(false);
-        
-//        Long idUtente = gestoreAnnunci.getIdUtenteByIdAnnuncio(pp.getAnnuncio().getId());
-//        UserComponent user = userComponentFacade.find(idUtente);
-//        userComponentFacade.edit(user);
-        annuncioFacade.edit(a);
-        
+        annuncioFacade.edit(a);    
         propostaPrenotazioneFacade.edit(pp);
         em.flush();
         
@@ -119,6 +113,13 @@ public class GestorePrenotazione {
         Query query = em.createNamedQuery("getProposteByAnnuncio").setParameter("Annuncio_Id", idAnnuncio);
         proposte = query.getResultList();
         return proposte;
+    }
+    
+    public List<Prenotazione> getPrenotazioneByAnnuncio(Long idAnnuncio){
+        List<Prenotazione> prenotazioni;
+        Query query = em.createNamedQuery("getPrenotazioneByAnnuncio").setParameter("Annuncio_Id", idAnnuncio);
+        prenotazioni = query.getResultList();
+        return prenotazioni;
     }
     
     

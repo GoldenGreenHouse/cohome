@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -16,6 +16,7 @@ import ejb.GestorePrenotazione;
 import ejb.GestoreRecensioni;
 import ejb.GestoreRichieste;
 import ejb.GestoreUtenti;
+import ejb.Prenotazione;
 import ejb.PropostaPrenotazione;
 import ejb.RichiestaCasa;
 import ejb.UserComponent;
@@ -56,6 +57,7 @@ public class MainServlet extends HttpServlet {
     private GestoreRichieste gestoreRichieste;
     @EJB
     private GestoreRecensioni gestoreRecensioni;
+    
     
     /**  
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -114,8 +116,10 @@ public class MainServlet extends HttpServlet {
            request.setAttribute("annuncio", a);
            List<PropostaPrenotazione> lp = a.getPropostaPrenotazione();
            List<Commento> c = gestoreCommenti.findAllCommenti(Integer.parseInt(request.getParameter("idAnnuncio")));
+           List<Prenotazione> p = gestorePrenotazione.getPrenotazioneByAnnuncio(a.getId());
            request.setAttribute("commenti", c);
            request.setAttribute("proposte", lp);
+           request.setAttribute("prenotazioni", p);
            request.setAttribute("idUtenteAnnuncio", gestoreAnnunci.getIdUtenteByIdAnnuncio(a.getId())); 
            getServletContext().getRequestDispatcher("/viewDetailsAnnuncio.jsp").forward(request,response);
         }
@@ -138,9 +142,11 @@ public class MainServlet extends HttpServlet {
             request.setAttribute("annuncio", a);
             List<PropostaPrenotazione> lp = a.getPropostaPrenotazione(); 
             List<Commento> c = gestoreCommenti.findAllCommenti(Long.parseLong(annuncio));
+            List<Prenotazione> p = gestorePrenotazione.getPrenotazioneByAnnuncio(a.getId());
             
             request.setAttribute("commenti", c);
             request.setAttribute("proposte", lp);
+            request.setAttribute("prenotazioni", p);
             request.setAttribute("idUtenteAnnuncio", gestoreAnnunci.getIdUtenteByIdAnnuncio(a.getId()));
             
             getServletContext().getRequestDispatcher("/viewDetailsAnnuncio.jsp").forward(request,response);
@@ -150,8 +156,7 @@ public class MainServlet extends HttpServlet {
         if(action.equals("logout")){
             request.logout();
             s.invalidate();
-            getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
-            
+            getServletContext().getRequestDispatcher("/index.jsp").forward(request,response); 
         }
         
         if(action.equals("deleteCommento")){

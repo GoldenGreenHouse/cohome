@@ -7,17 +7,17 @@ import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.1.v20130918-rNA", date="2014-11-28T11:40:25")
+@Generated(value="EclipseLink-2.5.1.v20130918-rNA", date="2014-12-03T21:33:43")
 @StaticMetamodel(PropostaPrenotazione.class)
 public class PropostaPrenotazione_ { 
 
-    public static volatile SingularAttribute<PropostaPrenotazione, UserComponent> utente;
-    public static volatile SingularAttribute<PropostaPrenotazione, String> descrizione;
-    public static volatile SingularAttribute<PropostaPrenotazione, Calendar> dataInizio;
-    public static volatile SingularAttribute<PropostaPrenotazione, Integer> numeroPosti;
-    public static volatile SingularAttribute<PropostaPrenotazione, Annuncio> annuncio;
-    public static volatile SingularAttribute<PropostaPrenotazione, Calendar> dataFine;
     public static volatile SingularAttribute<PropostaPrenotazione, Long> id;
+    public static volatile SingularAttribute<PropostaPrenotazione, String> descrizione;
     public static volatile SingularAttribute<PropostaPrenotazione, Boolean> attivo;
+    public static volatile SingularAttribute<PropostaPrenotazione, Calendar> dataFine;
+    public static volatile SingularAttribute<PropostaPrenotazione, Annuncio> annuncio;
+    public static volatile SingularAttribute<PropostaPrenotazione, Calendar> dataInizio;
+    public static volatile SingularAttribute<PropostaPrenotazione, UserComponent> utente;
+    public static volatile SingularAttribute<PropostaPrenotazione, Integer> numeroPosti;
 
 }

@@ -1,4 +1,5 @@
 
+
 <%-- 
     Document   : viewDetailsAnnuncio
     Created on : 12-mar-2014, 18.49.49
@@ -14,10 +15,13 @@
 <%@page import="java.io.File"%>
 <%@page import="java.util.List"%>
 <%@page import="ejb.AnnuncioCasa"%>
+<%@page import="ejb.Prenotazione"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="ricercaAnnunciCasa" scope="session" class="bean.RicercaAnnunciCasa"/>
-<% Annuncio annuncio= (Annuncio)request.getAttribute("annuncio"); %>
+<% Annuncio annuncio= (Annuncio)request.getAttribute("annuncio");
+   List<Prenotazione> prenotazioni = (List<Prenotazione>)request.getAttribute("prenotazioni");
+%>
 <% Long idUtenteAnnuncio= (Long)request.getAttribute("idUtenteAnnuncio"); %>
 <c:set var="opzioni" value="${annuncio.getOpzioni()}"/>
 <% List<Commento> commenti= (List<Commento>)request.getAttribute("commenti"); %>
@@ -115,6 +119,9 @@ int prop;
         <title>Dettaglio Annuncio</title>
     </head>
     <body>
+        
+        <!--p.getDataInizio().getTime().toString() !-->
+        
         <div id="start" style="display:none">
             <c:out value="${annuncio.getDataInizioString()}"/>
         </div>
