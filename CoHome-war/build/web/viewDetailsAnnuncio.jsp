@@ -1,5 +1,9 @@
 
 
+<%@page import="java.util.Stack"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Vector"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%-- 
     Document   : viewDetailsAnnuncio
     Created on : 12-mar-2014, 18.49.49
@@ -19,8 +23,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="ricercaAnnunciCasa" scope="session" class="bean.RicercaAnnunciCasa"/>
-<% Annuncio annuncio= (Annuncio)request.getAttribute("annuncio");
-   List<Prenotazione> prenotazioni = (List<Prenotazione>)request.getAttribute("prenotazioni");
+<% 
+    Annuncio annuncio= (Annuncio)request.getAttribute("annuncio");
+    List<Prenotazione> prenotazioni = (List<Prenotazione>)request.getAttribute("prenotazioni");
+    SimpleDateFormat df = new SimpleDateFormat();
+    df.applyPattern("yyyy-MM-dd");
+    Iterator i = prenotazioni.listIterator();
+    String s1="",s2="";
+    while(i.hasNext()){
+        Prenotazione p = (Prenotazione) i.next(); 
+        s1+=df.format(p.getDataInizio().getTime())+" ";
+        s2+=df.format(p.getDataFine().getTime())+" ";
+    }
+ 
 %>
 <% Long idUtenteAnnuncio= (Long)request.getAttribute("idUtenteAnnuncio"); %>
 <c:set var="opzioni" value="${annuncio.getOpzioni()}"/>
@@ -56,9 +71,21 @@ int prop;
         <script src="dist/js/jquery.ui.datepicker.js"></script>
         
         <script>
+            var busyStarts = ["2014-12-01"];
+            var busyEnds = ["2014-12-02"];
+           
             function unavailable(date) {
-                var busyStarts = ["2014-11-28"];
-                var busyEnds = ["2014-11-29"];
+                var s1 = "<%=s1%>";
+                var dateStart = s1.split(" ");
+                var s2 = "<%=s2%>";
+                var dateEnd = s2.split(" ");
+               
+                for (var i=0; i < dateStart.length-1; i++) {
+                    busyStarts = busyStarts.concat(dateStart[i]);
+                }
+                for (var i=0; i < dateEnd.length-1; i++) {
+                    busyEnds = busyEnds.concat(dateEnd[i]);
+                }
                 var cssClass = '';
                 for (var i=0; i < busyStarts.length; i++) {
                     var busyStart = new Date(busyStarts[i]).setHours(0, 0, 0, 0);
@@ -118,10 +145,7 @@ int prop;
         </script>
         <title>Dettaglio Annuncio</title>
     </head>
-    <body>
-        
-        <!--p.getDataInizio().getTime().toString() !-->
-        
+    <body>    
         <div id="start" style="display:none">
             <c:out value="${annuncio.getDataInizioString()}"/>
         </div>
