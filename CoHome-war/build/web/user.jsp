@@ -52,8 +52,10 @@
 
                     <!--Visualizzare nome--> 
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/CoHome-war/MainServlet?op=viewUserLogged"> <%= utente.getName() %> </a></li>
-                        <li><div class="logout"><a href="/CoHome-war/MainServlet?op=logout" class="btn btn-success">Logout</a></div></li>
+                        <% if(s.getAttribute("userID") != null){  %>
+                            <li><a href="/CoHome-war/MainServlet?op=viewUserLogged"> <%= request.getUserPrincipal().getName() %> </a></li>
+                            <li><div class="logout"><a href="/CoHome-war/MainServlet?op=logout" class="btn btn-success">Logout</a></div></li>
+                        <% } %>
                     </ul>
                                 
                 </div><!--/.nav-collapse -->
