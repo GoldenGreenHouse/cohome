@@ -15,7 +15,7 @@
 <% List<Annuncio> annunci = utente.getAnnunci(); %>
 <% List<Prenotazione> prenotazioni = utente.getPrenotazioni(); %>
 <% List<Recensione> recensioni = utente.getRecensioni(); %>
-<%HttpSession s = request.getSession();%>
+<% HttpSession s = request.getSession();%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -50,9 +50,9 @@
                         <li><a href="#contact">Contact</a></li>
                     </ul>
 
-                    <!--Visualizzare nome--> 
+                    <!--Visualizzare nome per logout--> 
                     <ul class="nav navbar-nav navbar-right">
-                        <% if(s.getAttribute("userID") != null){  %>
+                        <% if(s.getAttribute("userIDLogged") != null){  %>
                             <li><a href="/CoHome-war/MainServlet?op=viewUserLogged"> <%= request.getUserPrincipal().getName() %> </a></li>
                             <li><div class="logout"><a href="/CoHome-war/MainServlet?op=logout" class="btn btn-success">Logout</a></div></li>
                         <% } %>
@@ -87,7 +87,7 @@
                     %>
                     
                     <% if(!(utente.getId().equals(s.getAttribute("userID")))){ %>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#evaluateModal">Valuta questo utente</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#evaluateModal">Recensisci questo utente</button>
                     <% } %>
                 </div>
                 <!-- Modal -->
@@ -268,6 +268,7 @@
                                 Recensione r = it2.next();
 
                                 out.println("<li class=\"list-group-item\">");
+                                out.println("<strong>Voto: </strong> <span class=\"text-danger\">"+r.getAutoreID().getName()+"</span>");
                                 if(Integer.parseInt(r.getValutazione()) < 4){
                                     out.println("<strong>Voto: </strong> <span class=\"text-danger\">"+r.getValutazione()+"</span>");
                                 }
@@ -290,7 +291,7 @@
                     url : "MainServlet",
                     //data: "op=provaAjax",
                     data: "op=addEvaluate&newEvaluate="+ $("#new-evaluate").val() +
-                            "&vote="+ $("#vote").val() +"&utente="+ <%= utente.getId() %> +"&utenteLoggato="+ <%= s.getAttribute("userID") %>,
+                            "&vote="+ $("#vote").val() +"&utente="+ <%= utente.getId() %> +"&utenteLoggato="+ <%= s.getAttribute("userIDLogged") %>,
                     success : function (data) {
                         setTimeout(
                             function() 

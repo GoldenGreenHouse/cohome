@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -24,6 +25,27 @@ public class Recensione implements Serializable {
     private Long id;
     private String valutazione;
     private String descrizione;
+    @OneToOne
+    private UserComponent autoreID;
+
+    /**
+     * Get the value of autoreID
+     *
+     * @return the value of autoreID
+     */
+    public UserComponent getAutoreID() {
+        return autoreID;
+    }
+
+    /**
+     * Set the value of autoreID
+     *
+     * @param autoreID new value of autoreID
+     */
+    public void setAutoreID(UserComponent autoreID) {
+        this.autoreID = autoreID;
+    }
+
 
     public String getValutazione() {
         return valutazione;

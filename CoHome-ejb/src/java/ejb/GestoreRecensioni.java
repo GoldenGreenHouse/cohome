@@ -33,14 +33,18 @@ public class GestoreRecensioni {
     public void addRecensione(Long idUtente, Long idUtenteLoggato, String recensione, String voto){
         Recensione r = new Recensione();
         UserComponent u;
+        UserComponent uLoggato;
         r.setDescrizione(recensione);
         r.setValutazione(voto);
-        r.setId(idUtenteLoggato);
+        r.setId(idUtente);
         u = userComponentFacade.find(idUtente);
+        uLoggato = userComponentFacade.find(idUtenteLoggato);
+        r.setAutoreID(uLoggato);
         u.getRecensioni().add(r);
         
         recensioneFacade.create(r);
         userComponentFacade.edit(u);
+        userComponentFacade.edit(uLoggato);
     }
     
     public List<Recensione> findAllRecensioniById(int id_utente){
