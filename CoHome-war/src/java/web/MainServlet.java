@@ -203,7 +203,11 @@ public class MainServlet extends HttpServlet {
               //  RicercaAnnunciCasa rac = (RicercaAnnunciCasa) s.getAttribute("ricercaAnnunciCasa");
                 Annuncio a = gestoreAnnunci.findAnnuncio(Long.parseLong(request.getParameter("id")));
                 //Annuncio a = rac.getSingleAnnuncio(Integer.parseInt(request.getParameter("index")));
-                gestorePrenotazione.addPropostaPrenotazione(request.getParameter("checkin"), request.getParameter("checkout"), request.getParameter("guests"), request.getParameter("desc"),(Long)s.getAttribute("userID") , a);
+                try{
+                    gestorePrenotazione.addPropostaPrenotazione(request.getParameter("checkin"), request.getParameter("checkout"), request.getParameter("guests"), request.getParameter("desc"),(Long)s.getAttribute("userID") , a);
+                }catch(javax.ejb.EJBTransactionRolledbackException e){
+                    response.sendError(401, e+" - Errore nell'inserimento della prenotazione!");
+                }
             }
             else
                 response.sendError(401, "Eseguire il login prima di effettuare questa operazione");
