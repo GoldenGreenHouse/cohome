@@ -65,36 +65,32 @@ public class JSONServlet extends HttpServlet {
                 JSONObject location = gestoreAnnunci.getCoordinate(request.getParameter("location"));
                 List<AnnuncioCasa> annunci=gestoreAnnunci.trovaAnnunciCasa(Double.parseDouble(location.opt("lat").toString()),Double.parseDouble(location.opt("lng").toString()));
                 ListIterator iter = annunci.listIterator();
-                //out.println("{\"annunci\":[");
                 String s ="{\"annunci\":[";
                 
                 while(iter.hasNext()){
                     JSONObject jsonc = new JSONObject(iter.next());
-                //    out.println(jsonc+",");
                     s+=jsonc+",";
                 }
-                //out.println("{} ]}");
                 s+="{}]"+",coordinate:"+location.toString()+"}";
                 out.println(s);
-   
-//                JSONObject jsonc = new JSONObject(annunci.get(0));
-//                GregorianCalendar data_inizio = (GregorianCalendar) jsonc.get("dataInizio");
-//                GregorianCalendar data_fine = (GregorianCalendar) jsonc.get("dataFine");
-//                String descrizione = (String) jsonc.get("descrizione");
-//                double lat = jsonc.getDouble("lat");
-//                double lng = jsonc.getDouble("lng");
-//                out.println(jsonc);
-//                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-//                out.println("Data Inizio: "+ sdf.format(data_inizio.getTime()));
-//                out.println("Data Fine: "+ sdf.format(data_fine.getTime()));
-//                out.println("Descrizione: "+ descrizione);
-//                out.println("Lat: "+ lat);
-//                out.println("Lng: "+ lng);
                 
             }catch(JSONException e){} 
-//             catch (MarshallException ex) {
-//                Logger.getLogger(JSONServlet.class.getName()).log(Level.SEVERE, null, ex);
-//            }
+        }
+        if(action.equals("cercaAnnunciFromGPS")){      
+            try(PrintWriter out = response.getWriter()){
+                String lat=request.getParameter("latitude");
+                String lng=request.getParameter("longitude");
+                List<AnnuncioCasa> annunci=gestoreAnnunci.trovaAnnunciCasa2(Double.parseDouble(lat),Double.parseDouble(lng));
+                ListIterator iter = annunci.listIterator();
+                String s ="{\"annunci\":[";
+                
+                while(iter.hasNext()){
+                    JSONObject jsonc = new JSONObject(iter.next());
+                    s+=jsonc+",";
+                }
+                s+="{}]"+"}";
+                out.println(s);
+            }
         }
     }
 
@@ -136,31 +132,4 @@ public class JSONServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-}
-class Articolo2 {
- 
-    private String articolo;
-    private boolean pubblicato;
-    private boolean interessante;
-    
-     
-    Info info;
-    Articolo2(String a, boolean b ,boolean b1, Info info){
-        articolo=a;
-        pubblicato=b;
-        interessante=b1;
-        info=info;
-    }
-   
-}
- 
-class Info {
-     
-    private String autore;
-    Info(String a){
-        autore=a;
-    }
-     
-    
 }
