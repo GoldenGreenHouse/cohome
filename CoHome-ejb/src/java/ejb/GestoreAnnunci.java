@@ -160,6 +160,18 @@ public class GestoreAnnunci {
         return l;
     }
     
+    public List<AnnuncioCasa> trovaAnnunciCasa2(double lat, double lng) {
+        Query query;
+        query = em.createNamedQuery("findAllAnnunciCasa")
+               .setParameter("minLat", lat-0.1)
+               .setParameter("minLng", lng-0.1)
+               .setParameter("maxLat", lat+0.1)
+               .setParameter("maxLng", lng+0.1);
+               
+        List<AnnuncioCasa> l = query.getResultList(); 
+        return l;
+    }
+    
     public JSONObject getCoordinate(String location) throws JSONException{
         System.out.println(location.trim());
         String html="";
