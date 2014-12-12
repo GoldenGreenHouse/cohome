@@ -79,8 +79,8 @@ public class MainServlet extends HttpServlet {
         
         if(principal!=null && s.getAttribute("userID")==null){
            UserComponent u = gestoreUtenti.findUtenteFromName(principal.getName());
-           s.setAttribute("userID", u.getId());
-           s.setAttribute("userName", u.getName());
+           s.setAttribute("userIDLogged", u.getId());
+           s.setAttribute("userNameLogged", u.getName());
         }
         
         if(action.equals("InserisciAnnuncioCasa")){
@@ -188,13 +188,24 @@ public class MainServlet extends HttpServlet {
             testoValutazione = request.getParameter("newEvaluate");
             voto = request.getParameter("vote");
             idUtente = Long.parseLong(request.getParameter("utente"));
+            UserComponent utente = gestoreUtenti.findUtente(idUtente);
+            List<Prenotazione> lp = utente.getPrenotazioni();
             idUtenteLoggato = Long.parseLong(request.getParameter("utenteLoggato"));
-            try{
-                gestoreRecensioni.addRecensione(idUtente, idUtenteLoggato, testoValutazione, voto);
+            boolean found = false;
+            for(Prenotazione p : lp){
+                if(p.getUtente().getId().equals(idUtenteLoggato))
+                    found = true;
             }
-            catch(javax.ejb.EJBTransactionRolledbackException e){
-                response.sendError(401, e+" - You have just eveluate this user!");
+            if(found){
+                try{
+                    gestoreRecensioni.addRecensione(idUtente, idUtenteLoggato, testoValutazione, voto);
+                }
+                catch(javax.ejb.EJBTransactionRolledbackException e){
+                    response.sendError(401, e+" - You have just eveluate this user!");
+                }
             }
+            else
+                response.sendError(401,"Devi aver effettuato almeno una prenotazione persso questo utente.");
         }
         
         if(action.equals("addPropostaPrenotazione")){
