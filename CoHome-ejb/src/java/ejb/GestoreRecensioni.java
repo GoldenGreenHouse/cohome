@@ -36,7 +36,7 @@ public class GestoreRecensioni {
         UserComponent uLoggato;
         r.setDescrizione(recensione);
         r.setValutazione(voto);
-        r.setId(idUtente);
+//        r.setId(idUtente);
         u = userComponentFacade.find(idUtente);
         uLoggato = userComponentFacade.find(idUtenteLoggato);
         r.setAutoreID(uLoggato);

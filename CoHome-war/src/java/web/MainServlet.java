@@ -131,7 +131,7 @@ public class MainServlet extends HttpServlet {
         }
         
         if(action.equals("viewUserLogged")){
-           UserComponent u = gestoreUtenti.findUtente((Long)s.getAttribute("userID")); 
+           UserComponent u = gestoreUtenti.findUtente((Long)s.getAttribute("userIDLogged")); 
            request.setAttribute("utente", u);
            getServletContext().getRequestDispatcher("/user.jsp").forward(request,response);
         }
@@ -201,7 +201,7 @@ public class MainServlet extends HttpServlet {
                     gestoreRecensioni.addRecensione(idUtente, idUtenteLoggato, testoValutazione, voto);
                 }
                 catch(javax.ejb.EJBTransactionRolledbackException e){
-                    response.sendError(401, e+" - You have just eveluate this user!");
+                    response.sendError(401, " - You have just eveluate this user!");
                 }
             }
             else
@@ -215,7 +215,7 @@ public class MainServlet extends HttpServlet {
                 Annuncio a = gestoreAnnunci.findAnnuncio(Long.parseLong(request.getParameter("id")));
                 //Annuncio a = rac.getSingleAnnuncio(Integer.parseInt(request.getParameter("index")));
                 try{
-                    gestorePrenotazione.addPropostaPrenotazione(request.getParameter("checkin"), request.getParameter("checkout"), request.getParameter("guests"), request.getParameter("desc"),(Long)s.getAttribute("userID") , a);
+                    gestorePrenotazione.addPropostaPrenotazione(request.getParameter("checkin"), request.getParameter("checkout"), request.getParameter("guests"), request.getParameter("desc"),(Long)s.getAttribute("userIDLogged") , a);
                 }catch(javax.ejb.EJBTransactionRolledbackException e){
                     response.sendError(401, e+" - Errore nell'inserimento della prenotazione!");
                 }

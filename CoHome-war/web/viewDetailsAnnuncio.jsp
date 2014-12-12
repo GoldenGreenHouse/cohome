@@ -172,7 +172,7 @@ int prop;
                     
                     <!--Visualizzare nome--> 
                     <ul class="nav navbar-nav navbar-right">
-                        <% if(s.getAttribute("userID") != null){  %>
+                        <% if(s.getAttribute("userIDLogged") != null){  %>
                             <li><a href="/CoHome-war/MainServlet?op=viewUserLogged"> <%= request.getUserPrincipal().getName() %> </a></li>
                             <li><div class="logout"><a href="/CoHome-war/MainServlet?op=logout" class="btn btn-success">Logout</a></div></li>
                         <% } %> 
@@ -266,8 +266,7 @@ int prop;
                                         <font color="#2A92D1"><h4><%= com.getAutore().getName()%></h4></font>
                                     </a><br>
                                     <%= com.getCommento()%><br><br>
-                                    <!-- fare controllo su u -->
-                                    <% if( (request.isUserInRole("administrator")) || (com.getAutore().getId().equals(s.getAttribute("userID"))) ){ %>
+                                    <% if( (request.isUserInRole("administrator")) || (com.getAutore().getId().equals(s.getAttribute("userIDLogged"))) ){ %>
                                         <a class="deleteComment" data-id="<%= com.getId()%>" href="#">
                                              <span class="glyphicon glyphicon-trash"></span>
                                          </a>
@@ -316,7 +315,7 @@ int prop;
                                                     <tr><td><strong>Start:</strong></td> <td>  <c:out value="${a.getDataInizio().getTime().toString()}"/></td></tr>
                                                     <tr><td><strong>End:</strong></td> <td> <c:out value="${a.getDataFine().getTime().toString()}"/></td></tr>
                                                     <tr><td><strong>Description:</strong></td> <td> <c:out value="${a.getDescrizione()}"/></td></tr>
-                                                    <% if(idUtenteAnnuncio.equals(s.getAttribute("userID"))){ %>
+                                                    <% if(idUtenteAnnuncio.equals(s.getAttribute("userIDLogged"))){ %>
                                                     <tr>
                                                         <td>
                                                             <a class="accettaProposta" data-id="<c:out value="${a.getId()}"/>" href="#">

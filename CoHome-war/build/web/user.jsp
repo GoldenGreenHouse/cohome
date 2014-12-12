@@ -86,7 +86,7 @@
                             out.println("<h2><strong><span class=\"text-danger\">Nessun voto pervenuto</span></strong></h2>");
                     %>
                     
-                    <% if(!(utente.getId().equals(s.getAttribute("userID")))){ %>
+                    <% if(!(utente.getId().equals(s.getAttribute("userID"))) ){ %>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#evaluateModal">Recensisci questo utente</button>
                     <% } %>
                 </div>
@@ -185,7 +185,7 @@
                         </div>
                     </div>
                 <!-- le prenotazioni accettate -->
-                    <% if(utente.getId().equals(s.getAttribute("userID"))){ %>
+                    <% if(utente.getId().equals(s.getAttribute("userIDLogged"))){ %>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">

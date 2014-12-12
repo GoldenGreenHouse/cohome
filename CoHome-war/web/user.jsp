@@ -185,7 +185,7 @@
                         </div>
                     </div>
                 <!-- le prenotazioni accettate -->
-                    <% if(utente.getId().equals(s.getAttribute("userID"))){ %>
+                    <% if(utente.getId().equals(s.getAttribute("userIDLogged"))){ %>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
