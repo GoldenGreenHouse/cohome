@@ -14,6 +14,7 @@
 <% UserComponent utente = (UserComponent)request.getAttribute("utente"); %>
 <% List<Annuncio> annunci = utente.getAnnunci(); %>
 <% List<Prenotazione> prenotazioni = utente.getPrenotazioni(); %>
+<% List<Prenotazione> miePrenotazioni = (List<Prenotazione>)request.getAttribute("miePrenotazioni"); %>
 <% List<Recensione> recensioni = utente.getRecensioni(); %>
 <% HttpSession s = request.getSession();%>
 <!DOCTYPE html>
@@ -31,6 +32,10 @@
         <script src="dist/js/jquery-ui-1.10.4.custom.js"></script>
     </head>
     <body>
+
+<!-- ********************************************** 
+                BARRA NAVIGAZIONE
+************************************************* -->
         
         <div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
@@ -64,7 +69,11 @@
         
         <div class="container">
             <div class="row"><h2><%= utente.getName() %></h2></div>
-            <!-- colonna sx -->
+ 
+ <!-- ********************************************** 
+        FOTO, VOTO, INSERIMENTO RECENSIONE
+************************************************* -->           
+            
             <div class="col-md-3">
                 <div class="well well-lg">
                     <div class="row"><img src="img/profilo.jpg" alt="foto profilo" class="img-circle" width="130"></div>
@@ -90,7 +99,11 @@
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#evaluateModal">Recensisci questo utente</button>
                     <% } %>
                 </div>
-                <!-- Modal -->
+ 
+<!-- ********************************************** 
+                MODAL RECENSIONE
+************************************************* -->              
+                
                 <div class="modal fade" id="evaluateModal" tabindex="-1" role="dialog" aria-labelledby="evaluateModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-sm">
                         <div class="modal-content">
@@ -121,7 +134,11 @@
             
             <div class="col-md-9">
                 <div class="panel-group" id="accordion">
-                <!--I miei annunci-->
+
+<!-- ********************************************** 
+                ANNUNCI INSERITI
+************************************************* -->
+                    
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">
@@ -184,7 +201,86 @@
                             </div>
                         </div>
                     </div>
-                <!-- le prenotazioni accettate -->
+
+<!-- ********************************************** 
+                Le mie prenotazioni
+************************************************* -->
+                                
+                    <% if(utente.getId().equals(s.getAttribute("userIDLogged"))){ %>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                      Le mie prenotazioni
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    #
+                                                </th>
+                                                <th>
+                                                    Annuncio
+                                                </th>
+                                                <th>
+                                                    Utente
+                                                </th>
+                                                <th>
+                                                    Data
+                                                </th>
+                                                <th>
+                                                    # posti
+                                                </th>
+                                                <th>
+                                                    Descrizione
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <%
+                                                Iterator<Prenotazione> it4 = miePrenotazioni.iterator();
+                                                int c3 = 1;
+                                                while(it4.hasNext()){
+                                                    Prenotazione p2 = it4.next();
+
+                                                    out.println("<tr>");
+                                                        out.println("<td>");
+                                                            out.println(c3);
+                                                        out.println("</td>");
+                                                        out.println("<td>");
+                                                            out.println(p2.getAnnuncio().getTitolo());
+                                                        out.println("</td>");
+                                                        out.println("<td>");
+                                                            out.println(p2.getUtente().getName());
+                                                        out.println("</td>");
+                                                        out.println("<td>");
+                                                            out.println(p2.getDataPrenotazione().getTime().toString());
+                                                        out.println("</td>");
+                                                        out.println("<td>");
+                                                            out.println(p2.getNumeroPosti());
+                                                        out.println("</td>");
+                                                        out.println("<td>");
+                                                            out.println(p2.getDescrizione());
+                                                        out.println("</td>");
+                                                    out.println("</tr>");
+                                                    c3++;
+                                                }
+                                            %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    <%}%>
+                    
+<!-- ********************************************** 
+                RECENSIONI RICEVUTE
+************************************************* -->                    
+                    
                     <% if(utente.getId().equals(s.getAttribute("userIDLogged"))){ %>
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -258,7 +354,10 @@
                     
                 </div>
                     
-                <!-- le recensioni ricevute -->
+<!-- ********************************************** 
+                RECENSIONI RICEVUTE
+************************************************* -->
+
                 <div class="well well-lg"> 
                     <h3>Recensioni</h3>
                     <ul class="list-group">
@@ -283,6 +382,11 @@
                 </div>
             </div>
         </div>
+                    
+<!-- ********************************************** 
+                        SCRIPT
+************************************************* -->
+
         <script src="dist/js/bootstrap.min.js"></script> 
         <script>
             $("#add-evaluate").click(function(){

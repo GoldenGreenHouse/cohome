@@ -133,6 +133,8 @@ public class MainServlet extends HttpServlet {
         if(action.equals("viewUserLogged")){
            UserComponent u = gestoreUtenti.findUtente((Long)s.getAttribute("userIDLogged")); 
            request.setAttribute("utente", u);
+           List<Prenotazione> mp = gestorePrenotazione.getMiePrenotazioni(u.getId());
+           request.setAttribute("miePrenotazioni", mp);
            getServletContext().getRequestDispatcher("/user.jsp").forward(request,response);
         }
         

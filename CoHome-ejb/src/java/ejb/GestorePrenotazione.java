@@ -6,6 +6,7 @@
 
 package ejb;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
@@ -105,6 +106,17 @@ public class GestorePrenotazione {
         propostaPrenotazioneFacade.edit(pp);
         em.flush();
         
+    }
+    
+    public List<Prenotazione> getMiePrenotazioni(long id){
+        List<Prenotazione> p = prenotazioneFacade.findAll();
+        List<Prenotazione> mp = new ArrayList();
+        for(Prenotazione itp: p){
+            if(itp.getUtente().getId().equals(id)){
+                mp.add(itp);
+            }
+        }
+        return mp;
     }
     
     
