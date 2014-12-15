@@ -88,7 +88,7 @@ public class JSONServlet extends HttpServlet {
                     JSONObject jsonc = new JSONObject(iter.next());
                     s+=jsonc+",";
                 }
-                s+="{}]"+"}";
+                s+="{}]}";
                 out.println(s);
             }
         }

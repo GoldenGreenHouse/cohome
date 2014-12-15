@@ -49,7 +49,7 @@ public class CreaAnnuncioCasaServlet extends HttpServlet {
         String path =ctx.getInitParameter("pathImage");
         //String informazione;
         HttpSession session = request.getSession();
-        long userID = (long)session.getAttribute("userID");
+        long userID = (long)session.getAttribute("userIDLogged");
         
         AnnuncioCasaBean annuncioCasaBean = new AnnuncioCasaBean();
         annuncioCasaBean.setUserID(userID);
