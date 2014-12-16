@@ -231,7 +231,7 @@ public class MainServlet extends HttpServlet {
             long propostaID = Long.parseLong(request.getParameter("propostaID"));
             gestorePrenotazione.addPrenotazione(propostaID);
             request.setAttribute("utente", u);
-            getServletContext().getRequestDispatcher("/user.jsp").forward(request,response);
+            //getServletContext().getRequestDispatcher("/user.jsp").forward(request,response);
         }
         
         if(action.equals("refPropostaPrenotazione")){
@@ -239,7 +239,7 @@ public class MainServlet extends HttpServlet {
             long propostaID = Long.parseLong(request.getParameter("propostaID"));
             gestorePrenotazione.refPropostaPrenotazione(propostaID);
             request.setAttribute("utente", u);
-            getServletContext().getRequestDispatcher("/user.jsp").forward(request,response);
+            //getServletContext().getRequestDispatcher("/user.jsp").forward(request,response);
         }
         
 

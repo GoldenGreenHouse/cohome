@@ -163,10 +163,10 @@ public class GestoreAnnunci {
     public List<AnnuncioCasa> trovaAnnunciCasa2(double lat, double lng) {
         Query query;
         query = em.createNamedQuery("findAllAnnunciCasa")
-               .setParameter("minLat", lat-0.1)
-               .setParameter("minLng", lng-0.1)
-               .setParameter("maxLat", lat+0.1)
-               .setParameter("maxLng", lng+0.1);
+               .setParameter("minLat", lat-0.01)
+               .setParameter("minLng", lng-0.01)
+               .setParameter("maxLat", lat+0.01)
+               .setParameter("maxLng", lng+0.01);
                
         List<AnnuncioCasa> l = query.getResultList(); 
         return l;
