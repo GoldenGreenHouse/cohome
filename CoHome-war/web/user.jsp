@@ -285,12 +285,12 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
                                       Le prenotazioni accettate
                                     </a>
                                 </h4>
                             </div>
-                            <div id="collapseTwo" class="panel-collapse collapse">
+                            <div id="collapseThree" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <table class="table table-striped">
                                         <thead>
