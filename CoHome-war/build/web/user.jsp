@@ -76,7 +76,7 @@
             
             <div class="col-md-3">
                 <div class="well well-lg">
-                    <div class="row"><img src="img/profilo.jpg" alt="foto profilo" class="img-circle" width="130"></div>
+                    <div class="row"><img src="<%=utente.getAvatar()%>" alt="foto profilo" class="img-circle center-block" width="130"></div>
                 </div>
                 <div class="well well-lg">
                     <% int sum=0;

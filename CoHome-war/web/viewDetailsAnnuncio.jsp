@@ -186,7 +186,12 @@ int prop;
             <h3><c:out value="${annuncio.getIndirizzo()}"/>, <c:out value="${annuncio.getLocalita()}"/></h3>
             <h4><a href="/CoHome-war/MainServlet?op=viewUser&userID=<%= idUtenteAnnuncio.toString() %>"> Autore </a></h4>
         </div>
+        
         <!--<div id="cointainerLeft">-->
+<!-- ********************************************** 
+        DESCRIZIONE ANNUNCIO
+************************************************* --> 
+
         <div class="container">
             <div class="col-md-9">
                 <!-- Nav tabs -->
@@ -252,6 +257,9 @@ int prop;
 
                
     <!-- TabContent Commenti -->
+<!-- ********************************************** 
+        COMMENTI
+************************************************* --> 
                <div class="tab-content" id="myTabContent">
                    <div id="commenti" class="tab-pane fade active in">
                        <br>
@@ -288,7 +296,11 @@ int prop;
                 <div class="row">
                     <button id="buttonRichiestaPrenotazione" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addPrenotazione" style="float:right; margin: 10px;">Richiesta Prenotazione</button>
                 </div>
-<!-- ******************  Visualizzazione richieste *********************-->
+                
+<!-- ********************************************** 
+        VISUALIZZAZIONE RICHIESTE
+************************************************* --> 
+
                 <div class="row">
                     <div class="panel-group" id="accordion">
                         <c:forEach items="${lp}" var="a" varStatus="c">

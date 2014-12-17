@@ -127,6 +127,8 @@ public class MainServlet extends HttpServlet {
         if(action.equals("viewUser")){
            UserComponent u = gestoreUtenti.findUtente(Long.parseLong(request.getParameter("userID"))); 
            request.setAttribute("utente", u);
+           List<Prenotazione> mp = gestorePrenotazione.getMiePrenotazioni(u.getId());
+           request.setAttribute("miePrenotazioni", mp);
            getServletContext().getRequestDispatcher("/user.jsp").forward(request,response);
         }
         
@@ -268,6 +270,7 @@ public class MainServlet extends HttpServlet {
             c.setPassword("5f3d6952c5c5e22077fabf461de80f1ce475752fe75afcf5ca46bac438405619");
             c.setRuolo("admin");
             c.setUsername("andrea");
+            c.setAvatar("pro/5.jpg");
             gestoreUtenti.addUtente(c);
             c = new UserComponent();
             c.setEmail("marco.camino@msn.com");
@@ -275,6 +278,7 @@ public class MainServlet extends HttpServlet {
             c.setPassword("7c8ccc86c11654af029457d90fdd9d013ce6fb011ee8fdb1374832268cc8d967");
             c.setRuolo("admin");
             c.setUsername("marco");
+            c.setAvatar("pro/3.jpg");
             gestoreUtenti.addUtente(c);
             c = new UserComponent();
             c.setEmail("ale@msn.com");
@@ -282,6 +286,7 @@ public class MainServlet extends HttpServlet {
             c.setPassword("5c85bb36f3869809fb738a3ba6f990aedbfeca3df2dc1a997fa49c50d0eed8e6");
             c.setRuolo("moderatore");
             c.setUsername("ale");
+            c.setAvatar("pro/1.png");
             gestoreUtenti.addUtente(c);
             c = new UserComponent();
             c.setEmail("pippo@msn.com");
@@ -289,6 +294,7 @@ public class MainServlet extends HttpServlet {
             c.setPassword("a2242ead55c94c3deb7cf2340bfef9d5bcaca22dfe66e646745ee4371c633fc8");
             c.setRuolo("registered");
             c.setUsername("pippo");
+            c.setAvatar("pro/2.jpg");
             gestoreUtenti.addUtente(c);
             c = new UserComponent();
             c.setEmail("user1@msn.com");
@@ -296,6 +302,7 @@ public class MainServlet extends HttpServlet {
             c.setPassword("0a041b9462caa4a31bac3567e0b6e6fd9100787db2ab433d96f6d178cabfce90");
             c.setRuolo("registered");
             c.setUsername("user1");
+            c.setAvatar("pro/4.jpg");
             gestoreUtenti.addUtente(c);
             c = new UserComponent();
             c.setEmail("user2@msn.com");
@@ -303,6 +310,7 @@ public class MainServlet extends HttpServlet {
             c.setPassword("6025d18fe48abd45168528f18a82e265dd98d421a7084aa09f61b341703901a3");
             c.setRuolo("registered");
             c.setUsername("user2");
+            c.setAvatar("pro/4.jpg");
             gestoreUtenti.addUtente(c);
             
             request.setAttribute("success", "Utenti Registrati con successo");

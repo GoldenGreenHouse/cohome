@@ -54,6 +54,16 @@ public class UserComponent implements Serializable {
     
     @OneToMany(cascade = ALL)
     private List<Prenotazione> prenotazioni = new ArrayList();
+    
+    private String avatar = new String();
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
 
     public List<Prenotazione> getPrenotazioni() {
         return prenotazioni;
