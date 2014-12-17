@@ -274,8 +274,8 @@ int prop;
                                         <font color="#2A92D1"><h4><%= com.getAutore().getName()%></h4></font>
                                     </a><br>
                                     <%= com.getCommento()%><br><br>
-                                    <% if( (request.isUserInRole("administrator")) || (com.getAutore().getId().equals(s.getAttribute("userIDLogged"))) ){ %>
-                                        <a class="deleteComment" data-id="<%= com.getId()%>" href="#">
+                                    <% if( (request.isUserInRole("administrator")) || (request.isUserInRole("moderatore")) || (com.getAutore().getId().equals(s.getAttribute("userIDLogged"))) ){ %>
+                                        <a class="deleteComment" data-id="<%= com.getId()%>" data-uid="<%= com.getAutore().getId()%>" href="#">
                                              <span class="glyphicon glyphicon-trash"></span>
                                          </a>
                                     <% } %>
@@ -404,7 +404,11 @@ int prop;
         </div>
         <div id="stato">
         </div>
-    <!-- ********** Modal Add Commenti ************* -->
+    
+ <!-- ********************************************** 
+                MODAL COMMENTI
+************************************************* -->                  
+                   
         <div class="modal fade" id="addComment">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -414,7 +418,6 @@ int prop;
                 </div>
 
                 <!-- Inizio del Form -->
-                <!-- Modificare parametricamente il passaggio dell'id utente -->
                 <form role="form" action="/CoHome-war/MainServlet">
                     <div class="modal-body">
                       <div class="form-group">
@@ -424,8 +427,7 @@ int prop;
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" value="addCommento" name="op">
-    <!-- utente e annuncio da fare in modo parametrico -->
-                        <input id="utente" type="hidden" value="<%= s.getAttribute("userID") %>" name="utente">
+                        <input id="utente" type="hidden" value="<%= s.getAttribute("userIDLogged") %>" name="utente">
                         <input id="annuncio" type="hidden" value="<%= annuncio.getId() %>" name="annuncio">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button id="sendComment" type="button" class="btn btn-primary">Add Comment</button>
@@ -495,11 +497,10 @@ int prop;
         <script>
             $(".deleteComment").click(function(){
                     var aid= <%= annuncio.getId()%>;
-                    var uid= <%= s.getAttribute("userID") %>;
                     $.ajax({
                         type: "POST",
                         url : "MainServlet",
-                        data: "op=deleteCommento&id="+$(this).attr('data-id')+"&utente="+uid+"&annuncio="+aid,
+                        data: "op=deleteCommento&id="+$(this).attr('data-id')+"&utente="+$(this).attr('data-uid')+"&annuncio="+aid,
                         success : function (data,stato) {
 //                            alert("Commento correttamente eliminato");
                             setTimeout(
