@@ -84,13 +84,13 @@ public class MainServlet extends HttpServlet {
         }
         
         if(action.equals("InserisciAnnuncioCasa")){
-            if(request.isUserInRole("administrator")){
+            if(request.isUserInRole("registeredPRO")){
                 rd = getServletContext().getRequestDispatcher("/AnnuncioCasa.jsp");
                 rd.forward(request,response);
             }
             else{
                 //response.sendError(401, "Eseguire il login prima di effettuare questa operazione");
-                request.setAttribute("error", "Eseguire il login prima di effettuare questa operazione");
+                request.setAttribute("error", "Accesso riservato solo agli utenti registeredPRO");
                 getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
             }
         }
@@ -209,7 +209,7 @@ public class MainServlet extends HttpServlet {
                 }
             }
             else
-                response.sendError(401,"Devi aver effettuato almeno una prenotazione persso questo utente.");
+                response.sendError(401,"Devi aver effettuato almeno una prenotazione presso questo utente.");
         }
         
         if(action.equals("addPropostaPrenotazione")){
@@ -225,7 +225,7 @@ public class MainServlet extends HttpServlet {
                 }
             }
             else
-                response.sendError(401, "Eseguire il login prima di effettuare questa operazione");
+                response.sendError(401, "Accesso riservato solo agli utenti registered");
         }
         
         if(action.equals("addPrenotazione")){
@@ -249,7 +249,7 @@ public class MainServlet extends HttpServlet {
             if(request.isUserInRole("administrator")){
                 getServletContext().getRequestDispatcher("/LoginFacebook").forward(request,response);
             }
-            response.sendError(401, "Eseguire il login prima di effettuare questa operazione");
+            response.sendError(401, "Accesso riservato solo agli utenti administrator");
         }
  
         if(action.equals("index")){
@@ -260,7 +260,7 @@ public class MainServlet extends HttpServlet {
             if(request.isUserInRole("administrator")){
                 rd = getServletContext().getRequestDispatcher("/GetAccessToken");
                 rd.forward(request,response);
-            } else response.sendError(401, "Eseguire il login prima di effettuare questa operazione");
+            } else response.sendError(401, "Accesso riservato solo agli utenti administrator");
         }
         
         if(action.equals("registrazione")){
@@ -276,7 +276,7 @@ public class MainServlet extends HttpServlet {
             c.setEmail("marco.camino@msn.com");
             c.setName("Marco");
             c.setPassword("7c8ccc86c11654af029457d90fdd9d013ce6fb011ee8fdb1374832268cc8d967");
-            c.setRuolo("admin");
+            c.setRuolo("registratoPro");
             c.setUsername("marco");
             c.setAvatar("pro/3.jpg");
             gestoreUtenti.addUtente(c);
@@ -292,7 +292,7 @@ public class MainServlet extends HttpServlet {
             c.setEmail("pippo@msn.com");
             c.setName("Pippo");
             c.setPassword("a2242ead55c94c3deb7cf2340bfef9d5bcaca22dfe66e646745ee4371c633fc8");
-            c.setRuolo("registered");
+            c.setRuolo("registrato");
             c.setUsername("pippo");
             c.setAvatar("pro/2.jpg");
             gestoreUtenti.addUtente(c);
@@ -300,7 +300,7 @@ public class MainServlet extends HttpServlet {
             c.setEmail("user1@msn.com");
             c.setName("User1");
             c.setPassword("0a041b9462caa4a31bac3567e0b6e6fd9100787db2ab433d96f6d178cabfce90");
-            c.setRuolo("registered");
+            c.setRuolo("registrato");
             c.setUsername("user1");
             c.setAvatar("pro/4.jpg");
             gestoreUtenti.addUtente(c);
@@ -308,7 +308,7 @@ public class MainServlet extends HttpServlet {
             c.setEmail("user2@msn.com");
             c.setName("User2");
             c.setPassword("6025d18fe48abd45168528f18a82e265dd98d421a7084aa09f61b341703901a3");
-            c.setRuolo("registered");
+            c.setRuolo("registrato");
             c.setUsername("user2");
             c.setAvatar("pro/4.jpg");
             gestoreUtenti.addUtente(c);
@@ -326,22 +326,18 @@ public class MainServlet extends HttpServlet {
                 }
                 if(request.isUserInRole("administrator")){
                     message += "Username : " + principal.getName() + " You are an Administrator";
-                }else if(request.isUserInRole("moderatore")){
-                    message += "Username : " + principal.getName() + " You are a Moderatore";
+                }else if(request.isUserInRole("moderator")){
+                    message += "Username : " + principal.getName() + " You are a Moderator";
                 }else if(request.isUserInRole("registered")){
                     message += "Username : " + principal.getName() + " You are a Registered";
+                }else if(request.isUserInRole("registeredPRO")){
+                    message += "Username : " + principal.getName() + " You are a RegisteredPRO";
                 }
                 else{
                     message += " You're simply user";
                 }
                 out.println(message);
             }
-        }
-        
-// DA ELIMINAREEEEE!!!        
-        if(action.equals("eliminaCommentoProva")){
-            gestoreCommenti.delCommentoProva("302");
-            getServletContext().getRequestDispatcher("/index.jsp").forward(request,response);
         }
     }
 

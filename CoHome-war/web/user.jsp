@@ -227,7 +227,7 @@
                                                     Annuncio
                                                 </th>
                                                 <th>
-                                                    Utente
+                                                    Autore Annuncio
                                                 </th>
                                                 <th>
                                                     Data
@@ -252,7 +252,7 @@
                                                             out.println(c3);
                                                         out.println("</td>");
                                                         out.println("<td>");
-                                                            out.println(p2.getAnnuncio().getTitolo());
+                                                            out.println("<a href=\"MainServlet?op=viewProposte&idAnnuncio="+p2.getAnnuncio().getId()+"\">"+p2.getAnnuncio().getTitolo()+"</a>");
                                                         out.println("</td>");
                                                         out.println("<td>");
                                                             out.println(p2.getUtente().getName());
@@ -327,10 +327,10 @@
                                                             out.println(c2);
                                                         out.println("</td>");
                                                         out.println("<td>");
-                                                            out.println(p.getAnnuncio().getTitolo());
+                                                            out.println("<a href=\"MainServlet?op=viewProposte&idAnnuncio="+p.getAnnuncio().getId()+"\">"+p.getAnnuncio().getTitolo()+"</a>");
                                                         out.println("</td>");
                                                         out.println("<td>");
-                                                            out.println(p.getUtente().getName());
+                                                            out.println("<a href=\"MainServlet?op=viewUser&userID="+p.getUtente().getId()+"\">"+p.getUtente().getName()+"</a>");
                                                         out.println("</td>");
                                                         out.println("<td>");
                                                             out.println(p.getDataPrenotazione().getTime().toString());

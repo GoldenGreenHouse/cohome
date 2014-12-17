@@ -274,7 +274,7 @@ int prop;
                                         <font color="#2A92D1"><h4><%= com.getAutore().getName()%></h4></font>
                                     </a><br>
                                     <%= com.getCommento()%><br><br>
-                                    <% if( (request.isUserInRole("administrator")) || (request.isUserInRole("moderatore")) || (com.getAutore().getId().equals(s.getAttribute("userIDLogged"))) ){ %>
+                                    <% if( (request.isUserInRole("moderatore")) || (com.getAutore().getId().equals(s.getAttribute("userIDLogged"))) ){ %>
                                         <a class="deleteComment" data-id="<%= com.getId()%>" data-uid="<%= com.getAutore().getId()%>" href="#">
                                              <span class="glyphicon glyphicon-trash"></span>
                                          </a>
