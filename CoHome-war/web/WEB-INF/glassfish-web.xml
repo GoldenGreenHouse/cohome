@@ -7,12 +7,12 @@
     <group-name>admin</group-name>
   </security-role-mapping>
   <security-role-mapping>
-    <role-name>registered</role-name>
-    <group-name>registrato</group-name>
-  </security-role-mapping>
-  <security-role-mapping>
     <role-name>registeredPRO</role-name>
     <group-name>registratoPro</group-name>
+  </security-role-mapping>
+  <security-role-mapping>
+    <role-name>registered</role-name>
+    <group-name>registrato</group-name>
   </security-role-mapping>
   <security-role-mapping>
     <role-name>moderator</role-name>
