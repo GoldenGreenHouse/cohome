@@ -320,8 +320,8 @@ public class MainServlet extends HttpServlet {
         if(action.equals("jaas2")){
             String message="";
             try (PrintWriter out = response.getWriter()) {
-                if(principal != null && s.getAttribute("userID") != null){
-                    Long userID = (Long) s.getAttribute("userID");
+                if(principal != null && s.getAttribute("userIDLogged") != null){
+                    Long userID = (Long) s.getAttribute("userIDLogged");
                     message += "id: " + userID;
                 }
                 if(request.isUserInRole("administrator")){
