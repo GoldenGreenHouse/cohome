@@ -227,9 +227,6 @@
                                                     Annuncio
                                                 </th>
                                                 <th>
-                                                    Autore Annuncio
-                                                </th>
-                                                <th>
                                                     Data
                                                 </th>
                                                 <th>
@@ -253,9 +250,6 @@
                                                         out.println("</td>");
                                                         out.println("<td>");
                                                             out.println("<a href=\"MainServlet?op=viewProposte&idAnnuncio="+p2.getAnnuncio().getId()+"\">"+p2.getAnnuncio().getTitolo()+"</a>");
-                                                        out.println("</td>");
-                                                        out.println("<td>");
-                                                            out.println(p2.getUtente().getName());
                                                         out.println("</td>");
                                                         out.println("<td>");
                                                             out.println(p2.getDataPrenotazione().getTime().toString());
